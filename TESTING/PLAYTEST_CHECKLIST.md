@@ -1,17 +1,14 @@
-# Playtest Checklist
+# Browser Verification Checklist
 
-This is a starter process checklist for future authorized gameplay milestones, not detailed gameplay tests. Task 00 has no Studio playtest because its scope prohibits Studio changes.
+- Read the master spec, authorized task, relevant docs/data and actual references.
+- Inspect current source and preserve working behavior.
+- Define observable task-specific checks before implementation.
+- Run typecheck/build, start dev and preview and inspect console/network results.
+- Verify changed behavior plus meaningful failure paths and regressions.
+- Inspect desktop, phone portrait and landscape; report actual emulation versus real-device testing.
+- Check runtime asset paths, pixel ratio, canvas resizing and overlay overflow.
+- Record visual inspection and screenshots when available; never fabricate it.
+- Validate Markdown links, reference hashes and milestone scope.
+- Update only the authorized task after checks pass; report limitations and stop.
 
-Task 01's detailed procedure and verified results are recorded in [Task 01 Playtest Report](TASK_01_PLAYTEST_REPORT.md). The generic unchecked template below is retained for the next authorized milestone.
-
-- [ ] Read the master specification, current task, referenced system documents, and relevant approved references.
-- [ ] Inspect the current Studio DataModel and identify existing working systems to preserve.
-- [ ] Define the current milestone's acceptance criteria and task-specific playtest procedure before implementation.
-- [ ] After implementation, perform a Roblox Studio playtest for the current milestone.
-- [ ] Inspect Output for errors and warnings.
-- [ ] Fix regressions caused by the current task.
-- [ ] Verify every current-task acceptance criterion.
-- [ ] Record exactly what changed, the observed results, and known limitations.
-- [ ] Update the current task status only when its criteria pass, then stop.
-
-TODO: milestone-specific steps, device scenarios, multiplayer procedures, and performance targets when those details are designed.
+Future gameplay procedures remain TBD per milestone; [Task 00](TASK_00_WEB_MIGRATION_REPORT.md) is technical/spatial review only.

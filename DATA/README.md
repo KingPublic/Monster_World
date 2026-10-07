@@ -1,6 +1,6 @@
 # Balance and Design Data
 
-DATA/ contains canonical planned balancing values and design tables. Future Roblox configuration should derive from approved values here where practical and keep per-nest timers/slot settings and later approved food/growth/stat values centralized.
+DATA/ contains canonical planned balancing values and design tables. Future TypeScript configuration should derive from approved values here where practical and keep per-nest timers/slot settings and later approved food/growth/stat values centralized.
 
 ## Confirmed Values and Open Balance
 
@@ -19,4 +19,4 @@ DATA/ contains canonical planned balancing values and design tables. Future Robl
 - [Nest Configs](NEST_CONFIGS.md): EggSlotCount, EggSpawnPool, EggRespawnSeconds, Guardian, Tier.
 - [Economy](ECONOMY_BALANCE.md): approved Coin-bought food; unresolved prices/rewards.
 
-[MASTER_GAME_SPEC.md](../MASTER_GAME_SPEC.md) remains authoritative. Shared egg claims must be server-authoritative; no production configuration or gameplay is created in this pass.
+[MASTER_GAME_SPEC.md](../MASTER_GAME_SPEC.md) remains authoritative. V1 inventory is single-player browser state; future multiplayer claims are separate scope.

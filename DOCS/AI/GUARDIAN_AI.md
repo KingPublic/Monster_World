@@ -8,9 +8,9 @@ Guardians generally become harder at more valuable nests. Difficulty should not 
 
 Future animation targets may include sleep/idle, alert, roar, takeoff, chase, attack, safe-zone disengagement, and return to nest.
 
-TODO: AI architecture, pursuit movement, targeting with multiple thieves, capture/failure consequences, death/disconnection, and per-guardian abilities. Mommy/Daddy/elemental names are examples, not a final roster.
+TODO: AI architecture, pursuit movement, future target selection, capture/failure consequences, failure/interruption, and per-guardian abilities. Mommy/Daddy/elemental names are examples, not a final roster.
 
-See [safe zone](../WORLD/SAFE_ZONE.md) and [nest configs](../../DATA/NEST_CONFIGS.md). Do not create AI scripts or Studio objects during Task 00.
+See [safe zone](../WORLD/SAFE_ZONE.md) and [nest configs](../../DATA/NEST_CONFIGS.md). Task 00 implements no AI or gameplay state machine.
 
 ## Escape Focus and Active References
 
@@ -18,4 +18,4 @@ The objective is **ESCAPE**, not KILL THE GUARDIAN. Possible later elemental bre
 
 Inspect [Guardian-dragon-v1.png](../../REFERENCES/DRAGONS/Guardian-dragon-v1.png) and [Guardian-chase-v1.png](../../REFERENCES/ANIMATION/Guardian-chase-v1.png) for larger intimidating silhouettes, alert/roar, pursuit, safe-zone stop, and return intent. Depicted abilities, exact sizes, and levels are not approved values. The tutorial theft and first escape occur on foot.
 
-An egg theft starts its slot's cooldown (300 seconds standard, 600 for the two highest-tier nests); it does not remove untouched eggs or reset guardian pursuit. Shared egg claims must be server-authoritative, while multiple-thief guardian targeting remains TBD. [Audio direction](../../REFERENCES/AUDIO/README.md) escalates after theft and resolves at successful safe-zone arrival.
+An egg theft starts its slot's cooldown (300 seconds standard, 600 for the two highest-tier nests); it does not remove untouched eggs or reset guardian pursuit. V1 inventory is single-player browser state; future multiplayer claims are separate scope. [Audio direction](../../REFERENCES/AUDIO/README.md) escalates after theft and resolves at successful safe-zone arrival.

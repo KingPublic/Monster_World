@@ -1,7 +1,5 @@
-# Task Prompts
+# Monster World Task Prompts
 
-Use [CODEX_TASK_TEMPLATE.md](CODEX_TASK_TEMPLATE.md) to prepare a scoped future milestone request. Reference the master specification, current task, relevant system documents, and approved visual references.
+The [migration master prompt](MONSTER_WORLD_MIGRATION_MASTER_PROMPT.md) authorizes Task 00 only. Use the [web task template](CODEX_TASK_TEMPLATE.md) for future scoped work. It must name the currently authorized milestone, relevant docs/data/references, required behavior, non-goals and observable browser validation.
 
-State which Studio changes are allowed, which systems must be preserved, the requirements and non-goals, observable acceptance criteria, playtest procedure, and expected completion report. Resolve consequential design ambiguities explicitly.
-
-Implement only the requested task. Do not automatically continue to the next milestone. The original [setup prompt](../Steal_Baby_Dragon_Project_Setup_Prompt.md) remains preserved in the project root; it is not permission to implement gameplay.
+Historical setup/templates remain in [LEGACY_ROBLOX](../LEGACY_ROBLOX/README.md). Do not automatically continue to the next task.

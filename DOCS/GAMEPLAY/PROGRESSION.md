@@ -26,4 +26,4 @@ Steal → Hatch → Feed → Grow → Ride → Earn → Upgrade → Go farther �
 
 The sanctuary is a Dragon Sanctuary/Dragon Village collection hub, not a tile-by-tile city-builder. Physical return distance is part of chase difficulty; Fast Travel/teleportation in images is not approved gameplay. The objective is escape, not guardian kills.
 
-See [Rider Upgrades](../DRAGONS/RIDER_UPGRADES.md), [Growth](../DRAGONS/DRAGON_GROWTH.md), [Shop/Food](SHOP_AND_FOOD.md), [World Structure](../WORLD/WORLD_STRUCTURE.md), and [Economy](../../DATA/ECONOMY_BALANCE.md). Income sources and final balance remain TBD.
+See [Rider Upgrades](../CREATURES/DRAGONS/RIDER_UPGRADES.md), [Growth](../CREATURES/DRAGONS/DRAGON_GROWTH.md), [Shop/Food](SHOP_AND_FOOD.md), [World Structure](../WORLD/WORLD_STRUCTURE.md), and [Economy](../../DATA/ECONOMY_BALANCE.md). Income sources and final balance remain TBD.

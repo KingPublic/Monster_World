@@ -6,7 +6,7 @@ Agents MUST inspect relevant images before implementing a milestone. Preserve ex
 
 Images define visual direction, composition, style, mood, scale, shape language, animation intent, general UI, and environment direction. They do not define exact prices/currencies/timers/stats, level requirements, progression locks, rarity tables, products, monetization, or unsupported gameplay. [MASTER_GAME_SPEC.md](../MASTER_GAME_SPEC.md) wins when a concept conflicts with written gameplay.
 
-The original 19 entries have **ACTIVE VISUAL REFERENCE** status. The additional Starter Nature Young image is marked **AVAILABLE VISUAL REFERENCE**; its corresponding imported `StarterNatureYoung_v1` has now been explicitly approved by the user for Task 01's first rideable Nature Young visual. [Model integration](../TESTING/TASK_01_STARTER_VISUAL_REPLACEMENT.md) is recorded separately. Image registration does not certify a finished rig or gameplay approval. Both HUD versions are retained; neither is automatically retired.
+The original 19 entries have **ACTIVE VISUAL REFERENCE** status. The additional Starter Nature Young image is marked **AVAILABLE VISUAL REFERENCE**; the corresponding historical imported visual was approved only for the former prototype. Image registration does not certify a finished rig or gameplay approval. Both HUD versions are retained; neither is automatically retired.
 
 ## Art Direction
 
@@ -191,7 +191,7 @@ Important visual concepts:
 - Nature foliage, Fire flame forms, Ice crystal forms, Storm lightning shapes, face/wing/tail details, guardian silhouette contrast.
 
 Do not infer:
-- Mandatory rarity-to-element pairings, final species, final guardian identities, abilities, stats, or ready Roblox models/rigs.
+- Mandatory rarity-to-element pairings, final species, final guardian identities, abilities, stats, or ready runtime models/rigs.
 - Exact prices, timers, monetization values, or unsupported gameplay systems.
 
 ### `DRAGONS/Egg-and-baby-dragon-v1.png`
@@ -245,7 +245,7 @@ Important visual concepts:
 - Green leaf-like crest/scales, cream belly/horns, light wing membranes, expressive face, curled tail, brown/gold saddle and harness.
 
 Do not infer:
-- Final starter rarity/element/species choice, exact scale, growth thresholds, food prices, movement stats, rig/animation readiness, or Roblox Asset IDs.
+- Final starter rarity/element/species choice, exact scale, growth thresholds, food prices, movement stats, rig/animation readiness, or runtime asset identifiers.
 - Production model approval or new saddle equipment/upgrades from the illustrated harness.
 
 ### `DRAGONS/3d-references-single-v1.png`

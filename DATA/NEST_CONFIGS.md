@@ -24,11 +24,11 @@ Starter 3 slots, mid-tier 4, and larger/higher-tier up to 5 are examples, not fi
 
 These are **configurable V1 balancing values**, adjustable after playtesting. The A/B labels are planning placeholders, not actual nest IDs or biome assignments.
 
-## Per-Slot Lifecycle and Multiplayer
+## Per-Slot Lifecycle
 
 A successful theft removes that egg, empties only that slot, and starts its timer. Untouched eggs stay available. After expiration, that slot rolls/spawns from the nest's pool. This is not a fixed periodic/global refresh of the nest.
 
-Five-slot example: steal from slots 1 and 2 → they are empty/respawning; slots 3–5 remain available. Shared world claims must be server-authoritative to prevent duplicate successful claims of one egg.
+Five-slot example: steal from slots 1 and 2 → they are empty/respawning; slots 3–5 remain available. V1 inventory is local single-player browser state; future multiplayer concurrency is separate scope.
 
 The guardian chases the thief until arrival in their own safe zone, then returns to its original nest. Slot timers do not alter that chase rule.
 

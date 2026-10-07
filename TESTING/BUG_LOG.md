@@ -1,14 +1,11 @@
-# Bug Log
+# Web Bug Log
 
-Task 01 issues below were reproduced and fixed during Studio playtesting. See [full verification](TASK_01_PLAYTEST_REPORT.md). This is not a claim that the complete game or future systems are bug-free.
+Observed during Task 00 browser validation, 2026-10-07:
 
-| ID | Date | Milestone | Summary | Reproduction / observed result | Expected result | Status | Resolution / verification |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| T01-001 | 2026-10-07 | 01 | Dragon floated above home boundary | Mount ground probe hit invisible Safe Zone, producing approximately 19.5-stud height | Ground clearance follows solid floor | FIXED | Collidable-only raycasts; approximately 5.15-stud mount height verified. |
-| T01-002 | 2026-10-07 | 01 | Rider stood while mounted | Root weld attached character without seated pose | Stable seated rider | FIXED | Real Saddle Seat; live Sit/SeatPart and flight verified. |
-| T01-003 | 2026-10-07 | 01 | Dismounted dragon remained unreachable | Dismount at high altitude landed player but left mount hovering | Dragon remains accessible | FIXED | Dragon lands with player; reachable distance and remount passed. |
-| T01-004 | 2026-10-07 | 01 | Compact HUD/control overlap | Phone viewport placed dragon card over jump/flight region; action buttons too small | Readable cards and usable touch actions | FIXED | Compact layout, 56-pixel actions, dedicated held interaction; simulator flow completed. |
-| T01-005 | 2026-10-07 | 01 | Optional control module lookup delay | Current client lacked PlayerModule | Movement input still usable without delayed optional lookup | FIXED | Immediate optional lookup and Humanoid movement fallback; joystick flight verified. |
-| T01-006 | 2026-10-07 | 01 | Quick Sprint release could be throttled | Action throttle could reject a rapid boolean release | Release always restores normal walk | FIXED | Sprint excluded from action throttle; release behavior verified. |
+| Issue | Reproduction / cause | Resolution | Verification |
+| --- | --- | --- | --- |
+| Deprecated shadow mode warning | Three.js 0.186 removed PCFSoftShadowMap | Use PCFShadowMap | Fresh browser boot: zero errors/warnings |
+| Portrait camera cropping | Fixed vertical field-of-view on narrow aspect | Preserve horizontal framing with portrait field-of-view adjustment | 390×844 spatial inspection |
+| Inspector stayed expanded after desktop-to-phone resize | details open state was set only at boot | Media-query change closes inspector in narrow viewports | Resize and viewport checks |
 
-Add actual reproducible issues when found. Describe the relevant task, environment, steps, observed and expected behavior, status, and evidence of a fix. Do not invent placeholder bug reports.
+Missing GLB deliberately tested the fallback; it is an expected error path, not an unresolved bug. Historical prototype bugs are in [LEGACY_ROBLOX](../LEGACY_ROBLOX/TESTING/BUG_LOG.md). No full-game bug-free claim is made.

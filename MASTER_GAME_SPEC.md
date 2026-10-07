@@ -1,12 +1,18 @@
-# Steal a Baby Dragon — Master Game Specification
+# Monster World — Master Game Specification
 
-This specification integrates the original setup design and the approved Documentation + Reference Synchronization Pass. **Confirmed** rules, **configurable V1 values**, **targets**, **candidate examples**, and **TBD/TODO** decisions are distinguished. The original setup prompt is historical input. The synchronization pass was documentation-only. The user's subsequent Task 01 authorization permits that tutorial slice in Studio; it is now verified COMPLETE. See [Task 01 report](TESTING/TASK_01_PLAYTEST_REPORT.md). Later milestones remain unauthorized and NOT STARTED.
+Monster World is a browser-based 3D fantasy creature adventure, currently focused on Dragons. This specification governs approved design. Confirmed rules, configurable V1 values, targets, candidate examples and TBD decisions remain distinct. The web migration is Task 00; the web Task 01 vertical slice is NOT STARTED and requires separate authorization. Historical prototype results live in [LEGACY_ROBLOX](LEGACY_ROBLOX/README.md).
 
 ## 1. Game Vision
 
-**Steal a Baby Dragon** combines Dragon Sanctuary / Dragon Village collection fantasy, hatching and growth, rideable dragons, multiple elements and rarities, and permanent rider progression with stealing eggs or baby dragons from guarded wild nests and escaping back home.
+### Long-term Vision
+Monster World may eventually support multiple fantasy creature families through a practical Creature → Dragon architecture. Future expansion requires explicit authorization.
 
-The sanctuary is a progression and collection hub. The game is **not a city-builder**; tile-by-tile building is not its core loop.
+### Current Implementation Scope
+Dragons only. The initial single-player web adventure preserves the Dragon Sanctuary, egg theft, Guardian escape, hatching, feeding, growth, riding and farther exploration fantasy.
+
+> Dragons are the first implemented creature family and the sole gameplay/content focus of the initial web vertical slice. Architecture may support future creature families, but no other monster family should be implemented until explicitly authorized.
+
+Task 00 builds a technical inspection world, not a playable slice. No other creature family or gameplay system is implemented in this migration.
 
 ## 2. Core Fantasy
 
@@ -22,7 +28,7 @@ Explore → Find Wild Nest → Choose Egg → Steal
 → Upgrade → Raid farther and harder nests → Repeat
 ```
 
-See [Core Loop](DOCS/GAMEPLAY/CORE_LOOP.md), [Dragon Growth](DOCS/DRAGONS/DRAGON_GROWTH.md), and [Shop and Food](DOCS/GAMEPLAY/SHOP_AND_FOOD.md).
+See [Core Loop](DOCS/GAMEPLAY/CORE_LOOP.md), [Dragon Growth](DOCS/CREATURES/DRAGONS/DRAGON_GROWTH.md), and [Shop and Food](DOCS/GAMEPLAY/SHOP_AND_FOOD.md).
 
 ## 4. Player Character
 
@@ -46,7 +52,7 @@ V1 stage direction is Egg → Baby → Juvenile / Young → Adult; exact stage n
 
 Dragons have their own base movement stats and may have different movement profiles. Smooth movement and animation are priorities. Desired movement includes takeoff, normal flight, gliding, turning/banking, ascending, descending, landing, and boosting. These are future implementations.
 
-See [Dragon System](DOCS/DRAGONS/DRAGON_SYSTEM.md), [Dragon Growth](DOCS/DRAGONS/DRAGON_GROWTH.md), and [Growth Values](DATA/DRAGON_GROWTH_VALUES.md).
+See [Dragon System](DOCS/CREATURES/DRAGONS/DRAGON_SYSTEM.md), [Dragon Growth](DOCS/CREATURES/DRAGONS/DRAGON_GROWTH.md), and [Growth Values](DATA/DRAGON_GROWTH_VALUES.md).
 
 ## 6. Dragon Rarity
 
@@ -54,7 +60,7 @@ Rarity, element, and growth stage are independent properties. Growing a dragon d
 
 “Mythic Fire Dragon,” “Mythic Ice Dragon,” and “Mythic Storm Baby Dragon” illustrate independent identity properties; they do not establish final content or a mandatory rarity/element pairing.
 
-See [Rarity System](DOCS/DRAGONS/RARITY_SYSTEM.md).
+See [Rarity System](DOCS/CREATURES/DRAGONS/RARITY_SYSTEM.md).
 
 ## 7. Dragon Elements
 
@@ -62,7 +68,7 @@ Candidate elements include Nature, Fire, Ice, Storm, Earth, Shadow, and Light / 
 
 Elements primarily influence movement identity, visual identity, and potentially specialized stats. The MVP should not become a combat-heavy RPG. Do not turn element labels in a reference into fixed rarity tiers or approved combat abilities.
 
-See [Element System](DOCS/DRAGONS/ELEMENT_SYSTEM.md).
+See [Element System](DOCS/CREATURES/DRAGONS/ELEMENT_SYSTEM.md).
 
 ## 8. Dragon Base Stats
 
@@ -82,7 +88,7 @@ Final Boost = Dragon stage-adjusted Base Boost × Rider Boost Multiplier
 
 Final multiplier progression, prices, stage scaling, and numerical interpretation of Boost remain TBD. Additive bonuses displayed in a concept image do not replace the multiplier formulas.
 
-See [Rider Upgrades](DOCS/DRAGONS/RIDER_UPGRADES.md) and [Upgrade Values](DATA/RIDER_UPGRADE_VALUES.md).
+See [Rider Upgrades](DOCS/CREATURES/DRAGONS/RIDER_UPGRADES.md) and [Upgrade Values](DATA/RIDER_UPGRADE_VALUES.md).
 
 ## 10. Carry Capacity
 
@@ -121,6 +127,8 @@ TODO: normal flight stamina behavior, depletion, regeneration, drain rates, and 
 
 The world has multiple wild nests. Later nests generally become farther away, may gradually become higher, and can have more dangerous or visually distinct environments and better egg pools. Nests should not form a perfectly vertical tower.
 
+World scale is gameplay, not just scenery. Starter nests are nearby; mid-tier nests are clearly farther; high-tier nests are substantially farther; highest-tier regions involve the longest journeys. Do not cluster every nest within seconds, reveal every nest from the plaza, or compress the world for convenience. Exact distances and travel times require future playtesting. Recognizable approach/escape routes, landmarks, obstacles, safer paths and risky shortcuts support route mastery. General elevation and terrain difficulty increase naturally without a perfect vertical tower.
+
 The longer return journey matters because guardian pursuit creates tension. Each nest has its own multiple physical spawn slots, possible egg pool, rarity distribution, and guardian. V1 target capacity is 3–5 egg slots per nest, configurable individually; occupied availability can decrease when eggs are stolen.
 
 See [Wild Nest System](DOCS/WORLD/WILD_NEST_SYSTEM.md).
@@ -144,9 +152,9 @@ For a five-slot nest, theft from slots 1 and 2 leaves those two empty/respawning
 
 Both values are approved **configurable V1 balancing values**, adjustable after playtesting. Centralize configuration per nest: `EggSlotCount`, `EggSpawnPool`, `EggRespawnSeconds`, `Guardian`, and `Tier`. Do not duplicate hardcoded timers across systems. Exact nest identities/tier ordering, per-nest slot assignment, pools, and rarity probabilities remain TBD.
 
-### Shared Multiplayer Inventory
+### Single-player Inventory Direction
 
-Egg slots are shared world resources. A successful theft makes that egg unavailable to other players; only that slot enters cooldown and other slots remain stealable. Claims must be **server-authoritative**, preventing multiple players from successfully claiming the same egg simultaneously.
+V1 runs in one browser session. Only the stolen slot empties and enters cooldown; untouched eggs remain available. Future multiplayer concurrency and synchronization are separate scope. Task 00 contains only non-functional markers, with no eggs, theft or timers.
 
 See [Egg System](DOCS/GAMEPLAY/EGG_SYSTEM.md), [Wild Nest System](DOCS/WORLD/WILD_NEST_SYSTEM.md), [Egg Spawn Pools](DATA/EGG_SPAWN_POOLS.md), [Nest Configs](DATA/NEST_CONFIGS.md), and [Networking](DOCS/TECHNICAL/NETWORKING.md).
 
@@ -180,21 +188,23 @@ Guardian returns to its original wild nest
 
 The guardian must not simply lose aggression because the player has flown far enough away. Arrival in the player's own safe zone is the primary successful chase end condition.
 
-TODO: consequences of capture, death, disconnection, abandoned stolen items, and simultaneous thieves. Those unresolved cases must not silently become new chase rules.
+While carrying stolen Eggs, no direct teleport home, instant Sanctuary warp, skipped physical return or travel mechanic may cancel the Guardian Chase. Future convenience travel outside active theft is optional later scope.
 
-## 16. Player Nest
+TBD: consequences of capture, death, abandoned stolen items and interruptions. Those unresolved cases must not silently become new chase rules.
 
-Each player has their own nest/base, serving as home, safe zone, hatch area, dragon collection area, mount selection area, and progression hub. Owned dragons can visibly live here, including small Baby Dragons awaiting feeding.
+## 16. Dragon Sanctuary / Fantasy City
+
+The single player has an established Sanctuary, serving as home, safe zone, hatch area, dragon collection area, mount selection area, and progression hub. Owned dragons can visibly live here, including small Baby Dragons awaiting feeding.
 
 ### Sanctuary / Village Direction
 
-The Player Nest should visually feel like a compact **Dragon Sanctuary or Dragon Village**. It may contain physical Hatchery, Dragon Collection, Mount selection, Rider Upgrade, and Shop areas, decorative habitats, and spaces for owned dragons. A social/progression hub feeling and dragon-city collection fantasy are approved visual direction.
+The Sanctuary should visually feel like a compact **fantasy Dragon City / Dragon Sanctuary / Dragon Village** with coherent streets, plazas, layered architecture, terraces, stairs/ramps, bridges, vegetation, water features, banners, Dragon statues and a strong central landmark. The arrival area, Hatchery, habitats, Collection Hall, Mount court, Rider Upgrade hall and Food Shop are physical districts. It should feel safe, warm, magical and lived-in. It may contain physical Hatchery, Dragon Collection, Mount selection, Rider Upgrade, and Shop areas, decorative habitats, and spaces for owned dragons. A social/progression hub feeling and dragon-city collection fantasy are approved visual direction.
 
 The game is **not a city-builder**. Players are not required to construct buildings tile-by-tile as the core loop. The primary loop remains stealing from guarded wild nests and physically escaping home, followed by Hatch → Feed → Grow → Ride → Upgrade.
 
 The physical Shop primarily sells Dragon Food for normal gameplay Coins. Detailed layout, sanctuary visual progression, and other services remain TODO. Teleport/Fast Travel shown in [Player-nest-services-v1.png](REFERENCES/ENVIRONMENT/Player-nest-services-v1.png) is visual/conceptual only and is not an approved service.
 
-See [Player Nest](DOCS/WORLD/PLAYER_NEST.md) and [Shop and Food](DOCS/GAMEPLAY/SHOP_AND_FOOD.md).
+See [Player Nest](DOCS/WORLD/PLAYER_SANCTUARY.md) and [Shop and Food](DOCS/GAMEPLAY/SHOP_AND_FOOD.md).
 
 ## 17. Safe Zone
 
@@ -208,7 +218,7 @@ Secured stolen eggs are placed/hatched at the player's sanctuary Hatchery. Drago
 
 Later hatch timings remain TBD. Hatching should include satisfying egg movement, cracking, elemental VFX, reveal, and Baby emergence rather than an instant asset swap. [Hatchery-v1.png](REFERENCES/GUI/Hatchery-v1.png) guides egg presentation, progress presentation, atmosphere, and reveal; its multi-hour timers, paid speed-ups, premium currency, and incubator counts are not approved rules.
 
-See [Hatching GUI](DOCS/UI_UX/HATCHING_GUI.md) and [Dragon Growth](DOCS/DRAGONS/DRAGON_GROWTH.md).
+See [Hatching GUI](DOCS/UI_UX/HATCHING_GUI.md) and [Dragon Growth](DOCS/CREATURES/DRAGONS/DRAGON_GROWTH.md).
 
 ## 19. Dragon Collection
 
@@ -234,9 +244,9 @@ Keep onboarding fast: approximately the opening **1–3 minutes / few minutes**,
 
 The first dragon requires no grinding, long waiting, or premium gates. The free starter grant must be sufficient to reach the first rideable stage; quantities, points, and thresholds remain TBD.
 
-Task 01's first playable prototype is COMPLETE: theft/chase/secure, fast hatch, free feeding, Baby → Juvenile, Seat mounting/dismounting, basic flight/stamina, held Boost and touch controls. Desktop tutorial inputs are WASD, Space ascend, Left Ctrl descend, held E interaction, F dismount, and held Left Shift Sprint/Boost. Prototype values and starter identity are configurable in Studio and do not finalize production DATA balances. The full shared 3–5 egg inventory and live 300/600-second timers remain Task 03. See [Tutorial Flow](DOCS/GAMEPLAY/TUTORIAL_FLOW.md) and [verified results/limitations](TESTING/TASK_01_PLAYTEST_REPORT.md).
+The first web vertical slice is planned for [Task 01](TASKS/TASK_01_DRAGON_VERTICAL_SLICE.md); it is NOT STARTED. The historical prototype provides design lessons, not an existing web implementation. Other inputs, tutorial tuning and starter rarity remain TBD.
 
-Task 01 visual polish: the user-approved imported `StarterNatureYoung_v1` represents Nature + Young/Juvenile + first rideable tutorial dragon only. It replaces the Juvenile placeholder appearance while retaining Root/Seat/controller. Baby and Guardian remain separate; it is not an Adult model. Rarity and numerical tuning are unchanged. The asset is static; full creature rig/animation is later work. See [visual replacement validation](TESTING/TASK_01_STARTER_VISUAL_REPLACEMENT.md).
+The existing Nature Young/Juvenile GLB is a static showcase asset only. It does not establish Baby, Guardian or Adult assets, a rig, movement or numerical tuning.
 
 ## 22. World Progression
 
@@ -270,21 +280,19 @@ These are future animation targets, not implementations in this documentation pa
 
 ## 25. Art Direction
 
-**Stylized Premium Fantasy / Premium Toy-Fantasy** is the desired direction. Aim for polished, attractive, smooth, collectible dragons with readable silhouettes, slightly stylized forms, controlled color, and a premium Roblox feel. Baby dragons can be small and cute; Young/Juvenile and Adult mounts should be impressive; guardians should be larger and more intimidating. Sanctuary architecture may evoke Dragon Village collection games without introducing tile-by-tile building.
+**Stylized Premium Fantasy / Premium Toy-Fantasy** is the desired direction. Aim for polished, attractive, smooth, collectible dragons with readable silhouettes, slightly stylized forms, controlled color, and a premium fantasy feel. Baby dragons can be small and cute; Young/Juvenile and Adult mounts should be impressive; guardians should be larger and more intimidating. Sanctuary architecture may evoke Dragon Village collection games without introducing tile-by-tile building.
 
 Avoid hyper-realism, an exclusively extremely childish/chibi presentation, inconsistent asset packs, and a generic low-quality AI-generated appearance.
 
-Concept/reference images are visual targets, not automatically production-final assets. High-quality final models may require modeling or mesh generation, optimization, rigging, skinning, animation, Roblox importing, review, and iteration. All prototypes must remain replaceable.
+Concept/reference images are visual targets, not automatically production-final assets. High-quality final models may require modeling or mesh generation, optimization, rigging, skinning, animation, GLB export, review, and iteration. All prototypes must remain replaceable.
 
 [Art-direction-master-style-v1.png](REFERENCES/ART_DIRECTION/Art-direction-master-style-v1.png) is the active global visual reference: warm sanctuary spaces, distinct elemental zones, readable growth/guardian silhouettes, and dark panels with fantasy trim. Image-only Strength/Luck stats, selling, products, and numbers are not approved mechanics.
 
 See [Art Direction References](REFERENCES/ART_DIRECTION/README.md), [Reference Index](REFERENCES/REFERENCE_INDEX.md), and [Asset Manifest](ASSET_MANIFEST.md).
 
-## 26. Multiplayer Rules
+## 26. Single-player and Future Networking
 
-Players share the world and can naturally compete for available wild nest eggs. Physical egg slots are shared resources; the server authoritatively validates a single successful claim per egg. Theft starts only that slot's cooldown while untouched eggs remain available. Players do **not** steal eggs or dragons from other players. Owned eggs, dragons, inventories, bases, and collections are safe from direct player theft.
-
-The primary stealing interaction is player versus wild guardian NPC. Detailed multiplayer rules remain TODO.
+The initial browser version is single player, with no multiplayer synchronization requirement. No network framework, WebSockets, backend or user accounts are introduced. Future multiplayer is separate scope. Owned collections remain safe; direct theft from other players is not a design goal. See [Networking](DOCS/TECHNICAL/NETWORKING.md).
 
 ## 27. Monetization Principles
 
@@ -300,11 +308,13 @@ See [Save System](DOCS/TECHNICAL/SAVE_SYSTEM.md) and [Data Model](DOCS/TECHNICAL
 
 ## 29. Technical Architecture
 
-The actual game is implemented directly in the connected Roblox Studio place via Roblox Studio MCP. The local workspace holds specifications, references, tasks, balance planning, testing documentation, and asset planning.
+The active runtime is Vite + TypeScript + plain Three.js, with a WebGL canvas and HTML/CSS overlay. Browser → Game Loop → Three.js Scene → future Gameplay Systems → HTML/CSS UI. Useful foundations are renderer/resize, render loop, inspection camera, procedural world and asset loading; gameplay systems are added only by later authorized tasks.
 
-No Rojo, Script Sync, Wally, Aftman, Foreman, CI/CD, dependencies, production Luau systems, gameplay objects, or production assets are introduced during Task 00 or this documentation pass. Future per-nest configuration should centralize EggSlotCount (3–5 target), EggSpawnPool, EggRespawnSeconds (300 standard; 600 for the two highest-tier nests), Guardian, and Tier, together with approved growth/food values. Shared egg claims must be server-authoritative; unapproved values stay TBD.
+Dragon GLB assets live under public/assets/models/dragons and load through GLTFLoader. References remain outside public. The existing GLB is static: one mesh/material, two nodes, no skins, bones or animation clips. Static visual asset — animation/rigging requires future work.
 
-TODO: implementation architecture, module boundaries, data schema, networking, and save design in the relevant later milestone. See [Architecture](DOCS/TECHNICAL/ARCHITECTURE.md) and [Networking](DOCS/TECHNICAL/NETWORKING.md).
+Keep configurable world positions centralized. Planned per-nest fields remain EggSlotCount (3–5), EggSpawnPool, EggRespawnSeconds (300 standard; 600 for the two highest-tier nests), Guardian and Tier. These are documented balancing values, not live Task 00 systems. Growth/food/stat balance remains TBD.
+
+Phase 1 saves will use localStorage and/or IndexedDB; persistence is not implemented in Task 00. Optional cloud saves are future scope requiring authorization. Build output is dist/ for a standard static GitHub/Vercel workflow. Do not deploy automatically. See [Architecture](DOCS/TECHNICAL/ARCHITECTURE.md).
 
 ## 30. MVP Scope
 
@@ -314,23 +324,19 @@ The following milestones outline additional planned systems. TODO: final MVP/rel
 
 ## 31. Out of Scope
 
-- Task 00: all Roblox Studio changes, gameplay implementation, production assets, dependency installation, and extra tooling.
-- All milestones: direct player theft of other players' owned eggs or dragons.
-- MVP direction: a combat-heavy RPG or boss-fighting game; guardian HP bars, damage builds, and weapons are not confirmed.
-- Tile-by-tile city-building as core gameplay.
-- Image-only Fast Travel/teleportation, hard biome locks, level gates, passive income, premium currency, paid speed-ups, or shop products.
-- Unapproved final balance numbers, content rosters, guardian abilities, architecture, and monetization products.
-- Automatic implementation of future milestones after the current task is complete.
+Task 00 excludes egg stealing/spawning, Guardian AI/chase, hatching, feeding, growth, mounting, flight controls, player movement/collision, final mobile controls, economy, Shop/Collection functionality, persistence, multiplayer, backend, authentication and final art/UI/audio.
 
-## 32. Milestones
+Other creature families require explicit authorization. Tile-by-tile city building, Guardian boss combat, image-only progression locks/monetization and theft-state fast travel are excluded. Unapproved prices, stat values, timers, content rosters and abilities remain TBD. Never automatically begin the next milestone.
+
+## 32. Web Milestones
 
 | Task | Objective | Current status |
 | --- | --- | --- |
-| [00](TASKS/TASK_00_PROJECT_SETUP.md) | Local specification/reference workspace only | COMPLETE — setup acceptance criteria verified |
-| [01](TASKS/TASK_01_CORE_TUTORIAL.md) | Fast tutorial through feeding, first growth, first mount, and basic flight | COMPLETE — prototype verified; manual review before Task 02 |
-| [02](TASKS/TASK_02_DRAGON_FLIGHT_AND_STATS.md) | Mounting, smooth flight, base stats, rider multipliers, Carry Capacity | NOT STARTED |
-| [03](TASKS/TASK_03_WILD_NESTS_AND_GUARDIANS.md) | Multiple nests, progression, spawn pools, refresh, guardians | NOT STARTED |
-| [04](TASKS/TASK_04_HATCHING_COLLECTION_AND_ECONOMY.md) | Hatching, growth/feeding, Shop/Food, collection, economy, persistence foundation | NOT STARTED |
-| [05](TASKS/TASK_05_CONTENT_POLISH_AND_RELEASE.md) | Content, art/animation/UI polish, mobile, balance, multiplayer, performance | NOT STARTED |
+| [00](TASKS/TASK_00_WEB_MIGRATION_AND_WORLD_FOUNDATION.md) | Migration, technical boot and world composition | COMPLETE — migration and foundation verified |
+| [01](TASKS/TASK_01_DRAGON_VERTICAL_SLICE.md) | Spawn → explore → steal → chase → escape → hatch → feed → grow → ride | NOT STARTED; separate authorization required |
+| [02](TASKS/TASK_02_DRAGON_FLIGHT_AND_ANIMATION.md) | Dragon flight and animation | NOT STARTED |
+| [03](TASKS/TASK_03_WILD_NESTS_AND_GUARDIANS.md) | Multiple nests, egg slots and Guardians | NOT STARTED |
+| [04](TASKS/TASK_04_GROWTH_COLLECTION_ECONOMY.md) | Growth, collection, economy and local saves | NOT STARTED |
+| [05](TASKS/TASK_05_WORLD_CONTENT_AND_RELEASE.md) | Dragon world content, polish and release | NOT STARTED |
 
-Each task file owns its current status. Stop after the requested milestone; Task 00 does not authorize Task 01.
+Stop after Task 00. The historical prototype's completion does not carry over to web tasks.

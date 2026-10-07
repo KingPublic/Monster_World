@@ -1,25 +1,17 @@
 # Task 03 — Wild Nests and Guardians
 
-STATUS: NOT STARTED
+STATUS: NOT STARTED — requires separate authorization
 
-## High-Level Objective
+## Objective
 
-- Multiple wild nests and nest progression.
-- Egg spawn pools and per-slot respawn after theft; 3–5 slot capacity target with individual nest counts.
-- Standard slots respawn after 300 seconds; the TWO highest-tier nests use 600 seconds, configurable per nest.
-- Shared server-authoritative claims prevent duplicate theft; untouched eggs stay available.
-- Nest guardians.
-- Chase throughout the return journey until arrival in the thief's own safe zone.
+Multiple meaningful-distance nests, pools, configurable 3–5 slots, theft-triggered per-slot respawn: 300 seconds standard, 600 for the two highest-tier nests. Untouched eggs remain. Local single-player inventory; Guardian IDLE → ALERT → ROAR → CHASE → SAFE ZONE STOP → RETURN → IDLE. Distance alone never ends pursuit; no theft-state fast travel.
 
-## Required Reading When Requested
+## Required Reading
 
-- [Master specification](../MASTER_GAME_SPEC.md)
-- [Wild nest system](../DOCS/WORLD/WILD_NEST_SYSTEM.md) and [world structure](../DOCS/WORLD/WORLD_STRUCTURE.md)
-- [Egg system](../DOCS/GAMEPLAY/EGG_SYSTEM.md)
-- [Guardian AI](../DOCS/AI/GUARDIAN_AI.md) and [safe zone](../DOCS/WORLD/SAFE_ZONE.md)
-- [Egg pools](../DATA/EGG_SPAWN_POOLS.md) and [nest configs](../DATA/NEST_CONFIGS.md)
-- Relevant [environment](../REFERENCES/ENVIRONMENT/README.md) and [dragon](../REFERENCES/DRAGONS/README.md) references
+[Master specification](../MASTER_GAME_SPEC.md), [Agent rules](../AGENTS.md), [Architecture](../DOCS/TECHNICAL/ARCHITECTURE.md), [World Structure](../DOCS/WORLD/WORLD_STRUCTURE.md), [Dragon Growth](../DOCS/CREATURES/DRAGONS/DRAGON_GROWTH.md), relevant [DATA](../DATA/README.md), [Reference Index](../REFERENCES/REFERENCE_INDEX.md) and actual relevant images.
 
-Detailed requirements, guardian abilities, exact pools/probabilities, nest identities/tier ordering, per-nest slot assignments, initial fill/restart behavior, acceptance criteria, and playtest procedure are TODO. The confirmed configurable V1 per-slot respawn replaces periodic whole-nest refresh. The objective is escape, not a guardian kill or boss fight. Do not implement this milestone during Task 00 or automatically proceed to Task 04.
+## Boundary
 
-Read [Networking](../DOCS/TECHNICAL/NETWORKING.md) and [Reference Index](../REFERENCES/REFERENCE_INDEX.md). World level locks, exact biome ordering, Fast Travel, HP bars, and image-only abilities remain unapproved. This documentation pass allows no Studio changes.
+Dragons only; single-player browser runtime. Preserve working systems, exact reference filenames and configurable approved rules. Unapproved numbers stay TBD. Implement only the authorized task; do not begin the next task automatically. No commits/push/merge/deployment unless explicitly requested.
+
+Detailed implementation plan, balancing, task-specific acceptance criteria and browser gameplay procedure are TBD until this task is separately authorized. This brief is roadmap direction, not permission to implement it during Task 00.

@@ -18,14 +18,20 @@ For five slots, theft from slots 1 and 2 leaves them empty/respawning while slot
 
 Only the TWO highest-tier nests use the confirmed longer default. Values are configurable per nest and may change after playtesting. Centralize EggSlotCount, EggSpawnPool, EggRespawnSeconds, Guardian, and Tier.
 
-## Shared Slots and Guardian Chase
+## Single-player Slots and Guardian Chase
 
-Slots are shared world resources. A successful claim makes the egg unavailable to other players and starts only that slot's cooldown; remaining eggs can still be stolen. Server-authoritative claims must prevent multiple players from successfully claiming the same egg.
+The initial web version has local browser state and no multiplayer synchronization requirement. Slot cooldown is independent of Guardian pursuit. Future multiplayer claim/concurrency design is separate scope.
 
 Stealing triggers that nest's guardian to pursue the thief throughout the return journey. Arrival in the thief's own safe zone secures the egg, ends pursuit, and sends the guardian to its original nest. Distance alone does not end aggression. Respawn cooldown is separate from the guardian chase end condition.
 
 Later nests generally become farther away, may become higher, and offer better pools and harder guardians. The objective is escape; no guardian kill/boss requirement is introduced.
 
-TBD: actual nest IDs/tier ordering, individual slot assignments, pools/probabilities, initial fill/restart policy, pickup interaction, multiple-thief guardian behavior, and specific abilities.
+TBD: actual nest IDs/tier ordering, individual slot assignments, pools/probabilities, initial fill/restart policy, pickup interaction, and specific abilities.
 
 Inspect [Stater-wild-nest-v1.png](../../REFERENCES/ENVIRONMENT/Stater-wild-nest-v1.png) and [High-tier-nest-v1.png](../../REFERENCES/ENVIRONMENT/High-tier-nest-v1.png) for composition only. See [Egg Pools](../../DATA/EGG_SPAWN_POOLS.md), [Nest Configs](../../DATA/NEST_CONFIGS.md), [Networking](../TECHNICAL/NETWORKING.md), and [Guardian AI](../AI/GUARDIAN_AI.md).
+
+## Scale and Current Foundation
+
+The compact fantasy Dragon City/Sanctuary is not city-building gameplay. Wild Nests must have meaningful physical travel distance from home: starter close, mid-tier farther, high-tier substantially farther and highest-tier among the longest journeys, generally with harder terrain and increased elevation. The Guardian return journey is core difficulty; no fast travel may skip it while carrying stolen Eggs. Exact distances/travel times remain subject to future playtesting.
+
+Task 00 uses configurable procedural terrain and non-functional nest-shaped markers only. No egg slots/spawns, stealing, timers, Guardian AI/chase or progression are implemented. Marker geography does not assign final pools or the two 600-second nests. See [World Structure](WORLD_STRUCTURE.md) and [Sanctuary](PLAYER_SANCTUARY.md).

@@ -18,6 +18,6 @@ Confirmed base stat categories are Speed, Stamina, and Boost. Dragons can have d
 
 The row is a schema placeholder, not a dragon definition. Candidate elements and rarities are not final. Do not infer a stat multiplier from rarity or element.
 
-Final Speed/Stamina/Boost = Dragon stage-adjusted Base Speed/Stamina/Boost × Corresponding Rider Multiplier. Adults receive the intended mature/base-stat profile; exact scaling is TBD. See [rider upgrade values](RIDER_UPGRADE_VALUES.md). No production configuration is generated during Task 00.
+Final Speed/Stamina/Boost = Dragon stage-adjusted Base Speed/Stamina/Boost × Corresponding Rider Multiplier. Adults receive the intended mature/base-stat profile; exact scaling is TBD. See [rider upgrade values](RIDER_UPGRADE_VALUES.md). Task 00 creates only technical/world configuration; these gameplay balance tables remain design only.
 
-See [Dragon Growth](../DOCS/DRAGONS/DRAGON_GROWTH.md) and [Growth Values](DRAGON_GROWTH_VALUES.md). Numerical image stats and additive rider bonuses are visual filler, not approved values or formulas.
+See [Dragon Growth](../DOCS/CREATURES/DRAGONS/DRAGON_GROWTH.md) and [Growth Values](DRAGON_GROWTH_VALUES.md). Numerical image stats and additive rider bonuses are visual filler, not approved values or formulas.

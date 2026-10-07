@@ -25,4 +25,6 @@ Preserve all filenames/versions; this pass does not retire either HUD variation.
 
 Tutorial objectives now include Hatch Baby → explain hunger → free Starter Food → Feed → Growth Progress → rideable Young/Juvenile → first mount → basic flight. Baby is not immediately mountable. Growth Progress can appear where appropriate; final placement/layout and pixel values remain TBD.
 
-See [Reference Index](../../REFERENCES/REFERENCE_INDEX.md), [Tutorial](../GAMEPLAY/TUTORIAL_FLOW.md), and [Growth](../DRAGONS/DRAGON_GROWTH.md). No GUI is implemented in this pass.
+See [Reference Index](../../REFERENCES/REFERENCE_INDEX.md), [Tutorial](../GAMEPLAY/TUTORIAL_FLOW.md), and [Growth](../CREATURES/DRAGONS/DRAGON_GROWTH.md). No GUI is implemented in this pass.
+
+The web UI direction uses an HTML/CSS overlay above the Three.js canvas. Task 00 exposes inspection controls only; this gameplay interface remains unimplemented.

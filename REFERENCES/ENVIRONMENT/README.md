@@ -14,4 +14,4 @@ Starter and high-tier nest images guide nest focal points, eggs/guardian present
 - [World-overview-v1.png](World-overview-v1.png) — v1.
 - [High-tier-nest-v1.png](High-tier-nest-v1.png) — v1.
 
-Agents MUST inspect relevant images before implementing a milestone. Preserve exact filenames and versions unless the user explicitly requests a rename. These are ACTIVE VISUAL REFERENCES, not automatically finished Roblox assets. [MASTER_GAME_SPEC.md](../../MASTER_GAME_SPEC.md) governs gameplay; see [REFERENCE_INDEX.md](../REFERENCE_INDEX.md) for per-image limits.
+Agents MUST inspect relevant images before implementing a milestone. Preserve exact filenames and versions unless the user explicitly requests a rename. These are ACTIVE VISUAL REFERENCES, not automatically finished runtime assets. [MASTER_GAME_SPEC.md](../../MASTER_GAME_SPEC.md) governs gameplay; see [REFERENCE_INDEX.md](../REFERENCE_INDEX.md) for per-image limits.

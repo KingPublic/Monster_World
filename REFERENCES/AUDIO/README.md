@@ -1,6 +1,6 @@
 # Audio Direction
 
-No final audio assets currently exist in this folder. This is approved direction and a planned cue list, not ready SFX/music, a provider selection, or Roblox Asset IDs. Visual references are registered in [REFERENCE_INDEX.md](../REFERENCE_INDEX.md); filenames remain unchanged unless the user explicitly requests a rename.
+No final audio assets currently exist in this folder. This is approved direction and a planned cue list, not ready SFX/music, a provider selection, or runtime asset identifiers. Visual references are registered in [REFERENCE_INDEX.md](../REFERENCE_INDEX.md); filenames remain unchanged unless the user explicitly requests a rename.
 
 ## Sanctuary
 
@@ -47,4 +47,4 @@ Triggered/escalated after theft. Mood: urgent, exciting, dangerous, and pursuit-
 
 Planned music includes Sanctuary Theme, Exploration Theme, and Guardian Chase Layer. Exact tracks, cue durations, transitions, mixing, sources, licensing, and asset IDs remain TBD. No assets are generated or installed in this pass.
 
-See [Asset Manifest](../../ASSET_MANIFEST.md) and [Task 05](../../TASKS/TASK_05_CONTENT_POLISH_AND_RELEASE.md).
+See [Asset Manifest](../../ASSET_MANIFEST.md) and [Task 05](../../TASKS/TASK_05_WORLD_CONTENT_AND_RELEASE.md).

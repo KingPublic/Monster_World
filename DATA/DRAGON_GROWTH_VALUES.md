@@ -2,7 +2,7 @@
 
 STATUS: V1 BALANCING PLACEHOLDER
 
-Authority: [MASTER_GAME_SPEC.md](../MASTER_GAME_SPEC.md) and [Dragon Growth](../DOCS/DRAGONS/DRAGON_GROWTH.md).
+Authority: [MASTER_GAME_SPEC.md](../MASTER_GAME_SPEC.md) and [Dragon Growth](../DOCS/CREATURES/DRAGONS/DRAGON_GROWTH.md).
 
 Growth is earned through **Feeding**: Baby → Juvenile / Young → Adult. Dragons hatch as Babies; Young/Juvenile is the first rideable stage. Growth preserves rarity and element.
 

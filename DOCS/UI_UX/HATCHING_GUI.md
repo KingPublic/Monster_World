@@ -12,4 +12,6 @@ Do not infer multi-hour hatch timers, paid speed-ups, exact incubator counts/unl
 
 Later hatch timings, exact UI layout, interactions, progress presentation, and animation/VFX timing remain TBD. Growth Progress and hatch progress are distinct presentation concepts; detailed layouts remain open.
 
-See [Tutorial](../GAMEPLAY/TUTORIAL_FLOW.md), [Growth](../DRAGONS/DRAGON_GROWTH.md), [Shop/Food](../GAMEPLAY/SHOP_AND_FOOD.md), and [Reference Index](../../REFERENCES/REFERENCE_INDEX.md). No GUI, timers, or effects are implemented here.
+See [Tutorial](../GAMEPLAY/TUTORIAL_FLOW.md), [Growth](../CREATURES/DRAGONS/DRAGON_GROWTH.md), [Shop/Food](../GAMEPLAY/SHOP_AND_FOOD.md), and [Reference Index](../../REFERENCES/REFERENCE_INDEX.md). No GUI, timers, or effects are implemented here.
+
+The web UI direction uses an HTML/CSS overlay above the Three.js canvas. Task 00 exposes inspection controls only; this gameplay interface remains unimplemented.

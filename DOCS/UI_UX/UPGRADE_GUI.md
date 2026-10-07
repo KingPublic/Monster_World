@@ -12,4 +12,6 @@ Carry levels 1/2/3 hold 1/2/3 eggs, maximum 3. Visual carry is one rider egg; th
 
 Keep the clean desktop/mobile presentation. Exact prices, currency rules for upgrade purchases, multiplier curves, other level requirements, numerical layouts, and extra image-only categories such as Glide Control remain TBD/unapproved.
 
-See [Rider Upgrades](../DRAGONS/RIDER_UPGRADES.md), [Upgrade Values](../../DATA/RIDER_UPGRADE_VALUES.md), and [Reference Index](../../REFERENCES/REFERENCE_INDEX.md). No shop or GUI implementation occurs here.
+See [Rider Upgrades](../CREATURES/DRAGONS/RIDER_UPGRADES.md), [Upgrade Values](../../DATA/RIDER_UPGRADE_VALUES.md), and [Reference Index](../../REFERENCES/REFERENCE_INDEX.md). No shop or GUI implementation occurs here.
+
+The web UI direction uses an HTML/CSS overlay above the Three.js canvas. Task 00 exposes inspection controls only; this gameplay interface remains unimplemented.

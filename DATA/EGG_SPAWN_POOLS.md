@@ -12,6 +12,6 @@ Each Wild Nest has its own configured pool and rarity distribution. Each physica
 
 These are planning placeholders, not a final catalog, nest count, biome order, guaranteed roll, or production configuration. Rarity, Element, and Growth Stage are independent; reference labels do not establish fixed rarity-element pairs or odds.
 
-**Per-slot** respawn begins after theft: standard nests 300 seconds; the two highest-tier nests 600 seconds. Only the empty slot rolls/spawns after its cooldown. Untouched eggs remain physically available and are not reset or rerolled. Claims are server-authoritative shared world interactions.
+**Per-slot** respawn begins after theft: standard nests 300 seconds; the two highest-tier nests 600 seconds. Only the empty slot rolls/spawns after its cooldown. Untouched eggs remain physically available and are not reset or rerolled. V1 inventory is local single-player state.
 
 See [Nest Configs](NEST_CONFIGS.md), [Egg System](../DOCS/GAMEPLAY/EGG_SYSTEM.md), and [Networking](../DOCS/TECHNICAL/NETWORKING.md). Pool identities, weights, and probabilities remain TBD.

@@ -15,4 +15,4 @@ TODO: capture/failure outcomes, progression resource sources, and detailed inter
 
 The sanctuary supports collection, feeding, growth, and progression. It may look like a Dragon Village, but tile-by-tile construction is not core gameplay. Physical escape distance matters; image-only Fast Travel is unapproved. Guardians create escape pressure, not a kill/boss objective.
 
-See [Growth](../DRAGONS/DRAGON_GROWTH.md), [Shop/Food](SHOP_AND_FOOD.md), and [Progression](PROGRESSION.md).
+See [Growth](../CREATURES/DRAGONS/DRAGON_GROWTH.md), [Shop/Food](SHOP_AND_FOOD.md), and [Progression](PROGRESSION.md).

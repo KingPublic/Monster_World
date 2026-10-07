@@ -20,6 +20,6 @@ Permanent rider upgrades affect every dragon the player rides. The conceptual fo
 
 Visual concept: one egg associated with the rider at Carry 1; an additional egg physically carried by the dragon at Carry 2; one rider egg and one egg in each talon at Carry 3. Detailed attachments and baby-dragon carry rules remain TODO.
 
-These supplied capacity levels are not permission to invent other balance numbers. See [rider upgrade design](../DOCS/DRAGONS/RIDER_UPGRADES.md).
+These supplied capacity levels are not permission to invent other balance numbers. See [rider upgrade design](../DOCS/CREATURES/DRAGONS/RIDER_UPGRADES.md).
 
 Stage-adjusted base values remain TBD. Growth changes neither rarity nor element and does not create additional rider-upgrade categories. Pose guidance: [Dragon-flight-carry-v1.png](../REFERENCES/ANIMATION/Dragon-flight-carry-v1.png). Displayed prices/multipliers in [Rider-upgrades-v1.png](../REFERENCES/GUI/Rider-upgrades-v1.png) are not canonical.

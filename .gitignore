@@ -22,3 +22,15 @@ $RECYCLE.BIN/
 
 # Keep specifications, source, planned data, and reference images tracked.
 # Do not ignore Markdown, PNG, JPG/JPEG, WebP, JSON, Lua, or Luau files.
+
+# Web dependencies, build output and local configuration
+node_modules/
+dist/
+.vite/
+.env
+.env.*
+*.local
+output/playwright/
+
+# Browser automation scratch state
+.playwright-mcp/

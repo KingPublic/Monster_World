@@ -13,4 +13,4 @@ Baby idle/eating and growth transformation animation/VFX are also design needs. 
 - [Dragon-flight-carry-v1.png](Dragon-flight-carry-v1.png) — v1.
 - [Guardian-chase-v1.png](Guardian-chase-v1.png) — v1.
 
-Agents MUST inspect relevant images before implementing a milestone. Preserve exact filenames and versions unless the user explicitly requests a rename. These are ACTIVE VISUAL REFERENCES, not automatically finished Roblox assets. [MASTER_GAME_SPEC.md](../../MASTER_GAME_SPEC.md) governs gameplay; see [REFERENCE_INDEX.md](../REFERENCE_INDEX.md) for per-image limits.
+Agents MUST inspect relevant images before implementing a milestone. Preserve exact filenames and versions unless the user explicitly requests a rename. These are ACTIVE VISUAL REFERENCES, not automatically finished runtime assets. [MASTER_GAME_SPEC.md](../../MASTER_GAME_SPEC.md) governs gameplay; see [REFERENCE_INDEX.md](../REFERENCE_INDEX.md) for per-image limits.

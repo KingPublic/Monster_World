@@ -8,4 +8,4 @@ Baby dragons can be cute; mounts impressive; guardians larger and intimidating. 
 
 - [Art-direction-master-style-v1.png](Art-direction-master-style-v1.png) — v1.
 
-Agents MUST inspect relevant images before implementing a milestone. Preserve exact filenames and versions unless the user explicitly requests a rename. These are ACTIVE VISUAL REFERENCES, not automatically finished Roblox assets. [MASTER_GAME_SPEC.md](../../MASTER_GAME_SPEC.md) governs gameplay; see [REFERENCE_INDEX.md](../REFERENCE_INDEX.md) for per-image limits.
+Agents MUST inspect relevant images before implementing a milestone. Preserve exact filenames and versions unless the user explicitly requests a rename. These are ACTIVE VISUAL REFERENCES, not automatically finished runtime assets. [MASTER_GAME_SPEC.md](../../MASTER_GAME_SPEC.md) governs gameplay; see [REFERENCE_INDEX.md](../REFERENCE_INDEX.md) for per-image limits.

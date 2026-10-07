@@ -23,4 +23,6 @@ Final Speed/Stamina/Boost = stage-adjusted Base Speed/Stamina/Boost × correspon
 
 [Dragon-collection-mount-v1.png](../../REFERENCES/GUI/Dragon-collection-mount-v1.png) guides collection cards, selected preview, separate rarity/element presentation, stat comparison, and ride-action styling. Its missing Growth Stage must be added according to written requirements. Exact names/stats, Divine tiers, locks, passive income, additive bonuses, and powers are not approved.
 
-Detailed layout, comparison behavior, selection/equip validation, filtering, and schema remain TODO. See [Growth](../DRAGONS/DRAGON_GROWTH.md), [Player Nest](../WORLD/PLAYER_NEST.md), and [Reference Index](../../REFERENCES/REFERENCE_INDEX.md). No GUI is created in this pass.
+Detailed layout, comparison behavior, selection/equip validation, filtering, and schema remain TODO. See [Growth](../CREATURES/DRAGONS/DRAGON_GROWTH.md), [Player Nest](../WORLD/PLAYER_SANCTUARY.md), and [Reference Index](../../REFERENCES/REFERENCE_INDEX.md). No GUI is created in this pass.
+
+The web UI direction uses an HTML/CSS overlay above the Three.js canvas. Task 00 exposes inspection controls only; this gameplay interface remains unimplemented.

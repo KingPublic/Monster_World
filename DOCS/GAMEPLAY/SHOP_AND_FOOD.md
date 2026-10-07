@@ -28,4 +28,4 @@ Future customization category, not required for current MVP gameplay.
 
 Exact products, prices, premium currency, boosts, happiness effects, scanners, automatic collection, and timers shown in concepts are not canonical unless explicitly documented and approved. Coin-bought food is approved core progression; image-only monetization is not.
 
-See [Dragon Growth](../DRAGONS/DRAGON_GROWTH.md), [Growth Values](../../DATA/DRAGON_GROWTH_VALUES.md), and [Economy Balance](../../DATA/ECONOMY_BALANCE.md). No Shop objects, UI, food assets, or scripts are created in this documentation pass.
+See [Dragon Growth](../CREATURES/DRAGONS/DRAGON_GROWTH.md), [Growth Values](../../DATA/DRAGON_GROWTH_VALUES.md), and [Economy Balance](../../DATA/ECONOMY_BALANCE.md). No Shop objects, UI, food assets, or scripts are created in this documentation pass.

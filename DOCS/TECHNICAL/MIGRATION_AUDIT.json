@@ -1,0 +1,510 @@
+{
+  "date": "2026-10-07",
+  "repo": "C:/Users/Adrian/Games/Steal-Baby-Dragon-Roblox/Monster_World",
+  "branch": "main",
+  "remote": "https://github.com/KingPublic/Monster_World.git",
+  "initialStatus": "?? PROMPTS/MONSTER_WORLD_MIGRATION_MASTER_PROMPT.md",
+  "totalFiles": 87,
+  "textFiles": 65,
+  "references": [
+    {
+      "path": "REFERENCES/GUI/Shop-v1.png",
+      "sha256": "a03e07c6cd6645f7370d9ca9e49c5aef9a0011e3cf9422613c65af8326a43502",
+      "bytes": 2029093
+    },
+    {
+      "path": "REFERENCES/GUI/Rider-upgrades-v1.png",
+      "sha256": "f8015fd7712e1d5d35a7807eefbeeeaea9ed6ec7d675c173d8fdf0044b3760ae",
+      "bytes": 1813005
+    },
+    {
+      "path": "REFERENCES/GUI/Mobile-HUD-v1.png",
+      "sha256": "4cd0c5524f3884e92f27c844dbf94a4b461419c193b4b7c6a28a6c388152a4bb",
+      "bytes": 2897606
+    },
+    {
+      "path": "REFERENCES/GUI/HUD-v2.png",
+      "sha256": "4f98f40bf57ebb5e3e4b3c600819ec91025fc37be66818a5a0d292d806e5d00c",
+      "bytes": 2373735
+    },
+    {
+      "path": "REFERENCES/GUI/HUD-v1.png",
+      "sha256": "17cb31ff732d0347cb19ac80f4ed4ba0ac79f1614f8cf659d4074c68276e53ed",
+      "bytes": 2211674
+    },
+    {
+      "path": "REFERENCES/GUI/Hatchery-v1.png",
+      "sha256": "218dbfa9c4cd188a2d8ed395a2a09ef5d97b2fc7146e8754e96a3c68510175fd",
+      "bytes": 2138181
+    },
+    {
+      "path": "REFERENCES/GUI/Flight-hud-v1.png",
+      "sha256": "a26f89f72ba6c395f8b32b5b3be15c9f19bfd6b250cfc180e4f3aa1a345069a2",
+      "bytes": 2174784
+    },
+    {
+      "path": "REFERENCES/GUI/Dragon-collection-mount-v1.png",
+      "sha256": "9844b2db6cef3dc2f0c5fca929f616f87bdc393a8a6aa7a63734ba1cd208bf44",
+      "bytes": 2137848
+    },
+    {
+      "path": "REFERENCES/ENVIRONMENT/World-overview-v1.png",
+      "sha256": "673dc04a85d23324d707c0e317c18db999b6ef63850a442be9a0eca7bc748a37",
+      "bytes": 3085592
+    },
+    {
+      "path": "REFERENCES/ENVIRONMENT/Stater-wild-nest-v1.png",
+      "sha256": "b2a18a9e2a3eb322de17b60038e47983f67d152fc8e945f5cff987aa62112862",
+      "bytes": 2999028
+    },
+    {
+      "path": "REFERENCES/ENVIRONMENT/Player-nest-v1.png",
+      "sha256": "59251c529d4168b122837e6e04295a5b7f032eaa2a1be93d790f433c0ecf158c",
+      "bytes": 2816884
+    },
+    {
+      "path": "REFERENCES/ENVIRONMENT/Player-nest-services-v1.png",
+      "sha256": "0458ed24d2b8874b8340fac7d9fab736ef043d5988af323588ec042cf98b2caa",
+      "bytes": 3135304
+    },
+    {
+      "path": "REFERENCES/ENVIRONMENT/High-tier-nest-v1.png",
+      "sha256": "791fbc2b2d828aa786f4a5270daa8b1501e5b2265b674a6e78ab780d06c35030",
+      "bytes": 3223554
+    },
+    {
+      "path": "REFERENCES/DRAGONS/Starter-nature-young-3d-reference-v1.png",
+      "sha256": "66d2036a5d569ff903c0a68062a3a2834fe3100de0ff95187dfb3dc505be9406",
+      "bytes": 2306139
+    },
+    {
+      "path": "REFERENCES/DRAGONS/Guardian-dragon-v1.png",
+      "sha256": "fadadd2a8e0b120af7e6e4e8067b9f39d03d3fe4d22dc0987efcad71b0ed8d41",
+      "bytes": 3158108
+    },
+    {
+      "path": "REFERENCES/DRAGONS/Egg-and-baby-dragon-v1.png",
+      "sha256": "949164a9110a21001d73222ba0c3c48e9cee76bff26deba7f7d44169900a7353",
+      "bytes": 2872488
+    },
+    {
+      "path": "REFERENCES/DRAGONS/Dragon-style-v1.png",
+      "sha256": "f567f306380ef4f3da466ce3dcf61535c609fa10ba32c0afde57853ae76f2018",
+      "bytes": 2680966
+    },
+    {
+      "path": "REFERENCES/DRAGONS/3d-references-single-v1.png",
+      "sha256": "38285a7f8fd3275050e7e7e6415057e18ffab7a81dd22e7611b5c82cb25b8e83",
+      "bytes": 1999344
+    },
+    {
+      "path": "REFERENCES/ART_DIRECTION/Art-direction-master-style-v1.png",
+      "sha256": "ef1a76d18444cdaf3b82160d6a25ec8ed0666c452d8f6d1da8f6d3e8da342d57",
+      "bytes": 2925678
+    },
+    {
+      "path": "REFERENCES/ANIMATION/Guardian-chase-v1.png",
+      "sha256": "c6e240ac5371401ffce7e2f43681173242bb81123783757f8db3fd8d57d9e33c",
+      "bytes": 2795106
+    },
+    {
+      "path": "REFERENCES/ANIMATION/Dragon-flight-carry-v1.png",
+      "sha256": "5bdcf50ccb3c8ee6a73ae94717b2d508009f472f625428758d8817414b828034",
+      "bytes": 2215075
+    }
+  ],
+  "dragon": {
+    "originalPath": "REFERENCES/DRAGONS/3d-young-dragon-nature.glb",
+    "sha256": "b2e0f29c1e238efc8cba8a6435cd12c201acb7a8df06ce5d02cb79b77130c615",
+    "bytes": 5236028,
+    "nodes": 2,
+    "meshes": 1,
+    "materials": 1,
+    "skins": 0,
+    "bones": 0,
+    "animations": 0
+  },
+  "documents": [
+    {
+      "path": "TESTING/TASK_01_STARTER_VISUAL_REPLACEMENT.md",
+      "bytes": 8589,
+      "sha256": "45ca36c463ea8ca7dc4c305349c2436e03b9a2b2df28493dbbd8f060f20b6216"
+    },
+    {
+      "path": "TESTING/TASK_01_PLAYTEST_REPORT.md",
+      "bytes": 17378,
+      "sha256": "27cb6bd2803c05887ce1f27c8bd64ee6a07c837d346b5c4ad43ad1e87f6544a6"
+    },
+    {
+      "path": "TESTING/README.md",
+      "bytes": 1112,
+      "sha256": "7bc23b78a2f47e17a84cd143d1c7619f58d59feb71a055c49355721ba7d1375c"
+    },
+    {
+      "path": "TESTING/PLAYTEST_CHECKLIST.md",
+      "bytes": 1264,
+      "sha256": "7aad64966d2ec65cd90b0b0815cf1b367603bf8da8615856fef69427eff85cb7"
+    },
+    {
+      "path": "TESTING/BUG_LOG.md",
+      "bytes": 2084,
+      "sha256": "1bc68bd720dc24906f998f2f369bbd2f7a657594edab6813b86522e8b12ca48d"
+    },
+    {
+      "path": "TESTING/ACCEPTANCE_CRITERIA.md",
+      "bytes": 3100,
+      "sha256": "993506929288672fa5bed4121e34bafd9d5afc3e11788974c67d39e5e11fda5a"
+    },
+    {
+      "path": "TASKS/TASK_05_CONTENT_POLISH_AND_RELEASE.md",
+      "bytes": 1429,
+      "sha256": "ac69c6b8080eebb0f99e97c8a61d9c429a2d0c6f4fc622ae7e7995a548f39d3c"
+    },
+    {
+      "path": "TASKS/TASK_04_HATCHING_COLLECTION_AND_ECONOMY.md",
+      "bytes": 1794,
+      "sha256": "24f30ea618077c25dff725eaf137dd490b40f6dac6fad007f48d3c5653984859"
+    },
+    {
+      "path": "TASKS/TASK_03_WILD_NESTS_AND_GUARDIANS.md",
+      "bytes": 1788,
+      "sha256": "059bd242e3fd02f57547a2d7e6e4aa58378a872c6b4027245d024bbb0dfb11a3"
+    },
+    {
+      "path": "TASKS/TASK_02_DRAGON_FLIGHT_AND_STATS.md",
+      "bytes": 1591,
+      "sha256": "c23e834ea8f1792d3888ad1d36cc9d33d2567f1ced32953defca400697307111"
+    },
+    {
+      "path": "TASKS/TASK_01_CORE_TUTORIAL.md",
+      "bytes": 3961,
+      "sha256": "c197730593ebe9b52fcc8ed99f872e91851ecc464e894338c5a8a2f878023492"
+    },
+    {
+      "path": "TASKS/TASK_00_PROJECT_SETUP.md",
+      "bytes": 8513,
+      "sha256": "e556da06450545b9f6ec421a2d26ba75df9931639af4ebec608d60e31096ffde"
+    },
+    {
+      "path": "TASKS/README.md",
+      "bytes": 1779,
+      "sha256": "7632674c80783644421b3c30b36ee7e14f541e2edb4f5249c3fb4faa428c9008"
+    },
+    {
+      "path": "Steal_Baby_Dragon_Project_Setup_Prompt.md",
+      "bytes": 26100,
+      "sha256": "0256d694411d45cc6a3a1be11b38c94948c3bd982b07aa1ee4f0e8968230ddf0"
+    },
+    {
+      "path": "DATA/RIDER_UPGRADE_VALUES.md",
+      "bytes": 1692,
+      "sha256": "ff552cf1eae703618713a520f57a2a37fa3b08d5eac1048e595f1eb843f6638c"
+    },
+    {
+      "path": "DATA/README.md",
+      "bytes": 1673,
+      "sha256": "46987b3390fb8e9cfd0e8b33604f70169902ff8324d5d04c6f922d27d2fb862e"
+    },
+    {
+      "path": "DATA/NEST_CONFIGS.md",
+      "bytes": 2493,
+      "sha256": "db681feb58c54cd1bc6bca3904fa58aab8b633572b838866573351a21b787d89"
+    },
+    {
+      "path": "DATA/EGG_SPAWN_POOLS.md",
+      "bytes": 1563,
+      "sha256": "9f6a1c1f1287275a253f7057af31d8193dcaff94571cf5c5655b5b6930f5c1e7"
+    },
+    {
+      "path": "DATA/ECONOMY_BALANCE.md",
+      "bytes": 2225,
+      "sha256": "13fb4048e6cc96f0434eb85324084e00c3353f93b43ebf95f30e268e3a1b36ec"
+    },
+    {
+      "path": "DATA/DRAGON_STATS.md",
+      "bytes": 1682,
+      "sha256": "b92ca8c7a33ac83e92fe1f741b665d6871a60d31de114e0b6101029a686e7029"
+    },
+    {
+      "path": "DATA/DRAGON_GROWTH_VALUES.md",
+      "bytes": 1084,
+      "sha256": "e6b4cb949bf6a478c1d66ae802ebee2113e327972504da4820ebda74ac56b79f"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 15188,
+      "sha256": "5d0ae4472e83ed0db0361a8fbd7f80a156f3a7dd87735d37991cd7bc8926e359"
+    },
+    {
+      "path": "ASSET_MANIFEST.md",
+      "bytes": 24118,
+      "sha256": "b9ec909adb6528e3bcd1c10ecc3306f2d935a91818fb60b3eee5bfa012e8584b"
+    },
+    {
+      "path": "REFERENCES/REFERENCE_INDEX.md",
+      "bytes": 16481,
+      "sha256": "95d23e24f3df81be67950f75c8f22092379de308e1d42bf5577acea189fcc2ea"
+    },
+    {
+      "path": "REFERENCES/README.md",
+      "bytes": 2284,
+      "sha256": "509b4a92f7f2d413088c04dc91d773422178ff60fc5b44a42774c5ac8cd499d4"
+    },
+    {
+      "path": "REFERENCES/GUI/README.md",
+      "bytes": 1646,
+      "sha256": "545a7d0b31a0e56f08c27372eddfec83dda93bd6506ab15fa034b345f41ff726"
+    },
+    {
+      "path": "ARCHIVE/README.md",
+      "bytes": 466,
+      "sha256": "1e96287dd95c131a2ed5305735e075b3ca4634681ae5630de3d2311feacc7bb8"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 2000,
+      "sha256": "f0acafb602ab2a26521cafc4ab559ae28ffac2f731d61a3b88e098bb96c94c1e"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 361,
+      "sha256": "c729017a51afada2937a3ab25d5e0055b0cb3aa5847965e7d378678a8c6d26b6"
+    },
+    {
+      "path": ".gitattributes",
+      "bytes": 66,
+      "sha256": "1a1dbe176bc233b499d35a57db7513f2941c99ab9759f177830c9149be99005b"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5108,
+      "sha256": "024973c5b9642c2b028db0208c13f84d5514dd63b1f7882ea3928c2d6f9e94fb"
+    },
+    {
+      "path": "REFERENCES/ENVIRONMENT/README.md",
+      "bytes": 1564,
+      "sha256": "2b6f828acbb0699c744ba2694477a0f33b2fadad1322ad693800421bb93cf29c"
+    },
+    {
+      "path": "REFERENCES/DRAGONS/README.md",
+      "bytes": 2011,
+      "sha256": "d112bd4c97d6a79993dc31434da0f7ea0ff70d61021c3bb287be8a3aebd50eaa"
+    },
+    {
+      "path": "PROMPTS/README.md",
+      "bytes": 713,
+      "sha256": "0fbafe30dadb03ca67d347b2cca46bd8ba668eaa89eabf3333026b9bc3606a1a"
+    },
+    {
+      "path": "PROMPTS/MONSTER_WORLD_MIGRATION_MASTER_PROMPT.md",
+      "bytes": 33949,
+      "sha256": "dea094806ba4d7a07814aacdf1df2fd6911c751f091c10539719dcf448d3eaaa"
+    },
+    {
+      "path": "PROMPTS/CODEX_TASK_TEMPLATE.md",
+      "bytes": 1924,
+      "sha256": "cab61ec42af85767cb06030cd8e2c5439ee6d31ee452469d44d7568b66775410"
+    },
+    {
+      "path": "MASTER_GAME_SPEC.md",
+      "bytes": 27355,
+      "sha256": "377dca8677d5070f6d342e1bcd0e7cf59ff1d34ea502d41567552bb9f571fe87"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1100,
+      "sha256": "3777e0b58072025798c78768bda22a8655963c0f4738d2df1d30beac2197fdcd"
+    },
+    {
+      "path": "REFERENCES/AUDIO/README.md",
+      "bytes": 1679,
+      "sha256": "65c869ac4a499f7f22efc39b910252cec0a81df0c230a122cb8772b8e3f1edf0"
+    },
+    {
+      "path": "REFERENCES/ART_DIRECTION/README.md",
+      "bytes": 1279,
+      "sha256": "d3120fa02a63a16588246b33eaa82c5e3a681682ca7cb3ae05fdd44dfc97cdd7"
+    },
+    {
+      "path": "REFERENCES/ANIMATION/README.md",
+      "bytes": 1493,
+      "sha256": "c63a39670004f66c5e445ca23bfb0f8eff13cfc155b4a617bd5b83d407f8e5b8"
+    },
+    {
+      "path": "DOCS/WORLD/PLAYER_NEST.md",
+      "bytes": 2196,
+      "sha256": "55a5c757a9c0d381e4facc96dfadbfbfa6af81d5e0aa9481e49f2bf87725a0c1"
+    },
+    {
+      "path": "DOCS/WORLD/WORLD_STRUCTURE.md",
+      "bytes": 1981,
+      "sha256": "50143a38fab6ca5d8bdcfb1dc5957b1e640a59c807c047698dfbbbae8b936573"
+    },
+    {
+      "path": "DOCS/WORLD/WILD_NEST_SYSTEM.md",
+      "bytes": 2739,
+      "sha256": "e5138f832576ea7bc056ddd4b7e5e67905ebc7f2260818f7fe69005d8279c480"
+    },
+    {
+      "path": "DOCS/WORLD/SAFE_ZONE.md",
+      "bytes": 1586,
+      "sha256": "0efeebf3018dea4f2f13f5d9ca71c4e1723368f4b93681fb3173242662925e65"
+    },
+    {
+      "path": "DOCS/GAMEPLAY/TUTORIAL_FLOW.md",
+      "bytes": 3003,
+      "sha256": "77ad49e92512b4850f652e1286c47ea345fb2e22ed594e7f9cd08e11014cf560"
+    },
+    {
+      "path": "DOCS/GAMEPLAY/SHOP_AND_FOOD.md",
+      "bytes": 1796,
+      "sha256": "9fd4b5eee3e39d4ede3fafc1bffa04f475cb1df4b8cff37c1b0e21a90715d823"
+    },
+    {
+      "path": "DOCS/GAMEPLAY/PROGRESSION.md",
+      "bytes": 2053,
+      "sha256": "20043f12b54450f4131a7bd370f1cbb1313f8977f7cb2a95accd80829a53f9f4"
+    },
+    {
+      "path": "DOCS/GAMEPLAY/EGG_SYSTEM.md",
+      "bytes": 2563,
+      "sha256": "8be5abb727bf6cfb52a1b8ad5dc6f48e6f9d36d9d815f2c8ea2f397d7ca921d9"
+    },
+    {
+      "path": "DOCS/GAMEPLAY/CORE_LOOP.md",
+      "bytes": 1326,
+      "sha256": "4644d518f90218781aa30e92fbf2c540117ec4a4335add70aae2662b9631b059"
+    },
+    {
+      "path": "DOCS/DRAGONS/RIDER_UPGRADES.md",
+      "bytes": 1552,
+      "sha256": "f9f93461e4a9b447ed2e3895b364e9e0e550308d9af6e43cdfe37ee18f67db6e"
+    },
+    {
+      "path": "DOCS/DRAGONS/RARITY_SYSTEM.md",
+      "bytes": 1181,
+      "sha256": "ed5eec75a3b9a40bf98f100e70ce923e1bde15a612a59a3a749ec1e909dba323"
+    },
+    {
+      "path": "DOCS/DRAGONS/ELEMENT_SYSTEM.md",
+      "bytes": 1229,
+      "sha256": "1422b00aff20271d146e5d2764154189b0496e777d323eab3f4971797f8f9e55"
+    },
+    {
+      "path": "DOCS/DRAGONS/DRAGON_SYSTEM.md",
+      "bytes": 3534,
+      "sha256": "3948b87979d762cbbf52a51f8b224c1b33b66cf405eb55cc1a59a6da4cbb5b06"
+    },
+    {
+      "path": "DOCS/DRAGONS/DRAGON_GROWTH.md",
+      "bytes": 2415,
+      "sha256": "dcead97dea0079d2add87eb228b580cd518eac5a0594139263d98c4cc28dfbf3"
+    },
+    {
+      "path": "DOCS/UI_UX/UPGRADE_GUI.md",
+      "bytes": 1401,
+      "sha256": "b8144156b68ab5da6660dafde2b55f2c96e4d812305e82b71b2e21d60fac996e"
+    },
+    {
+      "path": "DOCS/UI_UX/HUD_SPEC.md",
+      "bytes": 2136,
+      "sha256": "8f5796e42e42e54a8ee44ae807f6d59dd89066e3805250153249f5eb9b58fcbf"
+    },
+    {
+      "path": "DOCS/UI_UX/HATCHING_GUI.md",
+      "bytes": 1518,
+      "sha256": "88f6d8f0e39c5fb0386d53d5d7bacce5c9a204af560524129226941484af6713"
+    },
+    {
+      "path": "DOCS/UI_UX/DRAGON_COLLECTION_GUI.md",
+      "bytes": 1527,
+      "sha256": "f222f17d536be8696fd40186e9974039eb214bbfa5bfce9dba929e2bab27dd4f"
+    },
+    {
+      "path": "DOCS/AI/GUARDIAN_AI.md",
+      "bytes": 2282,
+      "sha256": "22cef79ef471e6ba5d987de0956a64daf3ef6817c508b51332ee9daf0e722bf2"
+    },
+    {
+      "path": "DOCS/TECHNICAL/TASK_01_IMPLEMENTATION.md",
+      "bytes": 6342,
+      "sha256": "1492e160de97c150abfe7296c79cd3838829d978f12922da5c72d0ac9f6ec4ac"
+    },
+    {
+      "path": "DOCS/TECHNICAL/SAVE_SYSTEM.md",
+      "bytes": 1505,
+      "sha256": "8ad789f4269911fa9f536cfce428b7c3e3f0d9340006592dd023d21b2496432d"
+    },
+    {
+      "path": "DOCS/TECHNICAL/NETWORKING.md",
+      "bytes": 2935,
+      "sha256": "4f76ef1b4c3a153e5344aff3fe8fa7234dd6bcb24cf955c01cbd5186b3b4fc20"
+    },
+    {
+      "path": "DOCS/TECHNICAL/DATA_MODEL.md",
+      "bytes": 2678,
+      "sha256": "e7bbc615d381350638a250d4f65fdbe802857cc56b44ef57ea693c0d8ac03473"
+    },
+    {
+      "path": "DOCS/TECHNICAL/ARCHITECTURE.md",
+      "bytes": 3214,
+      "sha256": "053b786d0c22697cbbd1461dee0e2854d5bfe547015c04d817421415a98f5a6d"
+    }
+  ],
+  "archiveMapping": {
+    "AGENTS.md": "LEGACY_ROBLOX/AGENTS.md",
+    "MASTER_GAME_SPEC.md": "LEGACY_ROBLOX/MASTER_GAME_SPEC.md",
+    "README.md": "LEGACY_ROBLOX/README.md",
+    "ASSET_MANIFEST.md": "LEGACY_ROBLOX/ASSET_MANIFEST.md",
+    "CHANGELOG.md": "LEGACY_ROBLOX/CHANGELOG.md",
+    "PROMPTS/README.md": "LEGACY_ROBLOX/PROMPTS/README.md",
+    "PROMPTS/CODEX_TASK_TEMPLATE.md": "LEGACY_ROBLOX/PROMPTS/CODEX_TASK_TEMPLATE.md",
+    "DOCS/DRAGONS/DRAGON_SYSTEM.md": "LEGACY_ROBLOX/DOCS/DRAGONS/DRAGON_SYSTEM.md",
+    "TESTING/TASK_01_STARTER_VISUAL_REPLACEMENT.md": "LEGACY_ROBLOX/TESTING/TASK_01_STARTER_VISUAL_REPLACEMENT.md",
+    "TESTING/TASK_01_PLAYTEST_REPORT.md": "LEGACY_ROBLOX/TESTING/TASK_01_PLAYTEST_REPORT.md",
+    "TESTING/README.md": "LEGACY_ROBLOX/TESTING/README.md",
+    "TESTING/PLAYTEST_CHECKLIST.md": "LEGACY_ROBLOX/TESTING/PLAYTEST_CHECKLIST.md",
+    "TESTING/BUG_LOG.md": "LEGACY_ROBLOX/TESTING/BUG_LOG.md",
+    "TESTING/ACCEPTANCE_CRITERIA.md": "LEGACY_ROBLOX/TESTING/ACCEPTANCE_CRITERIA.md",
+    "TASKS/TASK_05_CONTENT_POLISH_AND_RELEASE.md": "LEGACY_ROBLOX/TASKS/TASK_05_CONTENT_POLISH_AND_RELEASE.md",
+    "TASKS/TASK_04_HATCHING_COLLECTION_AND_ECONOMY.md": "LEGACY_ROBLOX/TASKS/TASK_04_HATCHING_COLLECTION_AND_ECONOMY.md",
+    "TASKS/TASK_03_WILD_NESTS_AND_GUARDIANS.md": "LEGACY_ROBLOX/TASKS/TASK_03_WILD_NESTS_AND_GUARDIANS.md",
+    "TASKS/TASK_02_DRAGON_FLIGHT_AND_STATS.md": "LEGACY_ROBLOX/TASKS/TASK_02_DRAGON_FLIGHT_AND_STATS.md",
+    "TASKS/TASK_01_CORE_TUTORIAL.md": "LEGACY_ROBLOX/TASKS/TASK_01_CORE_TUTORIAL.md",
+    "TASKS/TASK_00_PROJECT_SETUP.md": "LEGACY_ROBLOX/TASKS/TASK_00_PROJECT_SETUP.md",
+    "TASKS/README.md": "LEGACY_ROBLOX/TASKS/README.md",
+    "DOCS/TECHNICAL/TASK_01_IMPLEMENTATION.md": "LEGACY_ROBLOX/DOCS/TECHNICAL/TASK_01_IMPLEMENTATION.md",
+    "DOCS/TECHNICAL/SAVE_SYSTEM.md": "LEGACY_ROBLOX/DOCS/TECHNICAL/SAVE_SYSTEM.md",
+    "DOCS/TECHNICAL/NETWORKING.md": "LEGACY_ROBLOX/DOCS/TECHNICAL/NETWORKING.md",
+    "DOCS/TECHNICAL/DATA_MODEL.md": "LEGACY_ROBLOX/DOCS/TECHNICAL/DATA_MODEL.md",
+    "DOCS/TECHNICAL/ARCHITECTURE.md": "LEGACY_ROBLOX/DOCS/TECHNICAL/ARCHITECTURE.md",
+    "Steal_Baby_Dragon_Project_Setup_Prompt.md": "LEGACY_ROBLOX/PROMPTS/Steal_Baby_Dragon_Project_Setup_Prompt.md"
+  },
+  "moves": {
+    "TESTING/TASK_01_STARTER_VISUAL_REPLACEMENT.md": "LEGACY_ROBLOX/TESTING/TASK_01_STARTER_VISUAL_REPLACEMENT.md",
+    "TESTING/TASK_01_PLAYTEST_REPORT.md": "LEGACY_ROBLOX/TESTING/TASK_01_PLAYTEST_REPORT.md",
+    "TESTING/README.md": "LEGACY_ROBLOX/TESTING/README.md",
+    "TESTING/PLAYTEST_CHECKLIST.md": "LEGACY_ROBLOX/TESTING/PLAYTEST_CHECKLIST.md",
+    "TESTING/BUG_LOG.md": "LEGACY_ROBLOX/TESTING/BUG_LOG.md",
+    "TESTING/ACCEPTANCE_CRITERIA.md": "LEGACY_ROBLOX/TESTING/ACCEPTANCE_CRITERIA.md",
+    "TASKS/TASK_05_CONTENT_POLISH_AND_RELEASE.md": "LEGACY_ROBLOX/TASKS/TASK_05_CONTENT_POLISH_AND_RELEASE.md",
+    "TASKS/TASK_04_HATCHING_COLLECTION_AND_ECONOMY.md": "LEGACY_ROBLOX/TASKS/TASK_04_HATCHING_COLLECTION_AND_ECONOMY.md",
+    "TASKS/TASK_03_WILD_NESTS_AND_GUARDIANS.md": "LEGACY_ROBLOX/TASKS/TASK_03_WILD_NESTS_AND_GUARDIANS.md",
+    "TASKS/TASK_02_DRAGON_FLIGHT_AND_STATS.md": "LEGACY_ROBLOX/TASKS/TASK_02_DRAGON_FLIGHT_AND_STATS.md",
+    "TASKS/TASK_01_CORE_TUTORIAL.md": "LEGACY_ROBLOX/TASKS/TASK_01_CORE_TUTORIAL.md",
+    "TASKS/TASK_00_PROJECT_SETUP.md": "LEGACY_ROBLOX/TASKS/TASK_00_PROJECT_SETUP.md",
+    "TASKS/README.md": "LEGACY_ROBLOX/TASKS/README.md",
+    "DOCS/TECHNICAL/TASK_01_IMPLEMENTATION.md": "LEGACY_ROBLOX/DOCS/TECHNICAL/TASK_01_IMPLEMENTATION.md",
+    "DOCS/TECHNICAL/SAVE_SYSTEM.md": "LEGACY_ROBLOX/DOCS/TECHNICAL/SAVE_SYSTEM.md",
+    "DOCS/TECHNICAL/NETWORKING.md": "LEGACY_ROBLOX/DOCS/TECHNICAL/NETWORKING.md",
+    "DOCS/TECHNICAL/DATA_MODEL.md": "LEGACY_ROBLOX/DOCS/TECHNICAL/DATA_MODEL.md",
+    "DOCS/TECHNICAL/ARCHITECTURE.md": "LEGACY_ROBLOX/DOCS/TECHNICAL/ARCHITECTURE.md",
+    "Steal_Baby_Dragon_Project_Setup_Prompt.md": "LEGACY_ROBLOX/PROMPTS/Steal_Baby_Dragon_Project_Setup_Prompt.md",
+    "DOCS/DRAGONS/RIDER_UPGRADES.md": "DOCS/CREATURES/DRAGONS/RIDER_UPGRADES.md",
+    "DOCS/DRAGONS/RARITY_SYSTEM.md": "DOCS/CREATURES/DRAGONS/RARITY_SYSTEM.md",
+    "DOCS/DRAGONS/ELEMENT_SYSTEM.md": "DOCS/CREATURES/DRAGONS/ELEMENT_SYSTEM.md",
+    "DOCS/DRAGONS/DRAGON_SYSTEM.md": "DOCS/CREATURES/DRAGONS/DRAGON_SYSTEM.md",
+    "DOCS/DRAGONS/DRAGON_GROWTH.md": "DOCS/CREATURES/DRAGONS/DRAGON_GROWTH.md",
+    "REFERENCES/DRAGONS/3d-young-dragon-nature.glb": "public/assets/models/dragons/3d-young-dragon-nature.glb"
+  }
+}

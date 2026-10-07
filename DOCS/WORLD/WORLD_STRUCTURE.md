@@ -1,19 +1,23 @@
-# World Structure
+# Monster World Structure
 
-Authority: [MASTER_GAME_SPEC.md](../../MASTER_GAME_SPEC.md), sections 12 and 22.
+Authority: [Master specification](../../MASTER_GAME_SPEC.md). Task 00 is a spatial inspection foundation; no traversal, theft, chase or region progression is live.
 
-The world has multiple guarded wild nests and each player's own nest/safe zone. Players begin near easier nests. Later nests generally lie farther away and may gradually become higher, with more dangerous or visually distinct environments and more valuable egg pools.
+## Home and Physical Travel
 
-Avoid a perfectly vertical tower of nests. Longer return distances support the core guardian pursuit tension. Progression should primarily depend on player capabilities and stronger dragons rather than unnecessary hard level walls.
+The Sanctuary is an established compact fantasy Dragon City embedded in a valley. It is the warm, safe home and future collection/progression hub, not city-building gameplay. Streets, plazas, layered architecture, bridges and terraces connect its physical districts.
 
-TODO: map layout, coordinates, elevations, travel distances, biome roster, nest counts, and multiplayer base arrangement.
+World scale is gameplay, not merely scenery. Starter nests lie relatively close; mid-tier nests lie clearly farther; high-tier nests are substantially farther; highest-tier journeys are among the longest. Greater distance generally accompanies elevation, harder terrain, more exposed traversal, stronger Guardian pressure and rarer pools. Natural geography matters; avoid a perfect vertical tower. Do not put all nests within seconds of home, inside one arena or visible from the central plaza.
 
-See [environment references](../../REFERENCES/ENVIRONMENT/README.md), [wild nests](WILD_NEST_SYSTEM.md), and [nest configs](../../DATA/NEST_CONFIGS.md). No terrain or map objects are created in Task 00.
+The return journey while carrying a stolen Egg is core difficulty. A Guardian must not disengage solely at long distance. Arrival at the Sanctuary/Safe Zone is the successful escape condition. While carrying stolen Eggs, no direct teleport home, instant warp, skipped physical return or travel mechanic may cancel the chase. Convenience travel outside theft is optional future scope, not V1 requirement.
 
-## Current Progression and Reference Boundaries
+## Route Mastery
 
-Stronger rider + better dragon + higher growth stage support farther travel and harder raids. [World-overview-v1.png](../../REFERENCES/ENVIRONMENT/World-overview-v1.png) guides a large fantasy world, distinct biomes, generally increasing elevation, visual progression, and variety. Image level requirements, hard locks, biome ordering, numbers, and Fast Travel markers are not approved gameplay. Players normally physically escape back to their own safe zone.
+Important nests should have recognizable approaches and readable escape routes, navigation landmarks, obstacles, safer paths and risky shortcuts. Route knowledge, movement skill, Dragon performance and Rider upgrades all contribute to mastery. Exact route hazards and traversal design are TBD.
 
-Nests target 3–5 physical egg slots with individual counts. Per-slot respawn starts after theft: 300 seconds for standard nests, 600 seconds for the TWO highest-tier nests. Untouched eggs remain available. Exact nest identities/tier ordering are TBD; biome labels in references do not assign the two longer timers.
+## Task 00 Geometry
 
-The sanctuary is a Dragon Sanctuary/Dragon Village collection hub; tile-by-tile city-building is not the core loop. See [Reference Index](../../REFERENCES/REFERENCE_INDEX.md) and [Nest Configs](../../DATA/NEST_CONFIGS.md).
+[gameConfig.ts](../../src/config/gameConfig.ts) centralizes Sanctuary footprint, terrain extent, region/marker positions, elevations and camera framing. A continuous procedural valley terrain rises into forest hills, highlands, volcanic ridges and a distant frost summit. The order is directional, not a locked biome roster.
+
+Four non-functional markers communicate progression. Their coordinates and approximate horizontal distances are review values only; they do not define final distances, travel times, levels, egg pools or the two nests receiving 600-second timers. Orbit inspection views are development tools, not player fast travel. Final collision and route feasibility require later gameplay playtesting.
+
+See [Sanctuary](PLAYER_SANCTUARY.md), [Wild Nests](WILD_NEST_SYSTEM.md), [Nest Configs](../../DATA/NEST_CONFIGS.md) and [environment references](../../REFERENCES/ENVIRONMENT/README.md).

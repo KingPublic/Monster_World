@@ -18,9 +18,9 @@ For five slots, stealing eggs from slots 1 and 2 leaves them empty/respawning wh
 - The **two highest-tier** nests: **600 seconds / 10 minutes** after theft.
 - Timers are configurable per nest, not duplicated hardcoded periodic timers.
 
-## Shared Inventory
+## Single-player Inventory
 
-Slots are shared world resources. A successful claim makes that egg unavailable to other players and starts only that slot's cooldown. Claims must be **server-authoritative** so two players cannot both claim the same egg.
+V1 inventory belongs to one browser session and has no multiplayer synchronization requirement. A successful theft empties only its slot and starts that slot cooldown. Future multiplayer concurrency is separate scope. Task 00 has no inventory system.
 
 ## Carry and Hatching
 
@@ -30,4 +30,4 @@ Secured eggs hatch as Babies in the sanctuary. Tutorial free Starter Food quickl
 
 TBD: actual nest identities, per-nest slot assignment, pools/probabilities, pickup controls, initial fill/restart policy, failure handling, baby-dragon carrying rules, and later hatch timings. Approved per-slot respawn is settled; these open details must not replace it.
 
-See [Egg Pools](../../DATA/EGG_SPAWN_POOLS.md), [Nest Configs](../../DATA/NEST_CONFIGS.md), [Networking](../TECHNICAL/NETWORKING.md), and [Dragon Growth](../DRAGONS/DRAGON_GROWTH.md). No gameplay implementation occurs in this pass.
+See [Egg Pools](../../DATA/EGG_SPAWN_POOLS.md), [Nest Configs](../../DATA/NEST_CONFIGS.md), [Networking](../TECHNICAL/NETWORKING.md), and [Dragon Growth](../CREATURES/DRAGONS/DRAGON_GROWTH.md). No gameplay implementation occurs in this pass.
