@@ -1,5 +1,8 @@
 # Hatching GUI
 
+> Current MVP: Hatchery interaction starts a 2.5-second Egg wobble/glow/progress sequence and particles. The Baby is placed at the Mount court/habitat and the objective directs feeding there. Real fracture physics and a dedicated incubator panel are deferred.
+
+
 Authority: [MASTER_GAME_SPEC.md](../../MASTER_GAME_SPEC.md), sections 18 and 23–24.
 
 Secured eggs are placed/hatched in the sanctuary Hatchery. Hatching reveals a **Baby Dragon**, which is not a normal full mount. The tutorial hatches quickly, explains hunger, grants enough FREE STARTER FOOD, and feeds/grows the Baby into a rideable Young/Juvenile before the first mount.

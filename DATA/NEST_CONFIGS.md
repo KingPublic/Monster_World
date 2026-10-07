@@ -1,5 +1,8 @@
 # Nest Configuration Planning
 
+> Executable MVP: Forest 3 slots/300s; Highland 4/300s; Volcanic 5/600s; Frost 5/600s. Four preserved world positions are active; all contain Nature Eggs. Source: [mvpConfig](../src/config/mvpConfig.ts). Final catalog/route tuning below remains planning.
+
+
 Authority: [MASTER_GAME_SPEC.md](../MASTER_GAME_SPEC.md), sections 12–15 and 22.
 
 ## Confirmed V1 Fields

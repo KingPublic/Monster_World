@@ -1,5 +1,8 @@
 # Monster World Structure
 
+> Current MVP preserves the 12,000-unit terrain extent and Nest coordinates. Horizontal Sanctuary distances are about 460 / 1,191 / 2,519 / 3,905 units, with elevations 25 / 145 / 330 / 620. Nests are functional and are not moved closer for testing.
+
+
 Authority: [Master specification](../../MASTER_GAME_SPEC.md). Task 00 is a spatial inspection foundation; no traversal, theft, chase or region progression is live.
 
 ## Home and Physical Travel

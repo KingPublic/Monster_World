@@ -1,5 +1,8 @@
 # Egg System
 
+> Current MVP uses procedural Nature Eggs, independent slots and continuous 1.1-second hold-to-steal. Only the stolen slot starts cooldown. Carry levels 1/2/3 are enforced. Safe Zone delivery secures inventory; capture loses carried loot. Active raids/cooldowns are session-only.
+
+
 Authority: [MASTER_GAME_SPEC.md](../../MASTER_GAME_SPEC.md), sections 10, 12–13, 15, and 18.
 
 Players steal eggs or baby dragons from guarded wild nests and secure them at their own safe zone. Owned eggs and dragons cannot be stolen by other players. Returned eggs hatch as Babies; feeding/growth is required before normal mounting.

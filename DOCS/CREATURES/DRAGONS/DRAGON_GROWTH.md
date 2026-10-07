@@ -1,5 +1,8 @@
 # Dragon Growth System
 
+> Current MVP: Basic Food grants 50 Growth; 100 transforms Baby into Young. First hatch grants 2 free Food for immediate growth. Feeding animates eating; transformation uses particles and a procedural form replacement. Rarity and Nature Element remain unchanged. Adult growth and final tuning are deferred.
+
+
 Authority: [MASTER_GAME_SPEC.md](../../../MASTER_GAME_SPEC.md), sections 5–9, 18–22.
 
 ## Core Principle

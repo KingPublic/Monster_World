@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-10-08 — Autonomous Procedural Dragon MVP
+
+- Replaced the core static-GLB dependency with animated procedural Nature Baby, Young and Guardian forms plus Common/Uncommon/Rare/Epic Eggs; historical GLB and all reference images preserved.
+- Added responsive on-foot controls, a gameplay follow camera, walkable Sanctuary services/terraces and arcade mounted flight with Stamina, held Boost, banking, landing and reliable dismount.
+- Activated all four distant Nests with independent slots/cooldowns (3/4/5/5 slots; production 300/300/600/600 seconds), continuous hold theft, persistent Guardian pursuit, Safe Zone delivery and forgiving capture.
+- Implemented quick hatching, free starter Food, identity-preserving Baby → Young growth and the tutorial through first flight/Boost/landing.
+- Added Coins, Basic Food Shop, Collection, universal Rider upgrades, validated version-1 localStorage saves and basic touch controls.
+- Added development-only travel/timer/inventory/reset tools; carried loot cannot teleport. Production debug UI/API is absent.
+- Fixed stale interaction edges, mounted rider teardown and frame-rate-dependent takeoff. Validation and limitations are in the [MVP build report](TASK_MVP_AUTONOMOUS_BUILD_REPORT.md).
+- No new runtime dependencies, Git mutations, commit, push, merge or deployment.
+
 ## 2026-10-07 — Monster World Web Migration and World Foundation
 
 - Reframed the project as Monster World, a single-player browser adventure, preserving Dragons as the only active creature family and conceptual future extensibility.

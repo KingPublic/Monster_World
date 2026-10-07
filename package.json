@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Monster World Dragon-first web world foundation",
+  "description": "Monster World procedural Dragon single-player browser MVP",
   "scripts": {
     "dev": "vite",
     "typecheck": "tsc --noEmit",
     "build": "npm run typecheck && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node tests/core-runner.mjs"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

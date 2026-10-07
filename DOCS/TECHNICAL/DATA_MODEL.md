@@ -1,7 +1,17 @@
-# Browser Domain Model Direction
+# Browser Domain Model
 
-Design concepts, not a finalized runtime/save schema: Dragon ownership/selection; independent Rarity + Element + Growth Stage; Growth Progress; Food ownership; stage-adjusted base Speed/Stamina/Boost; universal Rider multipliers and Carry Capacity 1/2/3; carried versus secured Eggs; per-nest slots/pools/Guardian/Tier; Coins and progression.
+[Progression](../../src/gameplay/Progression.ts) owns serializable inventory/economy/tutorial state and independent in-session Egg slots. Rendering consumes this state; Three.js objects are never serialized.
 
-Planned NestConfig fields remain EggSlotCount (configurable 3–5), EggSpawnPool (TBD), EggRespawnSeconds (300 standard; 600 for the two highest-tier nests), Guardian (TBD) and Tier (TBD). Only a stolen slot enters cooldown; untouched eggs remain. V1 state is single player. Stable IDs, field types, serialization/versioning, saved cooldown initialization and failure handling remain TBD.
+| Record | Main fields |
+| --- | --- |
+| DragonRecord | id, name, rarity, element: Nature, stage: Baby/Young, growth |
+| CarriedEgg / secured Egg | id, rarity, element: Nature, nestId |
+| SaveData v1 | tutorialComplete/step, coins, food, dragons, equippedDragonId, carryLevel, upgrades, securedEggs |
+| NestState | id, slots: egg or null + remaining cooldown |
+| Runtime Nest config | preserved marker coordinates, slotCount, pool, respawnSeconds, Guardian speed/grace/catch radius |
 
-Task 00 config describes visual region positions and runtime assets only; it is not a production balance catalog. Future Creature → Dragon extension must remain practical and Dragons-only until authorized. Growth preserves Rarity/Element and Rider multipliers apply after stage-adjusted bases. [DATA](../../DATA/README.md) retains balance planning. See [save direction](SAVE_SYSTEM.md) and [architecture](ARCHITECTURE.md).
+Rarity and Element are independent of Growth Stage. Feeding cannot change either identity. Baby is not equipable/rideable; Young owns a procedural saddle anchor. Carry levels 1/2/3 permit exactly 1/2/3 Eggs.
+
+Only a stolen slot empties and begins its 300/600-second cooldown. Development time scaling is passed to timer updates, never written into production config. Captured stolen loot is lost; ownership and Coins remain intact. Safe Zone delivery moves carried Eggs to secured inventory and grants rewards before capture can apply.
+
+[Runtime configuration](../../src/config/mvpConfig.ts) centralizes provisional balance, distinct from unresolved final tuning in [DATA](../../DATA/README.md). See [save behavior](SAVE_SYSTEM.md).

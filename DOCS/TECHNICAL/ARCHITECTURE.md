@@ -1,13 +1,25 @@
 # Web Architecture
 
-Browser → Game Loop → Three.js Scene → future Gameplay Systems → HTML/CSS UI.
+The active runtime is TypeScript + plain Three.js + Vite, with HTML/CSS overlays and browser-local persistence. [Game](../../src/core/Game.ts) coordinates the single-player scene and owns startup, pause/panels, interactions, tutorial transitions and teardown.
 
-The active runtime is plain Three.js with TypeScript and Vite. V1 is single player. [Game.ts](../../src/core/Game.ts) composes the renderer, scene, world, camera and UI. [Renderer.ts](../../src/core/Renderer.ts) owns WebGL, capped pixel ratio and resize. [GameLoop.ts](../../src/core/GameLoop.ts) owns animation frames and visibility pausing. [CameraSystem.ts](../../src/systems/CameraSystem.ts) owns OrbitControls and inspection presets, not player controls.
+| Responsibility | Implementation |
+| --- | --- |
+| Renderer, capped pixel ratio, resize / visibility-aware loop | [Renderer](../../src/core/Renderer.ts), [GameLoop](../../src/core/GameLoop.ts) |
+| Keyboard/touch edges and holds, follow camera | [InputSystem](../../src/systems/InputSystem.ts), [FollowCamera](../../src/systems/FollowCamera.ts) |
+| Foot movement / arcade mounted flight | [PlayerController](../../src/gameplay/PlayerController.ts), [Flight](../../src/gameplay/Flight.ts) |
+| Terrain floor and simple building footprints | [Traversal](../../src/world/Traversal.ts) |
+| Large world / layered Sanctuary | [World](../../src/world/World.ts), [Sanctuary](../../src/world/Sanctuary.ts), [Environment](../../src/world/Environment.ts) |
+| Animated Nature family / rarity Eggs | [ProceduralDragon](../../src/creatures/ProceduralDragon.ts), [EggModel](../../src/creatures/EggModel.ts) |
+| Pure inventory, independent slot timers, growth/economy | [Progression](../../src/gameplay/Progression.ts) |
+| Pursuit and return / limited particles | [Guardian](../../src/gameplay/Guardian.ts), [Effects](../../src/gameplay/Effects.ts) |
+| Versioned validated local storage | [SaveSystem](../../src/systems/SaveSystem.ts) |
+| HUD, welcome, shop, collection, upgrades | [UIManager](../../src/ui/UIManager.ts) |
+| Provisional runtime balance / world coordinates | [mvpConfig](../../src/config/mvpConfig.ts), [gameConfig](../../src/config/gameConfig.ts) |
 
-[World.ts](../../src/world/World.ts) combines continuous surrounding terrain, the layered Sanctuary and non-functional nest markers. [Sanctuary.ts](../../src/world/Sanctuary.ts) is city composition; [Environment.ts](../../src/world/Environment.ts) is procedural terrain/vegetation. [AssetSystem.ts](../../src/systems/AssetSystem.ts) loads and inspects the static GLB, with a safe visual fallback. [UIManager.ts](../../src/ui/UIManager.ts) provides HTML inspection controls, labels and asset status. Configurable positions and rendering values live in [gameConfig.ts](../../src/config/gameConfig.ts); runtime paths live in [assetManifest.ts](../../src/config/assetManifest.ts).
+Dragon roots own world transforms; component animation stays local. Mount anchors explicitly parent the rider. Game evaluates Safe Zone delivery before Guardian capture. Pursuit has no distance leash. Each stolen slot owns its cooldown.
 
-No empty gameplay architecture stubs are added. Future Creature/Dragon, Player/Egg/WildNest/Tutorial, movement/collision/input/audio/save modules should be introduced when a task needs them. Only Dragons are authorized. Scene geometry/materials/textures, controls, event listeners and render loops are disposed during HMR/teardown. Asset completion after disposal must not restore an obsolete scene.
+Normal gameplay uses the follow camera. Task 00's OrbitControls camera and GLB loader remain optional inspection utilities, with no core runtime dependency. The static GLB is preserved unchanged.
 
-Three.js uses a perspective camera, ambient hemisphere/directional light, fog, responsive canvas and capped devicePixelRatio. Modern desktop/mobile WebGL 2 browsers are the target; performance budgets and older devices require later profiling. World scale and distant nest return routes are gameplay requirements, even before gameplay exists.
+Repeated vegetation uses instancing; Dragon static pieces are batched within each instance. Pixel ratio, particle counts and shadow casters are limited. Collision, camera obstruction and Guardian steering are deliberately simple. Geometry/materials, listeners, controls, rider/model resources and render loops are disposed on teardown/HMR.
 
-No backend, account, multiplayer or persistence is implemented. Former Studio architecture and reports are in [LEGACY_ROBLOX](../../LEGACY_ROBLOX/README.md). See [asset pipeline](ASSET_PIPELINE.md), [controls](INPUT_AND_CONTROLS.md), [save direction](SAVE_SYSTEM.md) and [deployment](DEPLOYMENT.md).
+Development tools require both `import.meta.env.DEV` and `?debug=1`; no production debug API/UI or accelerated balancing. See [controls](INPUT_AND_CONTROLS.md), [save format](SAVE_SYSTEM.md), [asset pipeline](ASSET_PIPELINE.md) and [build report](../../TASK_MVP_AUTONOMOUS_BUILD_REPORT.md). No backend or multiplayer.

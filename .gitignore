@@ -34,3 +34,6 @@ output/playwright/
 
 # Browser automation scratch state
 .playwright-mcp/
+
+# Procedural model verification scratch artifacts
+output/model-check/

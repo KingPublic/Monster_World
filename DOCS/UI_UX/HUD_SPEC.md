@@ -1,5 +1,8 @@
 # HUD Specification
 
+> Current MVP: navy/charcoal panels with gold/teal accents, objective/destination compass, context/hold prompt, Coins/Food, carry count, current Dragon/growth, flight Stamina/Boost and notifications. Touch controls and service dialogs are responsive; debug tools are development-only.
+
+
 Authority: [MASTER_GAME_SPEC.md](../../MASTER_GAME_SPEC.md), sections 11, 21, and 23.
 
 The HUD should be clean, readable, modern, polished, fantasy themed, and appropriate for desktop/mobile without excessive clutter. Expected information includes Coins/resources, stamina, hold-to-use Boost, carry count, current dragon, and tutorial objectives.

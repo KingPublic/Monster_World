@@ -1,6 +1,6 @@
 # Monster World — Master Game Specification
 
-Monster World is a browser-based 3D fantasy creature adventure, currently focused on Dragons. This specification governs approved design. Confirmed rules, configurable V1 values, targets, candidate examples and TBD decisions remain distinct. The web migration is Task 00; the web Task 01 vertical slice is NOT STARTED and requires separate authorization. Historical prototype results live in [LEGACY_ROBLOX](LEGACY_ROBLOX/README.md).
+Monster World is a browser-based 3D fantasy creature adventure, currently focused on Dragons. This specification governs approved design. Confirmed rules, configurable V1 values, targets, candidate examples and TBD decisions remain distinct. Task 00 migration is complete. The 2026-10-08 Autonomous Dragon MVP authorization implements the vertical slice, procedural models/animation, flight, four nests, economy, local save and basic touch support. Prototype balancing is centralized and remains subject to playtesting. Historical prototype results live in [LEGACY_ROBLOX](LEGACY_ROBLOX/README.md).
 
 ## 1. Game Vision
 
@@ -12,7 +12,7 @@ Dragons only. The initial single-player web adventure preserves the Dragon Sanct
 
 > Dragons are the first implemented creature family and the sole gameplay/content focus of the initial web vertical slice. Architecture may support future creature families, but no other monster family should be implemented until explicitly authorized.
 
-Task 00 builds a technical inspection world, not a playable slice. No other creature family or gameplay system is implemented in this migration.
+Task 00 established the technical world. The authorized MVP now implements the Dragon gameplay loop; no other creature family is implemented.
 
 ## 2. Core Fantasy
 
@@ -34,7 +34,7 @@ See [Core Loop](DOCS/GAMEPLAY/CORE_LOOP.md), [Dragon Growth](DOCS/CREATURES/DRAG
 
 Players begin the tutorial on foot and later ride their first Young/Juvenile dragon after feeding the hatched Baby. Permanent upgrades belong to the player/rider and apply universally to every dragon they ride.
 
-On desktop, hold **Left Shift** to Sprint on foot and to Boost while riding. See section 11. Other character controls, interaction mappings, and on-foot sprint tuning remain TODO.
+On desktop, hold **Left Shift** to Sprint on foot and to Boost while riding. See section 11. MVP controls: WASD movement, mouse drag follow camera, E/context interaction, Space jump/ascend, Left Ctrl descend and F landed dismount. Foot speeds are provisionally 30 walk / 50 sprint.
 
 ## 5. Dragon Mounts
 
@@ -50,7 +50,7 @@ Mythic Storm Egg → Mythic Storm Baby → Mythic Storm Juvenile → Mythic Stor
 
 V1 stage direction is Egg → Baby → Juvenile / Young → Adult; exact stage naming can be standardized later. Feeding grants Growth Points, fills Growth Progress, and triggers the next stage at its threshold. The transition updates the model, animation/VFX, and applicable stage-dependent stats.
 
-Dragons have their own base movement stats and may have different movement profiles. Smooth movement and animation are priorities. Desired movement includes takeoff, normal flight, gliding, turning/banking, ascending, descending, landing, and boosting. These are future implementations.
+Dragons have their own base movement stats and may have different movement profiles. Smooth movement and animation are priorities. Desired movement includes takeoff, normal flight, gliding, turning/banking, ascending, descending, landing, and boosting. These movements are implemented procedurally for the MVP Young form; final animation polish remains future work.
 
 See [Dragon System](DOCS/CREATURES/DRAGONS/DRAGON_SYSTEM.md), [Dragon Growth](DOCS/CREATURES/DRAGONS/DRAGON_GROWTH.md), and [Growth Values](DATA/DRAGON_GROWTH_VALUES.md).
 
@@ -106,7 +106,7 @@ Carrying should feel physical and readable. Use [Dragon-flight-carry-v1.png](REF
 
 ## 11. Boost and Stamina
 
-Boost is **hold-to-use**, without repeated tapping. Holding Boost increases flight speed and consumes stamina substantially faster. Releasing it smoothly returns toward normal flight speed. Stamina regeneration follows future balancing rules.
+Boost is **hold-to-use**, without repeated tapping. Holding Boost increases flight speed and consumes stamina substantially faster. Releasing it smoothly returns toward normal flight speed. MVP Boost drains 28 Stamina/s; regeneration is 18/s after a short delay. Normal flight is currently free; tuning is provisional.
 
 ### Confirmed Desktop Input
 
@@ -119,9 +119,9 @@ Boost is active only while held. Do not require frequent repeated Shift presses.
 
 ### Confirmed Mobile Input
 
-Use a dedicated **HOLD Boost** button. [Mobile-HUD-v1.png](REFERENCES/GUI/Mobile-HUD-v1.png) guides general placement and visual direction; exact sizing is implementation-dependent. Other touch controls and on-foot mobile Sprint mapping remain TODO.
+Use a dedicated **HOLD Boost** button. [Mobile-HUD-v1.png](REFERENCES/GUI/Mobile-HUD-v1.png) guides general placement and visual direction; exact sizing is implementation-dependent. Basic touch joystick, camera swipe, Interact, Up/Jump, Down, held Sprint/Boost and Dismount are implemented; physical-device certification remains pending.
 
-TODO: normal flight stamina behavior, depletion, regeneration, drain rates, and all unconfirmed inputs. [HUD-v2.png](REFERENCES/GUI/HUD-v2.png) and [Flight-hud-v1.png](REFERENCES/GUI/Flight-hud-v1.png) provide presentation references. A Q shortcut or separate numerical Boost meter in another image is not an approved input or resource mechanic.
+MVP flight values are centralized in [mvpConfig](src/config/mvpConfig.ts); exhaustion requires releasing Boost before reuse. Final drain/balance tuning remains open. [HUD-v2.png](REFERENCES/GUI/HUD-v2.png) and [Flight-hud-v1.png](REFERENCES/GUI/Flight-hud-v1.png) provide presentation references. A Q shortcut or separate numerical Boost meter in another image is not an approved input or resource mechanic.
 
 ## 12. Wild Dragon Nests
 
@@ -150,11 +150,11 @@ For a five-slot nest, theft from slots 1 and 2 leaves those two empty/respawning
 | Normal / lower / mid-tier nests | **300 seconds (5 minutes)** | After that slot's egg is taken |
 | The **two highest-tier** Wild Nests | **600 seconds (10 minutes)** | After that slot's egg is taken |
 
-Both values are approved **configurable V1 balancing values**, adjustable after playtesting. Centralize configuration per nest: `EggSlotCount`, `EggSpawnPool`, `EggRespawnSeconds`, `Guardian`, and `Tier`. Do not duplicate hardcoded timers across systems. Exact nest identities/tier ordering, per-nest slot assignment, pools, and rarity probabilities remain TBD.
+Both values are approved **configurable V1 balancing values**, adjustable after playtesting. Centralize configuration per nest: `EggSlotCount`, `EggSpawnPool`, `EggRespawnSeconds`, `Guardian`, and `Tier`. Do not duplicate hardcoded timers across systems. The current provisional assignment is Forest 3 slots/300s, Highland 4/300s, Volcanic 5/600s, Frost 5/600s. All pools use Nature, with Common through Epic progression. Final tuning remains open.
 
 ### Single-player Inventory Direction
 
-V1 runs in one browser session. Only the stolen slot empties and enters cooldown; untouched eggs remain available. Future multiplayer concurrency and synchronization are separate scope. Task 00 contains only non-functional markers, with no eggs, theft or timers.
+V1 runs in one browser session. Only the stolen slot empties and enters cooldown; untouched eggs remain available. Future multiplayer concurrency and synchronization are separate scope. Task 00's markers are now functional Wild Nests with independent Eggs and timers; their original coordinates are preserved.
 
 See [Egg System](DOCS/GAMEPLAY/EGG_SYSTEM.md), [Wild Nest System](DOCS/WORLD/WILD_NEST_SYSTEM.md), [Egg Spawn Pools](DATA/EGG_SPAWN_POOLS.md), [Nest Configs](DATA/NEST_CONFIGS.md), and [Networking](DOCS/TECHNICAL/NETWORKING.md).
 
@@ -190,7 +190,7 @@ The guardian must not simply lose aggression because the player has flown far en
 
 While carrying stolen Eggs, no direct teleport home, instant Sanctuary warp, skipped physical return or travel mechanic may cancel the Guardian Chase. Future convenience travel outside active theft is optional later scope.
 
-TBD: consequences of capture, death, abandoned stolen items and interruptions. Those unresolved cases must not silently become new chase rules.
+MVP capture loses carried stolen Eggs and resets the player safely to Sanctuary; owned Dragons and Coins remain. Reload abandons active carried loot and resets in-session slots/Guardians; secured loot persists. No death/combat system.
 
 ## 16. Dragon Sanctuary / Fantasy City
 
@@ -202,7 +202,7 @@ The Sanctuary should visually feel like a compact **fantasy Dragon City / Dragon
 
 The game is **not a city-builder**. Players are not required to construct buildings tile-by-tile as the core loop. The primary loop remains stealing from guarded wild nests and physically escaping home, followed by Hatch → Feed → Grow → Ride → Upgrade.
 
-The physical Shop primarily sells Dragon Food for normal gameplay Coins. Detailed layout, sanctuary visual progression, and other services remain TODO. Teleport/Fast Travel shown in [Player-nest-services-v1.png](REFERENCES/ENVIRONMENT/Player-nest-services-v1.png) is visual/conceptual only and is not an approved service.
+The physical Shop primarily sells Dragon Food for normal gameplay Coins. Hatchery, Food Shop, Collection, Rider upgrades and Mount court are functional; final city polish and broader service content remain future work. Teleport/Fast Travel shown in [Player-nest-services-v1.png](REFERENCES/ENVIRONMENT/Player-nest-services-v1.png) is visual/conceptual only and is not an approved service.
 
 See [Player Nest](DOCS/WORLD/PLAYER_SANCTUARY.md) and [Shop and Food](DOCS/GAMEPLAY/SHOP_AND_FOOD.md).
 
@@ -210,7 +210,7 @@ See [Player Nest](DOCS/WORLD/PLAYER_SANCTUARY.md) and [Shop and Food](DOCS/GAMEP
 
 The player returns to their own safe zone to secure stolen items. The pursuing guardian stops and returns to its original wild nest after successful arrival.
 
-TODO: exact boundaries, presentation, and arrival validation. See [Safe Zone](DOCS/WORLD/SAFE_ZONE.md).
+MVP Safe Zone is a glowing 145-unit Sanctuary perimeter with altitude below 100. Delivery is evaluated before Guardian capture. See [Safe Zone](DOCS/WORLD/SAFE_ZONE.md).
 
 ## 18. Hatching
 
@@ -234,7 +234,7 @@ See [Dragon Collection GUI](DOCS/UI_UX/DRAGON_COLLECTION_GUI.md). Passive income
 
 Shop categories are Dragon Food (core progression), Utility (future optional support; exact items unresolved), and Cosmetics (future customization; not required for current MVP gameplay). Candidate food types include Starter Food, Basic Food, Better Food, and element-themed treats; exact items and values remain TBD. Tutorial Starter Food is free and sufficient for the first rideable stage.
 
-Income sources, reward rules, food prices/points, growth thresholds, rider costs, and any other currencies remain TBD. No passive-income system, temporary boosts, paid timers, or premium products are approved by image filler.
+MVP provisional values: delivery 50 Coins/Egg, tutorial reward 75, Basic Food 20 Coins/+50 Growth, Young threshold 100. Rider values are centralized in mvpConfig. Only Coins are implemented. No passive-income system, temporary boosts, paid timers, or premium products are approved by image filler.
 
 See [Shop and Food](DOCS/GAMEPLAY/SHOP_AND_FOOD.md), [Growth Values](DATA/DRAGON_GROWTH_VALUES.md), and [Economy Balance](DATA/ECONOMY_BALANCE.md).
 
@@ -242,11 +242,11 @@ See [Shop and Food](DOCS/GAMEPLAY/SHOP_AND_FOOD.md), [Growth Values](DATA/DRAGON
 
 Keep onboarding fast: approximately the opening **1–3 minutes / few minutes**, subject to playtesting. Spawn on foot → learn movement → travel to nearby Starter Wild Nest → see Guardian protecting eggs → steal tutorial egg → theft detected → Guardian alerts/roars and pursues → return to own Sanctuary/Safe Zone → egg secured → Guardian stops and returns home → place/hatch egg → Baby appears → explain hunger → grant FREE STARTER FOOD → feed Baby → Growth Progress fills → Baby grows into rideable Young/Juvenile → mount → basic flight introduction → tutorial complete.
 
-The first dragon requires no grinding, long waiting, or premium gates. The free starter grant must be sufficient to reach the first rideable stage; quantities, points, and thresholds remain TBD.
+The first dragon requires no grinding, long waiting, or premium gates. The free starter grant must be sufficient to reach the first rideable stage; the MVP grants 2 Food, each worth 50 Growth, to reach Young at 100.
 
-The first web vertical slice is planned for [Task 01](TASKS/TASK_01_DRAGON_VERTICAL_SLICE.md); it is NOT STARTED. The historical prototype provides design lessons, not an existing web implementation. Other inputs, tutorial tuning and starter rarity remain TBD.
+The first web vertical slice is implemented under [Task 01](TASKS/TASK_01_DRAGON_VERTICAL_SLICE.md) and the autonomous MVP authorization. The historical prototype provides design lessons, not an existing web implementation. The current starter is Common Nature. Desktop/touch controls and tutorial completion through landed dismount are implemented; final onboarding tuning remains open.
 
-The existing Nature Young/Juvenile GLB is a static showcase asset only. It does not establish Baby, Guardian or Adult assets, a rig, movement or numerical tuning.
+Core Nature Baby, Young and Guardian visuals use procedural Three.js groups and component animation. The external static GLB is preserved as an optional debug/reference asset and is never needed by gameplay. Adult content remains deferred.
 
 ## 22. World Progression
 
@@ -284,7 +284,7 @@ These are future animation targets, not implementations in this documentation pa
 
 Avoid hyper-realism, an exclusively extremely childish/chibi presentation, inconsistent asset packs, and a generic low-quality AI-generated appearance.
 
-Concept/reference images are visual targets, not automatically production-final assets. High-quality final models may require modeling or mesh generation, optimization, rigging, skinning, animation, GLB export, review, and iteration. All prototypes must remain replaceable.
+Concept/reference images are visual targets, not automatically production-final assets. Core Dragons use procedural geometry and component animation; final art can iterate without requiring external rigging or a GLB. All prototypes must remain replaceable.
 
 [Art-direction-master-style-v1.png](REFERENCES/ART_DIRECTION/Art-direction-master-style-v1.png) is the active global visual reference: warm sanctuary spaces, distinct elemental zones, readable growth/guardian silhouettes, and dark panels with fantasy trim. Image-only Strength/Luck stats, selling, products, and numbers are not approved mechanics.
 
@@ -308,13 +308,11 @@ See [Save System](DOCS/TECHNICAL/SAVE_SYSTEM.md) and [Data Model](DOCS/TECHNICAL
 
 ## 29. Technical Architecture
 
-The active runtime is Vite + TypeScript + plain Three.js, with a WebGL canvas and HTML/CSS overlay. Browser → Game Loop → Three.js Scene → future Gameplay Systems → HTML/CSS UI. Useful foundations are renderer/resize, render loop, inspection camera, procedural world and asset loading; gameplay systems are added only by later authorized tasks.
+The active runtime is Vite + TypeScript + plain Three.js, WebGL canvas and HTML/CSS overlays. Game coordinates PlayerController, FollowCamera/InputSystem, Flight, Guardians, procedural Dragon/Egg models, pure Progression, Effects and SaveSystem. Normal gameplay never uses OrbitControls or the external GLB. Resource/listener cleanup supports HMR and mounted teardown.
 
-Dragon GLB assets live under public/assets/models/dragons and load through GLTFLoader. References remain outside public. The existing GLB is static: one mesh/material, two nodes, no skins, bones or animation clips. Static visual asset — animation/rigging requires future work.
+Configurable prototype balancing lives in [mvpConfig.ts](src/config/mvpConfig.ts), with original world extent/positions in gameConfig.ts. Four nests retain 3/4/5/5 slots and production respawn 300/300/600/600 seconds. Dev-only respawn acceleration and travel helpers require DEV plus ?debug=1; stolen loot forbids debug travel. Saved owned identity/growth/equipment, tutorial, Coins, Food and Rider upgrades use validated localStorage version1. Active loot/cooldowns do not persist across reload.
 
-Keep configurable world positions centralized. Planned per-nest fields remain EggSlotCount (3–5), EggSpawnPool, EggRespawnSeconds (300 standard; 600 for the two highest-tier nests), Guardian and Tier. These are documented balancing values, not live Task 00 systems. Growth/food/stat balance remains TBD.
-
-Phase 1 saves will use localStorage and/or IndexedDB; persistence is not implemented in Task 00. Optional cloud saves are future scope requiring authorization. Build output is dist/ for a standard static GitHub/Vercel workflow. Do not deploy automatically. See [Architecture](DOCS/TECHNICAL/ARCHITECTURE.md).
+Core Dragon animation uses local transforms for breathing, head/tail, cyclic legs, wings, alert/roar, flight/bank/ascent/descent/Boost and landing. No external rig or clips are implied. Static GitHub/Vercel deployment remains documented, with no deployment performed. See [Architecture](DOCS/TECHNICAL/ARCHITECTURE.md) and [MVP report](TASK_MVP_AUTONOMOUS_BUILD_REPORT.md).
 
 ## 30. MVP Scope
 
@@ -324,19 +322,17 @@ The following milestones outline additional planned systems. TODO: final MVP/rel
 
 ## 31. Out of Scope
 
-Task 00 excludes egg stealing/spawning, Guardian AI/chase, hatching, feeding, growth, mounting, flight controls, player movement/collision, final mobile controls, economy, Shop/Collection functionality, persistence, multiplayer, backend, authentication and final art/UI/audio.
-
-Other creature families require explicit authorization. Tile-by-tile city building, Guardian boss combat, image-only progression locks/monetization and theft-state fast travel are excluded. Unapproved prices, stat values, timers, content rosters and abilities remain TBD. Never automatically begin the next milestone.
+Multiplayer, trading, breeding, other creature families, backend/accounts/cloud save, weapons/Guardian HP/boss combat, premium currency/monetization and city building are excluded. No fast travel while carrying stolen Eggs. Adult forms, additional elements, final art/audio, advanced IK/collision/camera obstruction and release/device certification remain future work. Current numeric tuning is provisional, not final balance.
 
 ## 32. Web Milestones
 
-| Task | Objective | Current status |
-| --- | --- | --- |
-| [00](TASKS/TASK_00_WEB_MIGRATION_AND_WORLD_FOUNDATION.md) | Migration, technical boot and world composition | COMPLETE — migration and foundation verified |
-| [01](TASKS/TASK_01_DRAGON_VERTICAL_SLICE.md) | Spawn → explore → steal → chase → escape → hatch → feed → grow → ride | NOT STARTED; separate authorization required |
-| [02](TASKS/TASK_02_DRAGON_FLIGHT_AND_ANIMATION.md) | Dragon flight and animation | NOT STARTED |
-| [03](TASKS/TASK_03_WILD_NESTS_AND_GUARDIANS.md) | Multiple nests, egg slots and Guardians | NOT STARTED |
-| [04](TASKS/TASK_04_GROWTH_COLLECTION_ECONOMY.md) | Growth, collection, economy and local saves | NOT STARTED |
-| [05](TASKS/TASK_05_WORLD_CONTENT_AND_RELEASE.md) | Dragon world content, polish and release | NOT STARTED |
+| Task | Current result |
+| --- | --- |
+| [00](TASKS/TASK_00_WEB_MIGRATION_AND_WORLD_FOUNDATION.md) | COMPLETE — migration foundation preserved |
+| [01](TASKS/TASK_01_DRAGON_VERTICAL_SLICE.md) | MVP IMPLEMENTED — complete tutorial loop |
+| [02](TASKS/TASK_02_DRAGON_FLIGHT_AND_ANIMATION.md) | MVP IMPLEMENTED — procedural family/animation, arcade flight |
+| [03](TASKS/TASK_03_WILD_NESTS_AND_GUARDIANS.md) | MVP IMPLEMENTED — four distant nests, slot cooldowns and Guardians |
+| [04](TASKS/TASK_04_GROWTH_COLLECTION_ECONOMY.md) | MVP IMPLEMENTED — Baby→Young, shop/collection/save/upgrades; Adult deferred |
+| [05](TASKS/TASK_05_WORLD_CONTENT_AND_RELEASE.md) | MVP POLISH IMPLEMENTED — touch/VFX; final art, balance/device certification/release deferred |
 
-Stop after Task 00. The historical prototype's completion does not carry over to web tasks.
+This autonomous run stops after final MVP verification/report. Version control and release remain the user's responsibility.

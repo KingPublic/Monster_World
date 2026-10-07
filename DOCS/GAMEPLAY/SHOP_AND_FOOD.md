@@ -1,5 +1,8 @@
 # Shop and Food System
 
+> Current MVP sells Basic Dragon Food for 20 Coins; each gives 50 Growth. Successful Egg delivery gives 50 Coins and tutorial completion gives 75. First hatch grants two free Food. Final economy tuning and additional products remain deferred.
+
+
 Authority: [MASTER_GAME_SPEC.md](../../MASTER_GAME_SPEC.md), sections 16 and 20.
 
 The Player Nest contains a **physical Shop**. One of its primary functions is selling **Dragon Food**, primarily purchased using normal gameplay **Coins**.

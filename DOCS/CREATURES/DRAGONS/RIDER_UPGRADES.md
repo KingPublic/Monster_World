@@ -1,5 +1,8 @@
 # Rider Permanent Upgrades
 
+> Current MVP: Coin-bought Speed/Stamina/Boost multiplier levels (three levels, +15% each) and Carry 1/2/3 work at the Rider area. Prices are provisional in [mvpConfig](../../../src/config/mvpConfig.ts).
+
+
 Authority: [MASTER_GAME_SPEC.md](../../../MASTER_GAME_SPEC.md), sections 9–10.
 
 Permanent rider upgrades apply universally to every dragon the player rides. Confirmed categories are Speed multiplier, Stamina multiplier, Boost multiplier, and Carry Capacity.

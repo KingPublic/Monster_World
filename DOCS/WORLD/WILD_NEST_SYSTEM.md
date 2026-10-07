@@ -1,5 +1,8 @@
 # Wild Nest System
 
+> Current MVP activates all four preserved Nest positions: 3/4/5/5 physical slots and 300/300/600/600-second per-slot cooldowns. All pools contain Nature Eggs with increasing rarity. Development-only timer scaling accelerates testing while production config remains intact.
+
+
 Authority: [MASTER_GAME_SPEC.md](../../MASTER_GAME_SPEC.md), sections 12–15.
 
 Each Wild Nest has multiple physical egg slots, its own egg pool and rarity distribution, its own Guardian, and per-nest configuration. V1 target slot capacity is **3–5**, allowed to differ between nests. Starter 3, mid-tier 4, and larger/higher-tier up to 5 are examples; actual assignments remain TBD.

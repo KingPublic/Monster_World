@@ -1,5 +1,8 @@
 # Rarity System
 
+> Current MVP implements Common, Uncommon, Rare and Epic, independently of Nature Element and Baby/Young Stage. Pools are centralized in [mvpConfig](../../../src/config/mvpConfig.ts); broader rarity catalogs remain deferred.
+
+
 Authority: [MASTER_GAME_SPEC.md](../../../MASTER_GAME_SPEC.md), section 6.
 
 Rarity, element, and growth stage are separate. Growing a dragon preserves its rarity and element; Mythic Storm Baby → Mythic Storm Juvenile → Mythic Storm Adult is an identity example. Candidate tiers are Common, Uncommon, Rare, Epic, Legendary, and Mythic, with potentially special/secret tiers later. These are possible categories, **not a finalized tier roster**.

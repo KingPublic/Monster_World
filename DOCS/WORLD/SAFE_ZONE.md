@@ -1,5 +1,8 @@
 # Safe Zone
 
+> Current MVP: a glowing Sanctuary perimeter at radius 145 world units; delivery also requires altitude below 100. Entering secures all carried Eggs, rewards Coins, shows particles/feedback and sends each corresponding Guardian home. Safe Zone delivery is evaluated before capture.
+
+
 Authority: [MASTER_GAME_SPEC.md](../../MASTER_GAME_SPEC.md), sections 15–17.
 
 The single player's Sanctuary acts as their Safe Zone. Arrival secures the stolen egg/baby dragon and provides the primary successful end condition for guardian pursuit. The guardian stops chasing and returns to its original wild nest.

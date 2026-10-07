@@ -1,6 +1,6 @@
 # Task 05 — World Content and Release
 
-STATUS: NOT STARTED — requires separate authorization
+STATUS: MVP POLISH IMPLEMENTED — final release/art/device certification deferred
 
 ## Objective
 
@@ -12,6 +12,6 @@ Dragon-only world content, city/environment art, readable approach/escape routes
 
 ## Boundary
 
-Dragons only; single-player browser runtime. Preserve working systems, exact reference filenames and configurable approved rules. Unapproved numbers stay TBD. Implement only the authorized task; do not begin the next task automatically. No commits/push/merge/deployment unless explicitly requested.
+Dragons only; single-player browser runtime. Preserve working systems, exact reference filenames and configurable approved rules. Unapproved numbers stay TBD. The Autonomous Dragon MVP authorization covers phases A–H in this run. No commits/push/merge/deployment unless explicitly requested.
 
-Detailed implementation plan, balancing, task-specific acceptance criteria and browser gameplay procedure are TBD until this task is separately authorized. This brief is roadmap direction, not permission to implement it during Task 00.
+Implemented scope and validation are recorded in the [MVP report](../TASK_MVP_AUTONOMOUS_BUILD_REPORT.md) and [build plan](../DOCS/TECHNICAL/MVP_BUILD_PLAN.md). Provisional tuning lives in src/config/mvpConfig.ts. Adult forms, additional elements, final art/audio and release certification remain deferred.

@@ -1,5 +1,8 @@
 # Egg Spawn Pools
 
+> Executable MVP pools: Forest Common 100%; Highland Common 20%/Uncommon 80%; Volcanic Uncommon 20%/Rare 80%; Frost Rare 25%/Epic 75%. All elements Nature. Source: [mvpConfig](../src/config/mvpConfig.ts). Final pool tuning below remains planning.
+
+
 Authority: [MASTER_GAME_SPEC.md](../MASTER_GAME_SPEC.md), sections 12–13.
 
 Each Wild Nest has its own configured pool and rarity distribution. Each physical egg slot draws from that pool; different eggs can coexist. V1 slot capacity targets 3–5 and may differ per nest. Farther progression should offer better pools and greater rarity potential.

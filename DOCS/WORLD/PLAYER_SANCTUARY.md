@@ -1,5 +1,8 @@
 # Dragon Sanctuary / Fantasy Dragon City
 
+> Current MVP preserves Task 00's compact Dragon City and adds walkable terraces/stairs, physical service interactions, owned Dragons, Safe Zone markers and a Forest approach path. Hatchery, Food Shop, Collection, Rider upgrades and Mount court are functional.
+
+
 Authority: [Master specification](../../MASTER_GAME_SPEC.md). An established compact fantasy settlement: safe, warm, magical, lived-in and a strong visual home landmark. The player uses its services and cares for Dragons; they do not construct buildings tile-by-tile.
 
 ## Physical Areas

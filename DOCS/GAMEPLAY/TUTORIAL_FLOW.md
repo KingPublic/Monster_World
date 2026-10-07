@@ -1,5 +1,8 @@
 # Tutorial Flow
 
+> Current MVP implements the entire flow below: first Common Nature Egg, 2.5-second hatch, 2 free Food, two feeds to Young, mounting, basic flight/held Boost, landing/dismount and completion. Objective text and compass direct physical travel. Failed first raids retry without an economy penalty.
+
+
 Authority: [MASTER_GAME_SPEC.md](../../MASTER_GAME_SPEC.md), section 21, and [Task 01](../../TASKS/TASK_01_DRAGON_VERTICAL_SLICE.md).
 
 Keep onboarding FAST within the opening few minutes; the approximately **1–3 minute** target remains subject to playtesting. No grinding, long waiting, or premium gates.

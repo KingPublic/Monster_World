@@ -1,5 +1,8 @@
 # Dragon System
 
+> Current MVP: [ProceduralDragon](../../../src/creatures/ProceduralDragon.ts) supplies Nature Baby, rideable Young and broad-chested Guardian with separate proportions and local component animation. Young has a saddle/mount anchor. External GLB is optional historical reference only; no gameplay fetch. Adult and other element forms remain deferred.
+
+
 Authority: [MASTER_GAME_SPEC.md](../../../MASTER_GAME_SPEC.md), sections 5–11, 19, and 24–25.
 
 Hatched dragons belong to the player and begin as Babies, which cannot serve as normal full mounts. Feeding grows them into rideable Young/Juvenile dragons, then rideable Adults with the intended mature/base-stat profile. Rarity, Element, and Growth Stage are three independent identity dimensions; growth changes neither rarity nor element.

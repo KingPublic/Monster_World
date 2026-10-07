@@ -1,5 +1,8 @@
 # Core Gameplay Loop
 
+> Current MVP implements Explore → Steal → Guardian escape → Safe Zone delivery → Hatch Baby → Feed → Grow Young → Mount/Fly/Boost → distant raids. See the [verified build report](../../TASK_MVP_AUTONOMOUS_BUILD_REPORT.md).
+
+
 Authority: [MASTER_GAME_SPEC.md](../../MASTER_GAME_SPEC.md), sections 3, 15, and 26.
 
 ```text

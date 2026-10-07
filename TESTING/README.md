@@ -1,5 +1,5 @@
 # Browser Verification
 
-The active baseline is [Task 00 world migration](TASK_00_WEB_MIGRATION_REPORT.md). Its evidence covers technical boot, static Dragon load/fallback, responsive inspection and preservation, not gameplay. Web Task 01 is NOT STARTED.
+Current gameplay evidence: [Autonomous MVP build report](../TASK_MVP_AUTONOMOUS_BUILD_REPORT.md). It records one complete desktop loop, save/reload, an additional Nest raid/capture, focused interaction/takeoff regressions and one emulated mobile layout/control pass. Pure state/flight tests run with npm test.
 
-[Acceptance](ACCEPTANCE_CRITERIA.md), [browser checklist](PLAYTEST_CHECKLIST.md) and [bug log](BUG_LOG.md) guide future explicitly authorized work. Historical prototype results are retained in [LEGACY_ROBLOX](../LEGACY_ROBLOX/TESTING/README.md). Never transfer historical gameplay PASS statuses into web milestones.
+[Task 00 report](TASK_00_WEB_MIGRATION_REPORT.md) remains the historical migration baseline for boot, static asset inspection and preservation. [Acceptance](ACCEPTANCE_CRITERIA.md), [browser checklist](PLAYTEST_CHECKLIST.md) and [bug log](BUG_LOG.md) retain planning; final release/device certification is deferred. Historical Roblox results remain in [LEGACY_ROBLOX](../LEGACY_ROBLOX/TESTING/README.md).

@@ -1,5 +1,8 @@
 # Progression
 
+> Current MVP has four functional distant Nature Nests: Forest, Highland, Volcanic and Frost. Rarity and Guardian pressure increase with distance. Young flight and universal upgrades support later raids. Final route/difficulty balance remains provisional.
+
+
 Authority: [MASTER_GAME_SPEC.md](../../MASTER_GAME_SPEC.md), sections 9, 20, and 22.
 
 ## Rider Progression

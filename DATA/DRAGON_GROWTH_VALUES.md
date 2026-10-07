@@ -1,5 +1,8 @@
 # Dragon Growth Values
 
+> Executable MVP values: Food +50 Growth; Young at 100; free starter grant 2 Food. Adult/final tuning below remains unresolved. Source: [mvpConfig](../src/config/mvpConfig.ts).
+
+
 STATUS: V1 BALANCING PLACEHOLDER
 
 Authority: [MASTER_GAME_SPEC.md](../MASTER_GAME_SPEC.md) and [Dragon Growth](../DOCS/CREATURES/DRAGONS/DRAGON_GROWTH.md).

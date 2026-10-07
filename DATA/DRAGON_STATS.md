@@ -1,5 +1,8 @@
 # Dragon Base Stats
 
+> Executable MVP Young profile: Speed 85, Boost speed 155, vertical speed 35, Stamina 100. Universal Rider multipliers apply. Baby is unrideable; Adult/species scaling below remains future tuning. Source: [mvpConfig](../src/config/mvpConfig.ts).
+
+
 Authority: [MASTER_GAME_SPEC.md](../MASTER_GAME_SPEC.md), sections 5 and 8–9.
 
 Confirmed base stat categories are Speed, Stamina, and Boost. Dragons can have different movement profiles; final values, units, and growth-stage scaling remain TBD. Rarity, Element, and Growth Stage are independent; growth preserves rarity and element. Babies are not normal full mounts; Young/Juvenile and Adults are rideable.

@@ -15,18 +15,21 @@ export class Sanctuary {
     const p = this.parts, c = this.colors, g = this.group;
     // Overlapping terraces establish a connected city foundation, not floating kiosks.
     p.add(g, 'box', c.stone, [-14, 4, 12], [88, 8, 122]);
-    p.add(g, 'box', c.stone, [0, 8.5, -49], [118, 17, 72]);
-    p.add(g, 'box', c.stone, [0, 14, -83], [66, 28, 44]);
+    p.add(g, 'box', c.stone, [0, 8.5, -58], [118, 17, 54]);
+    p.add(g, 'box', c.stone, [0, 14, -87.5], [66, 28, 35]);
     p.add(g, 'box', c.stone, [72, 8.5, 14], [58, 17, 83]);
     p.add(g, 'box', c.edge, [-14, 8.15, 12], [89, 0.3, 122]);
-    p.add(g, 'box', c.edge, [0, 17.15, -49], [119, 0.3, 72]);
-    p.add(g, 'box', c.edge, [0, 28.15, -83], [67, 0.3, 44]);
+    p.add(g, 'box', c.edge, [0, 17.15, -58], [119, 0.3, 54]);
+    p.add(g, 'box', c.edge, [0, 28.15, -87.5], [67, 0.3, 35]);
     p.add(g, 'box', c.edge, [72, 17.15, 14], [59, 0.3, 84]);
+    // Split terrace fronts leave the central stairways exposed and walkable.
+    for (const x of [-34, 34]) { p.add(g, 'box', c.stone, [x, 8.5, -22], [50, 17, 18]); p.add(g, 'box', c.edge, [x, 17.15, -22], [50, 0.3, 18]); }
+    for (const x of [-24, 24]) { p.add(g, 'box', c.stone, [x, 14, -65.5], [18, 28, 9]); p.add(g, 'box', c.edge, [x, 28.15, -65.5], [18, 0.3, 9]); }
     // Broad main street, paved plaza, approach and connected district stairs.
     p.add(g, 'cylinder', 0xe4c09a, [0, 8.5, 25], [25, 0.5, 25]);
     p.add(g, 'box', c.dark, [0, 8.6, 25], [6, 0.2, 90]);
     this.stairs(0, 8, -10, 15, 10, 0.9, -1);
-    this.stairs(0, 17, -57, 18, 11, 1, -1);
+    this.stairs(0, 17, -48, 18, 11, 1, -1);
     this.stairs(0, 0, 86, 18, 8, 1, -1);
     p.add(g, 'box', c.edge, [0, 0.3, 124], [18, 0.6, 74]);
     // Watercourse, planted court and bridge into the Mount district.

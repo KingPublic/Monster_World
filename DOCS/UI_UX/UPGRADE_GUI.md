@@ -1,5 +1,8 @@
 # Rider Upgrade GUI
 
+> Current MVP: the Rider area opens a responsive Coin-priced Speed/Stamina/Boost/Carry panel. It uses centralized provisional values and reflects owned levels; final polish/balance are deferred.
+
+
 Authority: [MASTER_GAME_SPEC.md](../../MASTER_GAME_SPEC.md), sections 9–10 and 23.
 
 The GUI covers permanent universal **Speed Multiplier, Stamina Multiplier, Boost Multiplier, and Carry Capacity**. Growth-adjusted dragon base Speed/Stamina/Boost are multiplied by the corresponding rider upgrades; image additive bonuses are not the formula.

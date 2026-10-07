@@ -1,5 +1,8 @@
 # Dragon Collection GUI
 
+> Current MVP: responsive HTML Collection cards show rarity, Nature element, Baby/Young stage, growth, rideable status and equipped state. Selecting an owned Young equips/recalls it to the Mount court; Baby must be fed first.
+
+
 Authority: [MASTER_GAME_SPEC.md](../../MASTER_GAME_SPEC.md), sections 5–9, 19, and 23.
 
 Hatched dragons belong to the player and should feel meaningful and visible. Players eventually inspect, compare, select, and ride/equip eligible dragons.

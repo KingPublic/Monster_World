@@ -1,5 +1,8 @@
 # Rider Upgrade Values
 
+> Executable MVP: multiplier levels 0–3, +15% per level, Coin prices 100/175/250; Carry levels 1–3 with upgrade prices 100/225. Final curves below remain planning. Source: [mvpConfig](../src/config/mvpConfig.ts).
+
+
 Authority: [MASTER_GAME_SPEC.md](../MASTER_GAME_SPEC.md), sections 9–10.
 
 Permanent rider upgrades affect every dragon the player rides. The conceptual formula is `Final Stat = Dragon stage-adjusted Base Stat × Corresponding Rider Multiplier` for Speed, Stamina, and Boost. Final multiplier progression values, levels, prices, and units remain unresolved.

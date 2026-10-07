@@ -1,7 +1,18 @@
 # Input and Controls
 
-Task 00 provides a temporary orbit inspection camera only: mouse drag or one-finger drag to orbit, wheel/pinch to zoom, right-drag or two-finger drag to pan. Keyboard-focusable HTML buttons select Sanctuary, whole-world, Dragon showcase and individual marker views. They reposition the inspection camera only and never teleport a player. Native OrbitControls are [documented here](https://threejs.org/docs/pages/OrbitControls.html).
+[InputSystem](../../src/systems/InputSystem.ts) combines desktop keys and touch pointers. Held actions clear on blur, hidden document, cancellation, panel transitions and teardown. Interactions consume press edges each frame; theft requires a continuous 1.1-second hold.
 
-The canvas fills the viewport and uses touch-action none to avoid page scroll. Overlay controls remain usable at narrow/landscape sizes, with visible focus, adequately sized targets and safe-area spacing. Canvas/camera resize and pixel-ratio cap are technical foundation behavior, not final mobile controls.
+| Action | Desktop | Touch |
+| --- | --- | --- |
+| Move / fly | WASD | Virtual joystick |
+| Camera yaw / pitch | Mouse drag | Swipe world |
+| Sprint / Boost | Hold Left Shift | Hold Sprint / Boost |
+| Interact / steal | E / hold E | Tap / hold Interact |
+| Jump / ascend | Space | Up / Jump |
+| Descend / land | Left Ctrl | Down |
+| Dismount when landed | F | Dismount |
+| Close panel | Escape | Close button |
 
-Future approved Dragon gameplay uses held Left Shift for on-foot Sprint and mounted Boost, plus a dedicated mobile HOLD Boost button. Boost releases smoothly and consumes stamina faster. Other mappings, player/flight controllers, interaction keys, gamepad support and final mobile layout remain TBD. Historical prototype keys do not silently become web requirements. Task 00 implements no player movement, mounting or flight.
+[FollowCamera](../../src/systems/FollowCamera.ts) uses smooth third-person tracking, limited pitch, wider mounted distance, banking response and Boost FOV. It does not use OrbitControls. Dragging is intentional; pointer lock/gamepad support are deferred.
+
+The canvas uses touch-action none, mobile controls respect safe areas, and panels cover touch controls while open. An emulated 390×844 touch-device pass verified movement, interaction/mounting and ascent. Physical-device certification and advanced camera collision remain pending.

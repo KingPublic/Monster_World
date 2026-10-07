@@ -1,7 +1,11 @@
-# Save Direction
+# Local Save System
 
-Phase 1: local browser saves through localStorage and/or IndexedDB. The exact storage choice and versioned schema are TBD when an authorized persistence milestone needs them. Task 00 implements no saving and writes no progression to browser storage.
+[SaveSystem](../../src/systems/SaveSystem.ts) uses localStorage key `monster-world-save`, schema version **1**. Game saves after progression changes and reports storage problems through notifications.
 
-Future saves should consider owned Dragons, independent Rarity/Element/Growth Stage, Growth Progress, food, Rider multipliers/Carry Capacity, progression, Coins and equipped Dragon. Food/growth balance is still TBD. Define load/save validation, corrupt-save handling, versioning, migration, reset/export policy and slot cooldown restart rules later. Browser-local saves depend on the device/browser and may be cleared; user-facing behavior should be designed with the actual persistence feature.
+Persisted fields: tutorial completion/step, Coins, Food, owned Dragon IDs/names/Rarity/Element/Stage/Growth, equipped Young Dragon, Carry level, Speed/Stamina/Boost upgrade levels and secured Eggs.
 
-Future: optional authenticated/cloud save only if explicitly required. Do not add Firebase, Supabase, a custom backend or user accounts during the migration. See [data model](DATA_MODEL.md) and [Task 04](../../TASKS/TASK_04_GROWTH_COLLECTION_ECONOMY.md).
+Data is deeply validated and whitelisted. Malformed IDs, duplicate identities, unsupported elements/stages and invalid equipped ownership are rejected; finite numeric values are bounded. Missing saves start fresh. Corrupt or unknown-version saves start a new adventure with feedback. Blocked/full storage falls back to session-only play. There is no old-version migration yet.
+
+Player position, active flight, carried stolen Eggs, Guardian state and slot cooldowns are session state. Reload returns to Sanctuary, abandons carried loot and refills Nests. An interrupted first raid resumes the travel objective. Secured Eggs and owned Dragons survive reload.
+
+A reset option exists only in development debug mode. Saves are local to the browser and origin; dev and preview URLs have separate storage. No accounts, backend, IndexedDB or cloud sync. See [domain model](DATA_MODEL.md) and [MVP validation](../../TASK_MVP_AUTONOMOUS_BUILD_REPORT.md).

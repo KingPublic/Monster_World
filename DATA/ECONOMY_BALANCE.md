@@ -1,5 +1,8 @@
 # Economy Balance Planning
 
+> Executable MVP: Basic Food 20 Coins/+50 Growth; delivery 50 Coins per Egg; tutorial completion 75; first hatch 2 free Food. Source: [mvpConfig](../src/config/mvpConfig.ts). Final economy planning below remains unresolved.
+
+
 Authority: [MASTER_GAME_SPEC.md](../MASTER_GAME_SPEC.md), sections 20 and 27.
 
 Normal gameplay **Coins** are approved as the primary currency for buying Dragon Food in the physical Player Nest Shop. Food grants Growth Points and supports feeding-based Baby → rideable Young/Juvenile → Adult growth. The tutorial grants enough free Starter Food for first rideability quickly.

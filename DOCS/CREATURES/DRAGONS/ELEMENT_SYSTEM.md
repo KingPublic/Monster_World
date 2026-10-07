@@ -1,5 +1,8 @@
 # Element System
 
+> Current MVP implements Nature only across all four regional Nest pools. Volcanic/Frost scenery does not change an Egg's element. Other listed elements are future design examples.
+
+
 Authority: [MASTER_GAME_SPEC.md](../../../MASTER_GAME_SPEC.md), section 7.
 
 Element, rarity, and growth stage are independent properties. Growth never changes a dragon's element or rarity. Mythic Storm Baby → Mythic Storm Juvenile → Mythic Storm Adult preserves both. Candidate elements are Nature, Fire, Ice, Storm, Earth, Shadow, and Light / Celestial. **The final roster is not locked.**

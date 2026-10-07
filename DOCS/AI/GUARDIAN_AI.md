@@ -1,5 +1,8 @@
 # Guardian AI
 
+> Current MVP: IDLE → ALERT → ROAR → CHASE → SAFE_ZONE_STOP → RETURN → IDLE in [Guardian](../../src/gameplay/Guardian.ts). No distance leash; only securing/loss of carried loot ends pursuit. Capture loses stolen Eggs and repositions the player safely without losing owned Dragons or Coins. Models animate idle, alert/roar, flap, bank, return and settle. Future abilities below are deferred.
+
+
 Authority: [MASTER_GAME_SPEC.md](../../MASTER_GAME_SPEC.md), sections 14–15.
 
 Each wild nest has a protective parent/guardian. Stealing makes that nest's guardian aggressive toward the thief. Pursuit continues throughout the return journey until successful arrival in the player's own safe zone, where the stolen item is secured. The guardian then stops and returns to its original nest. **Distance alone must not end aggression.**
