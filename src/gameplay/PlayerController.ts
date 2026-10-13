@@ -2,6 +2,8 @@ import { Group, MathUtils, Vector3 } from 'three';
 import { mvpConfig } from '../config/mvpConfig';
 import type { InputSystem } from '../systems/InputSystem';
 import { Parts, disposeScene } from '../utils/scene';
+import { CartoonBoy } from '../creatures/CartoonBoy';
+import type { AssetInstance } from '../systems/RuntimeAssets';
 
 /** Provisional physical tuning; walk/sprint speeds are in shared MVP config. */
 export const playerMotionTuning = { gravity: 55, jumpSpeed: 22, acceleration: 12, stepHeight: 1.35, maxSubstep: 1 / 60 } as const;
@@ -20,6 +22,8 @@ export class PlayerController {
   private grounded = false;
   private phase = 0;
   private disposed = false;
+  private cartoon:CartoonBoy|undefined;
+  readonly visualState={status:'loading',asset:'cartoon-boy'};
 
   constructor(private readonly groundHeight: (x: number, z: number) => number, private readonly blocked: (x: number, z: number) => boolean = () => false) {
     this.root.name = 'DragonRider'; this.root.add(this.body);
@@ -46,6 +50,9 @@ export class PlayerController {
   }
 
   get position(): Vector3 { return this.root.position; }
+  attachVisual(asset:AssetInstance):void{if(this.disposed){asset.release();return;}this.cartoon?.dispose();this.cartoon=new CartoonBoy(asset);this.body.visible=false;this.root.add(this.cartoon.root);this.visualState.status='ready';}
+  failVisual():void{this.visualState.status='fallback';}
+  updateVisual(dt:number,carry:boolean,mounted:boolean,interact:boolean,flight?:{bank:number;boost:boolean}):void{this.cartoon?.update(dt,{speed:mounted?0:this.speed,airborne:!this.grounded,vertical:this.verticalSpeed,carry,mounted,interact,bank:flight?.bank,boost:flight?.boost});}
 
   teleport(position: Vector3): void {
     this.root.position.copy(position);
@@ -99,7 +106,7 @@ export class PlayerController {
     this.body.position.y = Math.abs(Math.sin(this.phase * 2)) * amount * 0.065;
   }
 
-  dispose(): void { if (this.disposed) return; this.disposed = true; this.root.removeFromParent(); disposeScene(this.root); }
+  dispose(): void { if (this.disposed) return; this.disposed = true;this.cartoon?.dispose(); this.root.removeFromParent(); disposeScene(this.root); }
 
   private canMove(x: number, z: number): boolean {
     if (this.blocked(x, z)) return false;

@@ -1,5 +1,6 @@
+import { sanctuaryServices } from '../world/SanctuaryLayout';
 import { gameConfig } from './gameConfig';
-import type { NestMarkerConfig, Position } from './gameConfig';
+import type { NestMarkerConfig } from './gameConfig';
 
 export type EggRarity = 'Common' | 'Uncommon' | 'Rare' | 'Epic';
 export type UpgradeKind = 'speed' | 'stamina' | 'boost' | 'carry';
@@ -35,13 +36,7 @@ export const mvpConfig = {
   tutorialReward: 75,
   safeZoneRadius: 145,
   maxSafeAltitude: 100,
-  services: {
-    hatchery: [0, 28, -62] as Position,
-    shop: [-42, 8, 40] as Position,
-    collection: [-41, 17, -28] as Position,
-    rider: [44, 17, -29] as Position,
-    mount: [54, 18, 22] as Position,
-  },
+  services: sanctuaryServices,
   upgrades: { maxLevel: 3, multiplierPerLevel: 0.15, basePrice: 100, priceStep: 75, carryPrices: [100, 225] as readonly number[] },
   limits: { coins: 1_000_000_000, food: 9999, dragons: 256, securedEggs: 128 },
   nests: gameConfig.nestMarkers.map((marker, index): MvpNestConfig => ({ ...marker, ...nestBalance[index] })),

@@ -37,3 +37,7 @@ output/playwright/
 
 # Procedural model verification scratch artifacts
 output/model-check/
+
+# Large local marketplace/source assets
+/SOURCE_ASSETS/
+/ASSET_WORK/

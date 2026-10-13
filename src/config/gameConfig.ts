@@ -1,3 +1,4 @@
+import { sanctuaryServices } from '../world/SanctuaryLayout';
 export type Position = readonly [number, number, number];
 export interface NestMarkerConfig {
   readonly id: string;
@@ -12,7 +13,7 @@ export interface NestMarkerConfig {
 export const gameConfig = {
   rendering: { maxPixelRatio: 1.5, fieldOfView: 48, near: 0.5, far: 18000 },
   world: { extent: 12000, terrainSegments: 220, treeCount: 680, seed: 2718 },
-  sanctuary: { radius: 145, terraceHeights: [8, 17, 28], dragonPosition: [54, 18, 22] as Position, dragonSpan: 25 },
+  sanctuary: { radius: 145, terraceHeights: [1, 6], dragonPosition: sanctuaryServices.mount, dragonSpan: 25 },
   camera: {
     sanctuary: { position: [225, 175, 275] as Position, target: [0, 22, -15] as Position },
     world: { position: [4200, 3900, 4400] as Position, target: [-100, 140, -1350] as Position },

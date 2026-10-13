@@ -1,6 +1,6 @@
 # Monster World
 
-A playable single-player Dragon adventure built with TypeScript, plain Three.js and Vite. Core Dragons and Eggs are procedural; the preserved external Nature GLB is optional historical showcase content and is never requested by gameplay.
+A playable single-player Dragon adventure built with TypeScript, plain Three.js and Vite. The October12 visual polish uses Cartoon Boy, a curated Village/Market garden-city, Stone Pathway maps and one downloaded Mountain family across Baby, Young and four Guardians. Traveler, Knight and a nearby lazy-loaded Horse inhabit the Sanctuary as ambient scenery. Eggs remain procedural; Baby proportions and motion are authored from the real rig. The preserved historical Nature GLB is never requested by gameplay.
 
 The current MVP includes a walkable Sanctuary, four distant Wild Nests, per-slot Eggs, theft and Guardian pursuit, Safe Zone delivery, hatching, feeding, Baby → Young growth, mounting, arcade flight, held Boost, Coins, Food Shop, Collection, Rider upgrades and device-local saves. Only Nature Dragons are currently implemented. Adult stages and other elements remain future content.
 
@@ -52,3 +52,7 @@ Development-only tools: open the dev server with `?debug=1`. Teleport to service
 - [Task 00 report](TESTING/TASK_00_WEB_MIGRATION_REPORT.md) and [Legacy Roblox](LEGACY_ROBLOX/README.md): historical migration/prototype records.
 
 No backend, account, multiplayer, combat, monetization or cloud save. No commit, push or deployment is performed by this build.
+
+Phase 2: [validation](DOCS/TECHNICAL/ASSET_VALIDATION_REPORT.md), [runtime plan](DOCS/TECHNICAL/ASSET_RUNTIME_PLAN.md), [integration](DOCS/TECHNICAL/ASSET_INTEGRATION_REPORT.md). With the dev server running, open `/asset-lab.html` for isolated source/derived inspection. The production build contains only the game. Tooling: [asset pipeline commands](tools/asset-pipeline/README.md).
+
+Latest: [visual polish report](DOCS/TECHNICAL/VISUAL_POLISH_REPORT.md), including current use of8/19 audited asset groups, screenshots, preserved source hashes, performance and remaining blockers. This local milestone does not certify final art, external licensing or physical mobile devices.

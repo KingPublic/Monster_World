@@ -1,0 +1,12 @@
+import {createRequire} from 'node:module';
+const require=createRequire('C:/Users/Adrian/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/package.json');
+const {chromium}=require('playwright');
+const browser=await chromium.launch({headless:true,executablePath:'C:/Users/Adrian/AppData/Local/ms-playwright/chromium-1243/chrome-win64/chrome.exe'});
+const page=await browser.newPage();
+page.on('requestfailed',r=>console.log('FAILED',r.url(),r.failure()));
+page.on('response',async r=>{if(/stone_pathway/.test(r.url()))console.log('RESPONSE',r.status(),r.url(),await r.allHeaders());});
+page.on('download',d=>console.log('DOWNLOAD',d.suggestedFilename()));
+await page.goto('http://127.0.0.1:5174/asset-lab.html');await page.waitForFunction(()=>!!window.__ASSET_LAB);
+await page.evaluate(()=>window.__ASSET_LAB.choose('stone-pathway'));
+console.log(await page.evaluate(()=>window.__ASSET_LAB.inspect()));
+await browser.close();

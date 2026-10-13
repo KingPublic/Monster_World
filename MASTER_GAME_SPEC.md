@@ -246,7 +246,7 @@ The first dragon requires no grinding, long waiting, or premium gates. The free 
 
 The first web vertical slice is implemented under [Task 01](TASKS/TASK_01_DRAGON_VERTICAL_SLICE.md) and the autonomous MVP authorization. The historical prototype provides design lessons, not an existing web implementation. The current starter is Common Nature. Desktop/touch controls and tutorial completion through landed dismount are implemented; final onboarding tuning remains open.
 
-Core Nature Baby, Young and Guardian visuals use procedural Three.js groups and component animation. The external static GLB is preserved as an optional debug/reference asset and is never needed by gameplay. Adult content remains deferred.
+Current local visual polish uses one downloaded Mountain family for Nature Baby, Young and Guardian visuals. Juvenile bone proportions and secondary motions are authored on its verified rig; this is a temporary matching family, not a supplied production Baby or finalized species roster. Growth preserves the same visual instance and saved identity. Procedural Dragons remain loading/failure fallback; Eggs remain procedural. Historical static Nature GLB remains preserved and never requested by gameplay. Adult content remains deferred. See [current polish report](DOCS/TECHNICAL/VISUAL_POLISH_REPORT.md).
 
 ## 22. World Progression
 
@@ -308,11 +308,11 @@ See [Save System](DOCS/TECHNICAL/SAVE_SYSTEM.md) and [Data Model](DOCS/TECHNICAL
 
 ## 29. Technical Architecture
 
-The active runtime is Vite + TypeScript + plain Three.js, WebGL canvas and HTML/CSS overlays. Game coordinates PlayerController, FollowCamera/InputSystem, Flight, Guardians, procedural Dragon/Egg models, pure Progression, Effects and SaveSystem. Normal gameplay never uses OrbitControls or the external GLB. Resource/listener cleanup supports HMR and mounted teardown.
+The active runtime is Vite + TypeScript + plain Three.js, WebGL canvas and HTML/CSS overlays. Game coordinates PlayerController, FollowCamera/InputSystem, Flight, Guardians, downloaded rig-backed Dragon/player models with procedural failure fallback and Eggs, pure Progression, Effects and SaveSystem. Normal gameplay uses downloaded curated assets, while OrbitControls and the historical static Nature GLB remain outside it. Resource/listener cleanup supports HMR and mounted teardown.
 
 Configurable prototype balancing lives in [mvpConfig.ts](src/config/mvpConfig.ts), with original world extent/positions in gameConfig.ts. Four nests retain 3/4/5/5 slots and production respawn 300/300/600/600 seconds. Dev-only respawn acceleration and travel helpers require DEV plus ?debug=1; stolen loot forbids debug travel. Saved owned identity/growth/equipment, tutorial, Coins, Food and Rider upgrades use validated localStorage version1. Active loot/cooldowns do not persist across reload.
 
-Core Dragon animation uses local transforms for breathing, head/tail, cyclic legs, wings, alert/roar, flight/bank/ascent/descent/Boost and landing. No external rig or clips are implied. Static GitHub/Vercel deployment remains documented, with no deployment performed. See [Architecture](DOCS/TECHNICAL/ARCHITECTURE.md) and [MVP report](TASK_MVP_AUTONOMOUS_BUILD_REPORT.md).
+Current Dragon animation blends runtime windows from the downloaded Mountain rig's single Take001 montage, plus authored local breathing/head/tail/wings/alert/eating/bank offsets. These are not separate source-supplied Fly/Idle clips. Cartoon Boy has no source clips and uses authored rig poses with hand reach. Static GitHub/Vercel deployment remains documented, with no deployment performed. See [Architecture](DOCS/TECHNICAL/ARCHITECTURE.md), [historical MVP report](TASK_MVP_AUTONOMOUS_BUILD_REPORT.md) and [current polish report](DOCS/TECHNICAL/VISUAL_POLISH_REPORT.md).
 
 ## 30. MVP Scope
 
@@ -322,7 +322,7 @@ The following milestones outline additional planned systems. TODO: final MVP/rel
 
 ## 31. Out of Scope
 
-Multiplayer, trading, breeding, other creature families, backend/accounts/cloud save, weapons/Guardian HP/boss combat, premium currency/monetization and city building are excluded. No fast travel while carrying stolen Eggs. Adult forms, additional elements, final art/audio, advanced IK/collision/camera obstruction and release/device certification remain future work. Current numeric tuning is provisional, not final balance.
+Multiplayer, trading, breeding, other gameplay creature families, backend/accounts/cloud save, weapons/Guardian HP/boss combat, premium currency/monetization and city building are excluded. Ambient residents/Horse have no progression, services or mount mechanics. No fast travel while carrying stolen Eggs. Adult forms, additional elements, final art/audio, terrain-aware full-body IK/advanced collision and release/device certification remain future work; basic rider hand reach and facade camera clearance are implemented. Current numeric tuning is provisional, not final balance.
 
 ## 32. Web Milestones
 
@@ -334,5 +334,7 @@ Multiplayer, trading, breeding, other creature families, backend/accounts/cloud 
 | [03](TASKS/TASK_03_WILD_NESTS_AND_GUARDIANS.md) | MVP IMPLEMENTED — four distant nests, slot cooldowns and Guardians |
 | [04](TASKS/TASK_04_GROWTH_COLLECTION_ECONOMY.md) | MVP IMPLEMENTED — Baby→Young, shop/collection/save/upgrades; Adult deferred |
 | [05](TASKS/TASK_05_WORLD_CONTENT_AND_RELEASE.md) | MVP POLISH IMPLEMENTED — touch/VFX; final art, balance/device certification/release deferred |
+| [06](TASKS/TASK_06_PHASE_2_ASSET_INTEGRATION.md) | LOCAL ASSET MILESTONE VERIFIED — full19-source audit and bounded integrations |
+| [07](TASKS/TASK_07_VISUAL_COHESION_AND_PLAYABILITY.md) | LOCAL VISUAL POLISH VERIFIED — same Dragon family, garden-city, richer valley/motion; final approval/device/release limits retained |
 
 This autonomous run stops after final MVP verification/report. Version control and release remain the user's responsibility.

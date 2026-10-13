@@ -1,15 +1,18 @@
 import { MathUtils, Vector3 } from 'three';
-import { ProceduralDragon } from '../creatures/ProceduralDragon';
+import { RideableDragon } from '../creatures/RideableDragon';
+import type { RuntimeAssets } from '../systems/RuntimeAssets';
+import { mountainFamilyURL } from '../creatures/dragonAssets';
 import { groundHeight } from '../world/Traversal';
 import { mvpConfig } from '../config/mvpConfig';
 export type GuardianState = 'IDLE'|'ALERT'|'ROAR'|'CHASE'|'SAFE_ZONE_STOP'|'RETURN';
 type NestConfig = (typeof mvpConfig.nests)[number];
 export class Guardian {
-  readonly model = new ProceduralDragon('Guardian');
+  readonly model: RideableDragon;
   readonly home = new Vector3();
   state: GuardianState = 'IDLE';
   private elapsed = 0;
-  constructor(readonly config: NestConfig) {
+  constructor(readonly config: NestConfig, assets: RuntimeAssets) {
+    this.model = new RideableDragon(assets, mountainFamilyURL, message => console.warn('[Monster World] Guardian visual', message), 'Guardian');
     const [x,,z] = config.position; this.home.set(x - 35, groundHeight(x - 35, z - 55), z - 55);
     this.model.root.position.copy(this.home); this.model.root.rotation.y = -Math.PI * 0.35;
   }

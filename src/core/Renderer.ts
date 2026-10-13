@@ -7,7 +7,7 @@ export class Renderer {
   private readonly observer: ResizeObserver;
   constructor(private readonly host: HTMLElement, private readonly camera: PerspectiveCamera) {
     this.webgl.toneMapping = ACESFilmicToneMapping;
-    this.webgl.toneMappingExposure = 1.15;
+    this.webgl.toneMappingExposure = 1.03;
     this.webgl.shadowMap.enabled = true;
     this.webgl.shadowMap.type = PCFShadowMap;
     this.webgl.domElement.setAttribute('aria-label', '3D world; drag to orbit, pinch or scroll to zoom');
