@@ -53,7 +53,7 @@ const cases: [string, () => void][] = [
   ['only stolen slots respawn at their own 300 or 600 second deadline', () => {
     const progress = new Progression();
     progress.state.carryLevel = 3;
-      equal(progress.nests.length, 8, 'eight authorized active nests initialize');
+      equal(progress.nests.length, 14, 'fourteen authorized active nests initialize');
     const untouched = progress.nests[0].slots[1].egg;
     check(progress.steal('forest', 0), 'forest theft');
     check(progress.steal('volcano', 0), 'volcano theft');

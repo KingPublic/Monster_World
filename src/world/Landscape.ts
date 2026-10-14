@@ -16,6 +16,12 @@ export const valleyTrails = [
   { nestId:'canyon', width: 18, curve: route([[1720,-1840],[2030,-1880],[2360,-1750],[2630,-1890],[2800,-2020],[3000,-2080]]) },
   { nestId:'marsh', width: 18, curve: route([[115,100],[390,320],[710,610],[1040,830],[1290,1210],[1650,1560]]) },
   { nestId:'ruins', width: 16, curve: route([[-780,-900],[-1130,-1080],[-1640,-1160],[-2070,-1430],[-2460,-1750],[-2850,-1900]]) },
+  {nestId:'dunes',width:18,curve:route([[1650,1560],[1840,1800],[2070,1990],[2220,2220],[2380,2440]])},
+  {nestId:'ember',width:17,curve:route([[3000,-2080],[3200,-1900],[3430,-1770],[3650,-1560],[3790,-1370]])},
+  {nestId:'glacier',width:16,curve:route([[-1920,-3400],[-2360,-3480],[-2760,-3820],[-3120,-4190],[-3550,-4350]])},
+  {nestId:'moonwell',width:18,curve:route([[-1250,760],[-1870,1060],[-2510,1500],[-3160,1790],[-3740,2170],[-4320,2330]])},
+  {nestId:'sunreach',width:18,curve:route([[3790,-1370],[3890,-1790],[4000,-2170],[4070,-2560],[4230,-2960]])},
+  {nestId:'stormspire',width:20,curve:route([[2380,2440],[2800,2740],[3270,3080],[3700,3450],[4080,3850],[4390,4260]])},
 ];
 function route(points:number[][]):CatmullRomCurve3{return new CatmullRomCurve3(points.map(([x,z])=>new Vector3(x,0,z)),false,'centripetal');}
 const samples = valleyTrails.flatMap(trail => {

@@ -16,6 +16,7 @@ Task 00 is complete. The user explicitly authorized the Autonomous Dragon MVP ru
 | [09 — Sanctuary Comfort and Sprint](TASK_09_SANCTUARY_COMFORT_AND_SPRINT.md) | LOCAL PASS VERIFIED — enlarged city/ground/light/wildlife/illustrated menu/separate sprint; final art/device work retained |
 | [10 — Living World, HUD and Face](TASK_10_LIVING_WORLD_HUD_AND_FACE.md) | LOCAL PASS VERIFIED —73people/nearby20, transparent HUD and owned rest-mouth corrective |
 | [11 — Dragon Care, Recovery and Sound](TASK_11_DRAGON_CARE_RECOVERY_AND_SOUND.md) | LOCAL PASS VERIFIED — ongoing meals/stat/size/HP, Dragon-first damage, rider escape, recovery, spatial sound |
+| [12 — Player and Dragon World Expansion](TASK_12_PLAYER_AND_DRAGON_WORLD_EXPANSION.md) | LOCAL EXPANSION VERIFIED — authored head,14nests/58slots, real Legendary/Mythical pools, six temporary species/ten lineages and109residents |
 
 Read the [master specification](../MASTER_GAME_SPEC.md) first and implement only the authorized milestone. Stop after the authorized MVP final verification; no Git operations or deployment. See [MVP report](../TASK_MVP_AUTONOMOUS_BUILD_REPORT.md).
 

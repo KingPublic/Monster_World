@@ -1,4 +1,4 @@
-import { Box3, Group, MathUtils, Mesh, Vector3 } from 'three';
+import { Box3, Group, MathUtils, Mesh, MeshStandardMaterial, Vector3 } from 'three';
 import type { Material } from 'three';
 import type { AssetInstance } from '../systems/RuntimeAssets';
 import { RigPose } from './RigPose';
@@ -19,7 +19,15 @@ export class CartoonBoy {
   this.root.name='CartoonBoy-AuthoredMotion';this.root.add(asset.root);this.rig=new RigPose(asset.root);
   const bounds=new Box3().setFromObject(asset.root),height=bounds.getSize(new Vector3()).y;asset.root.scale.setScalar(5/height);asset.root.position.y=-bounds.min.y*asset.root.scale.x;asset.root.rotation.y=Math.PI;
   asset.root.traverse(node=>{if(node instanceof Mesh){node.castShadow=true;node.receiveShadow=true;node.frustumCulled=false;
-   const polish=(source:Material)=>{const local=source.clone();this.materials.add(local);if('roughness'in local)local.roughness=Math.max(Number(local.roughness),.82);if('envMapIntensity'in local)local.envMapIntensity=.35;if('specularIntensity'in local)local.specularIntensity=.3;return local;};node.material=Array.isArray(node.material)?node.material.map(polish):polish(node.material);
+   const polish=(source:Material)=>{const local=source.clone();this.materials.add(local);if('roughness'in local)local.roughness=Math.max(Number(local.roughness),.82);if('envMapIntensity'in local)local.envMapIntensity=.35;if('specularIntensity'in local)local.specularIntensity=.3;
+    // A coherent travel palette on owned materials; source clothing, textures,
+    // skin weights and rig geometry remain available on the asset template.
+    if(local instanceof MeshStandardMaterial){
+     if(node.name==='Hoodie'){local.color.setHex(0x4a7971);local.roughness=1;local.normalScale.setScalar(.35);}
+     if(node.name==='Shorts'){local.color.setHex(0x283947);local.map=null;local.normalScale.setScalar(.25);local.roughness=1;}
+     if(local.name==='socks')local.color.setHex(0xdac9a7);
+    }
+    return local;};node.material=Array.isArray(node.material)?node.material.map(polish):polish(node.material);
   }});
   this.face=new CartoonFace(asset.root);
   this.update(0,{speed:0,airborne:false,vertical:0,carry:false,mounted:false,interact:false});

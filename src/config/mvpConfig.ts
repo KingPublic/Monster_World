@@ -19,11 +19,18 @@ const nestBalance: readonly Omit<MvpNestConfig, keyof NestMarkerConfig>[] = [
   { slotCount: 4, respawnSeconds: 300, pool: [{ rarity: 'Common', weight: 20 }, { rarity: 'Uncommon', weight: 80 }], guardianSpeed: 100, guardianGraceSeconds: 2.5, catchRadius: 6 },
   { slotCount: 5, respawnSeconds: 600, pool: [{ rarity: 'Uncommon', weight: 20 }, { rarity: 'Rare', weight: 80 }], guardianSpeed: 118, guardianGraceSeconds: 2.2, catchRadius: 7 },
   { slotCount: 5, respawnSeconds: 600, pool: [{ rarity: 'Rare', weight: 25 }, { rarity: 'Epic', weight: 75 }], guardianSpeed: 140, guardianGraceSeconds: 2, catchRadius: 8 },
+  {slotCount:4,respawnSeconds:300,pool:[{rarity:'Rare',weight:75},{rarity:'Epic',weight:25}],guardianSpeed:108,guardianGraceSeconds:2.5,catchRadius:6},
+  {slotCount:5,respawnSeconds:600,pool:[{rarity:'Epic',weight:80},{rarity:'Legendary',weight:20}],guardianSpeed:125,guardianGraceSeconds:2.3,catchRadius:7},
+  {slotCount:4,respawnSeconds:600,pool:[{rarity:'Epic',weight:30},{rarity:'Legendary',weight:70}],guardianSpeed:138,guardianGraceSeconds:2.2,catchRadius:8},
+  {slotCount:4,respawnSeconds:600,pool:[{rarity:'Legendary',weight:85},{rarity:'Mythical',weight:15}],guardianSpeed:142,guardianGraceSeconds:2.3,catchRadius:8},
+  {slotCount:4,respawnSeconds:600,pool:[{rarity:'Legendary',weight:100}],guardianSpeed:145,guardianGraceSeconds:2.4,catchRadius:8},
+  {slotCount:3,respawnSeconds:600,pool:[{rarity:'Mythical',weight:100}],guardianSpeed:150,guardianGraceSeconds:2.6,catchRadius:8},
 ];
 // Explicit inherited presets prevent an array expansion from producing empty nests.
 const nestPresetById: Readonly<Record<string, number>> = {
   forest: 0, highland: 1, volcano: 2, frost: 3,
   meadow: 0, canyon: 2, marsh: 1, ruins: 3,
+  dunes:4,ember:5,glacier:6,moonwell:7,sunreach:8,stormspire:9,
 };
 
 /** Provisional MVP playtest values. Marker coordinates and world extent stay unchanged. */

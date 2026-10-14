@@ -3,6 +3,7 @@ import {
   OctahedronGeometry, Quaternion, SphereGeometry, TorusGeometry, Vector3,
 } from 'three';
 import type { DragonVariantId } from '../config/dragonVariants';
+import {dragonVariants} from '../config/dragonVariants';
 
 import type {EggRarity} from '../config/mvpConfig';
 export type {EggRarity} from '../config/mvpConfig';
@@ -42,16 +43,18 @@ export function createEgg(rarity: EggRarity, element: 'Nature' = 'Nature',varian
   if(variant==='meadow')shellMaterial.color.lerp(new Color(0xc1d6a0),.22);
   if(variant==='frost')shellMaterial.color.lerp(new Color(0xb8dfee),.35);
   if(variant==='ashscale')shellMaterial.color.lerp(new Color(0xc8b69b),.3);
+  const lineage=variant?dragonVariants[variant]:undefined;
+  if(lineage?.temporary)shellMaterial.color.lerp(new Color(lineage.body),rarity==='Legendary'||rarity==='Mythical'?.12:.3);
   const shell = new Mesh(shellGeometry, shellMaterial);
   shell.name = 'egg-shell'; shell.position.y = 1.3;
   shell.castShadow = true; shell.receiveShadow = true; egg.add(shell);
   const leaf = leafGeometry();
-  const leafMaterial = new MeshStandardMaterial({ color: 0x48884e, roughness: 0.66, flatShading: true });
-  const leafLight = new MeshStandardMaterial({ color: 0x90b859, roughness: 0.68, flatShading: true });
+  const leafMaterial = new MeshStandardMaterial({ color: lineage?.temporary?lineage.body:0x48884e, roughness: 0.66, flatShading: true });
+  const leafLight = new MeshStandardMaterial({ color: lineage?.temporary?lineage.wing:0x90b859, roughness: 0.68, flatShading: true });
   const trim = new MeshStandardMaterial({ color: 0xd6bb71, roughness: 0.4, metalness: 0.25 });
   const seedGeometry = new OctahedronGeometry(1, 0);
   const glowMaterial = new MeshStandardMaterial({
-    color: colors.glow, emissive: colors.glow, emissiveIntensity: rarity === 'Common' ? 0.08 : 0.5,
+    color: colors.glow, emissive: colors.glow, emissiveIntensity: rarity === 'Common' ? 0.08 : rarity==='Mythical'?.9:rarity==='Legendary'?.7:.5,
     roughness: 0.4, metalness: 0.12,
   });
   const forward = new Vector3(0, 0, 1);
@@ -81,13 +84,18 @@ export function createEgg(rarity: EggRarity, element: 'Nature' = 'Nature',varian
   }
   const collarGeometry = new TorusGeometry(0.745, 0.025, 5, 20);
   const collar = new Mesh(collarGeometry, trim); collar.position.y = 0.65; collar.rotation.x = Math.PI / 2; egg.add(collar);
-  const sparkCount = rarity === 'Common' ? 3 : rarity === 'Uncommon' ? 4 : rarity === 'Rare' ? 5 : 6;
+  const sparkCount = rarity === 'Common' ? 3 : rarity === 'Uncommon' ? 4 : rarity === 'Rare' ? 5 : rarity==='Legendary'?8:rarity==='Mythical'?10:6;
   for (let i = 0; i < sparkCount; i++) {
     const angle = i * Math.PI * 2 / sparkCount + 0.18;
     const seed = new Mesh(seedGeometry, glowMaterial);
     seed.name = 'rarity-seed'; seed.position.set(Math.sin(angle) * 0.82, 0.95 + (i % 3) * 0.42, Math.cos(angle) * 0.82);
     seed.scale.set(0.06, 0.105, 0.05); seed.rotation.z = (i % 2 ? 1 : -1) * 0.32;
     egg.add(seed);
+  }
+  if(rarity==='Legendary'||rarity==='Mythical'){
+    const halo=new Mesh(new TorusGeometry(1.03,.018,5,32),glowMaterial);halo.name='high-rarity-halo';halo.position.y=1.45;halo.rotation.x=Math.PI/2+(rarity==='Mythical'?.24:0);egg.add(halo);
+    for(let i=0;i<3;i++){const jewel=new Mesh(seedGeometry,glowMaterial);jewel.name='high-rarity-crown';jewel.position.set((i-1)*.24,2.56+(.1-Math.abs(i-1)*.08),0);jewel.scale.set(.08,.16,.08);egg.add(jewel);}
+    if(rarity==='Mythical'){const orbit=new Mesh(new TorusGeometry(1.12,.012,5,32),trim);orbit.name='mythical-orbit';orbit.position.y=1.4;orbit.rotation.set(.58,0,.35);egg.add(orbit);}
   }
   egg.userData.shellName = 'egg-shell';
   return egg;

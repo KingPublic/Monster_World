@@ -1,0 +1,13 @@
+# Task12 — Player revision, new Dragon silhouettes and higher-rarity regions
+
+Status: LOCAL EXPANSION VERIFIED. Read `DOCS/TECHNICAL/PLAYER_AND_DRAGON_EXPANSION_REPORT.md`.14nests/58slots/ten lineages/six authored profiles, revised head and109resident definitions; actual high-rarity hatch/growth/riding/C/save and physical Mythical theft pass in isolated browser. Full build/typecheck and focused checks pass. Final art/device/pool tuning remain separate; no Git/deployment or personal save changes.
+
+User October14 explicitly requests a noticeable player model repair, real Legendary/Mythical Eggs, more nests and additional temporary Dragons to replace with new source models later. This supersedes earlier eight-nest/no-new-loot-pool restrictions for this bounded expansion. Keep originals, old IDs/coordinates/save records, C descent, care/HP/recovery/audio, local admin isolation and illustrated menu. No Git writes, installs, deployment, new services/weapons/quests or personal save reset.
+
+1. Inspect rendered player front/profile/walk/riding. Revise owned face/character presentation clearly; preserve source geometry/rig/clothes on disk and working foot/rider support.
+2. Add six authored temporary geometry lineages: Emberdrake, Crystalwyvern, Stormserpent, Suncrest, Moonveil, Duneback. Distinct body/limbs/head/tail/wings, Baby→Young→Guardian family continuity, animation, saddle/carry anchors, controlled growth and owned resource disposal.
+3. Use stable variant IDs with a central model factory. Future replacement is an adapter/rig-validated GLB mapping; saved identity remains unchanged. Do not imply any arbitrary GLB can be dropped in without validation.
+4. Add six physical nest regions (14total), preserving old eight coordinates and world12000. Add trails, distinctive regional surroundings, guardians, slots, destination choices, locals/dialogue and admin travel entries. More distant/higher sites naturally support Legendary/Mythical pools. All new regions use centralized provisional balancing and per-slot deadlines.
+5. Ensure real high-rarity Eggs are guaranteed available in dedicated far regions and roll elsewhere where appropriate; preserve rarity/visual lineage through theft, secure, hatch, growth, riding, care/recovery/save. Keep original tutorial easy and two free Baby meals.
+6. Check meaningful world/progression/geometry/player regressions, build/typecheck, then concise browser proof of new physical content and at least Legendary/Mythical actual hatch/growth/riding using isolated staged conditions where necessary. No repeated full audit/world replay.
+7. Record final evidence/art limitations and update concise continuation.

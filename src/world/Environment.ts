@@ -16,11 +16,18 @@ export function terrainHeight(x: number, z: number): number {
     height += marker.position[1] * Math.exp(-Math.pow(distance / marker.terrainSpread, 2));
   }
   height *= Math.min(1, (homeDistance - cityEdge) / 150);
+  // New high-rarity regions need broad hills under their aprons rather than
+  // isolated vertical plugs. Existing nest centers retain their exact floors.
+  for(const marker of gameConfig.nestMarkers.slice(8)){
+    const d=Math.hypot(x-marker.position[0],z-marker.position[2]);
+    height+=marker.position[1]*Math.exp(-Math.pow(d/marker.terrainSpread,2));
+  }
   // Added nests sit on the sampled terrain; do not raise the legacy hills.
   for(const marker of gameConfig.nestMarkers.slice(4)){
     const distance=Math.hypot(x-marker.position[0],z-marker.position[2]);
     if(distance<60)return marker.position[1];
-    if(distance<160){const t=(160-distance)/100,blend=t*t*(3-2*t);height+=(marker.position[1]-height)*blend;}
+    const reach=marker.terrainSpread>160?Math.min(marker.terrainSpread*.5,260):160;
+    if(distance<reach){const t=(reach-distance)/(reach-60),blend=t*t*(3-2*t);height+=(marker.position[1]-height)*blend;}
   }
   return height;
 }
@@ -44,8 +51,8 @@ function terrainColor(x:number,z:number):Color {
   const snow=Math.max(0,1-Math.hypot(x-frost.position[0],z-frost.position[2])/1450);
   const patch=Math.sin(x*.011+Math.sin(z*.009)*2)*Math.cos(z*.008-x*.003);
   const color=new Color(0x7e9659).lerp(new Color(0xa59964),(patch+1)*.22).lerp(new Color(0x8b7665),dry*.87).lerp(new Color(0xc4d8d4),snow*.85);
-  const regional:Readonly<Record<string,number>>={meadow:0x9da66a,canyon:0xae8968,marsh:0x71968a,ruins:0x96929e};
-  for(const n of gameConfig.nestMarkers.slice(4)){const d=Math.hypot(x-n.position[0],z-n.position[2]),t=Math.max(0,1-d/300);color.lerp(new Color(regional[n.id]!),t*t*.8);}
+  const regional:Readonly<Record<string,number>>={meadow:0x9da66a,canyon:0xae8968,marsh:0x71968a,ruins:0x96929e,dunes:0xc7ad79,ember:0x89726b,glacier:0xb7d5e0,moonwell:0x888799,sunreach:0xcdb885,stormspire:0x94a9b8};
+  for(const n of gameConfig.nestMarkers.slice(4)){const d=Math.hypot(x-n.position[0],z-n.position[2]),t=Math.max(0,1-d/(n.terrainSpread>160?n.terrainSpread:300));color.lerp(new Color(regional[n.id]??n.color),t*t*.8);}
   return color.multiplyScalar(.95+.05*Math.sin(x*.039+z*.028));
 }
 

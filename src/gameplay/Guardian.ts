@@ -52,7 +52,7 @@ export class Guardian {
         this.strikeOffset.set(x*30-z*12,18,z*30+x*12);
       }
     }
-    this.model.update(dt, {state:this.state === 'IDLE' ? 'idle' : this.state === 'ALERT' ? 'alert' : this.state === 'ROAR' ? 'roar' : this.state === 'RETURN' ? 'return' : this.state === 'CHASE' ? (this.elapsed < 0.6 ? 'takeoff' : 'flight') : 'land',bank,speed:this.state === 'CHASE' ? 1 : 0});
+    if(this.model.root.visible)this.model.update(dt, {state:this.state === 'IDLE' ? 'idle' : this.state === 'ALERT' ? 'alert' : this.state === 'ROAR' ? 'roar' : this.state === 'RETURN' ? 'return' : this.state === 'CHASE' ? (this.elapsed < 0.6 ? 'takeoff' : 'flight') : 'land',bank,speed:this.state === 'CHASE' ? 1 : 0});
     return contact;
   }
 }

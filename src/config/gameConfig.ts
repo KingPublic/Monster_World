@@ -30,5 +30,11 @@ export const gameConfig = {
     { id: 'canyon', name: 'Amber Canyon', tier: 'High-tier', position: [3000, 29, -2080], color: 0xdb9b63, terrainSpread: 160 },
     { id: 'marsh', name: 'Reedwater Nest', tier: 'Mid-tier', position: [1650, 14, 1560], color: 0x81c6b4, terrainSpread: 160 },
     { id: 'ruins', name: 'Moonstone Ruins', tier: 'Highest-tier side valley', position: [-2850, 13, -1900], color: 0xb7a9df, terrainSpread: 160 },
+    { id:'dunes',name:'Golden Dunes',tier:'Rare desert region',position:[2380,85,2440],color:0xe1bb7d,terrainSpread:410 },
+    { id:'ember',name:'Emberfall Crater',tier:'Epic Dragon region',position:[3790,340,-1370],color:0xe9a17a,terrainSpread:460 },
+    { id:'glacier',name:'Crystal Crown',tier:'Legendary ice region',position:[-3550,730,-4350],color:0x9fd9ed,terrainSpread:540 },
+    { id:'moonwell',name:'Moonveil Grove',tier:'Legendary twilight region',position:[-4320,400,2330],color:0xc5b4e5,terrainSpread:470 },
+    { id:'sunreach',name:'Suncrest Temple',tier:'Legendary sanctuary of the wild',position:[4230,530,-2960],color:0xf2d58b,terrainSpread:540 },
+    { id:'stormspire',name:'Stormspire',tier:'Mythical Dragon region',position:[4390,880,4260],color:0xb7ccec,terrainSpread:620 },
   ] as readonly NestMarkerConfig[],
 } as const;

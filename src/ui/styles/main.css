@@ -16,3 +16,5 @@
 @media(max-width:560px){.interaction{width:calc(100% - 32px);max-width:358px;bottom:40%;gap:10px}.interaction>div{flex:1;min-width:0}.interaction strong{display:block;line-height:1.4;font-size:11px}.interaction .keycap{flex-shrink:0}.interaction [data-action=feed-nearby]{flex-shrink:0;width:68px;font-size:10px;white-space:normal;padding:7px 8px}}
 
 @media(max-width:560px) and (min-height:501px){.interaction{bottom:360px}}
+
+.nest-loot{display:block;margin-top:7px;color:#e5cc92!important;font-size:10px!important}.rarity-legendary{border-left-color:#e5bf68!important}.rarity-mythical{border-left-color:#c7a4ec!important}

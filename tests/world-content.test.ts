@@ -9,8 +9,8 @@ import { disposeScene } from '../src/utils/scene';
 import { Matrix4, Mesh, InstancedMesh, Vector3 } from 'three';
 function check(value:unknown,message:string):asserts value{if(!value)throw new Error(message);}
 const cases:[string,()=>Promise<void>][]=[
- ['eight separated nests retain legacy locations and explicit complete balance presets',async()=>{
-  check(gameConfig.nestMarkers.length===8,'expected eight nests');check(new Set(gameConfig.nestMarkers.map(n=>n.id)).size===8,'duplicate ids');
+ ['fourteen separated nests retain legacy locations and explicit complete balance presets',async()=>{
+  check(gameConfig.nestMarkers.length===14,'expected fourteen nests');check(new Set(gameConfig.nestMarkers.map(n=>n.id)).size===14,'duplicate ids');
   const legacy=[[340,25,-310],[-780,145,-900],[1720,330,-1840],[-1920,620,-3400]];
   legacy.forEach((p,i)=>check(JSON.stringify(p)===JSON.stringify(gameConfig.nestMarkers[i]!.position),'legacy nest moved'));
   for(const n of mvpConfig.nests){check(n.slotCount>=3&&n.pool.reduce((sum,p)=>sum+p.weight,0)===100&&n.guardianSpeed>0,'incomplete preset '+n.id);for(const other of mvpConfig.nests)if(n.id!==other.id)check(Math.hypot(n.position[0]-other.position[0],n.position[2]-other.position[2])>600,'clustered nests');}
@@ -41,7 +41,7 @@ const cases:[string,()=>Promise<void>][]=[
  ['terrain uses bounded ribbon meshes and releases all owned resources',async()=>{
   const environment=new Environment(),geometries=new Set<import('three').BufferGeometry>();let disposed=0,largest=0;
   environment.group.traverse(o=>{if(o instanceof Mesh){geometries.add(o.geometry);largest=Math.max(largest,o.geometry.attributes.position!.count);}});
-  check(largest<50000,'new huge terrain mesh');check(environment.group.children.filter(c=>c.name.startsWith('DetailedTrailGround_')).length===8,'missing fine corridor ground');
+  check(largest<50000,'new huge terrain mesh');check(environment.group.children.filter(c=>c.name.startsWith('DetailedTrailGround_')).length===14,'missing fine corridor ground');
   for(const g of geometries)g.addEventListener('dispose',()=>disposed++);disposeScene(environment.group);check(disposed===geometries.size&&environment.group.children.length===0,'terrain resource leak');
  }],
  ['shield matches cylinder radius and ceiling and disposes shared details once',async()=>{

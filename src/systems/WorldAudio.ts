@@ -26,7 +26,8 @@ export class WorldAudio {
  play(kind:WorldSound,position:Vector3,id='',family='Mountain'):void{
   const ctx=this.context;if(this.disposed||!this.active||!this.enabled||this.muted||this.volume===0||document.hidden||!ctx||ctx.state!=='running'||!this.master||this.voices.size>18)return;
   const distance=position.distanceTo(this.listener),range=kind==='roar'?260:kind==='npc'?32:kind==='step'?16:120;if(distance>range)return;
-  const dx=position.x-this.listener.x,dz=position.z-this.listener.z,pan=Math.max(-.85,Math.min(.85,(dx*Math.cos(this.yaw)+dz*Math.sin(this.yaw))/Math.max(8,distance))),gain=Math.max(0,1-distance/range)/(1+distance*.025),pitch=voicePitch(id)*(family==='Ashscale'?.72:1);
+  const familyPitch:Readonly<Record<string,number>>={Ashscale:.72,Emberdrake:.78,Crystalwyvern:1.28,Stormserpent:.64,Suncrest:1.1,Moonveil:.9,Duneback:.69};
+  const dx=position.x-this.listener.x,dz=position.z-this.listener.z,pan=Math.max(-.85,Math.min(.85,(dx*Math.cos(this.yaw)+dz*Math.sin(this.yaw))/Math.max(8,distance))),gain=Math.max(0,1-distance/range)/(1+distance*.025),pitch=voicePitch(id)*(familyPitch[family]??1);
   const at=ctx.currentTime+.008;
   const tone=(frequency:number,end:number,duration:number,amplitude:number,type:OscillatorType='sine',delay=0)=>{if(this.voices.size>=24)return;const o=ctx.createOscillator();o.type=type;o.frequency.setValueAtTime(frequency*pitch,at+delay);o.frequency.exponentialRampToValueAtTime(Math.max(12,end*pitch),at+delay+duration);this.route(o,at+delay,duration,amplitude*gain,pan);};
   const noise=(duration:number,amplitude:number,frequency:number,delay=0)=>{if(this.voices.size>=24||!this.noise)return;const n=ctx.createBufferSource();n.buffer=this.noise;const f=ctx.createBiquadFilter();f.type='bandpass';f.frequency.value=frequency;f.Q.value=.7;n.connect(f);this.route(n,at+delay,duration,amplitude*gain,pan,f);};

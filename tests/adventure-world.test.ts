@@ -1,0 +1,14 @@
+import {mvpConfig} from '../src/config/mvpConfig';
+import {gameConfig} from '../src/config/gameConfig';
+import {dragonVariants,variantForNest} from '../src/config/dragonVariants';
+import {Progression} from '../src/gameplay/Progression';
+import {validateSave} from '../src/systems/SaveSystem';
+import {valleyTrails} from '../src/world/Landscape';
+import {groundHeight} from '../src/world/Traversal';
+function check(v:unknown,m:string):asserts v{if(!v)throw new Error(m);}
+const cases:[string,()=>void][]=[
+ ['Six new regions connect to trails with guardians/slots, preserving original coordinates and world scale',()=>{check(mvpConfig.nests.length===14,'14 nests required');check(gameConfig.world.extent===12000,'world compressed');const old=[['forest',340,-310],['highland',-780,-900],['volcano',1720,-1840],['frost',-1920,-3400],['meadow',-1250,760],['canyon',3000,-2080],['marsh',1650,1560],['ruins',-2850,-1900]]as const;for(const[id,x,z]of old){const n=mvpConfig.nests.find(n=>n.id===id)!;check(n.position[0]===x&&n.position[2]===z,'old nest moved');}for(const n of mvpConfig.nests){check(n.slotCount>=3&&n.slotCount<=5&&n.pool.length>0&&n.guardianSpeed>0,'region not playable '+n.id);const t=valleyTrails.find(t=>t.nestId===n.id);check(t,'missing physical path '+n.id);const end=t.curve.getPoint(1);check(Math.hypot(end.x-n.position[0],end.z-n.position[2])<.01,'path misses nest');check(groundHeight(n.position[0],n.position[2])===n.position[1]+5,'egg floor not grounded');}}],
+ ['Legendary and Mythical are real guaranteed obtainable eggs with lineage through hatch/growth/save',()=>{for(const rarity of ['Legendary','Mythical']as const){const n=mvpConfig.nests.find(n=>n.pool.every(p=>p.rarity===rarity));check(n,'no dedicated '+rarity+' source');const p=new Progression(),egg=p.steal(n.id,0);check(egg?.rarity===rarity,'higher egg not spawned');check(p.secure()===1,'higher egg not secured');const d=p.hatch()!;check(d.variant===variantForNest(n.id)&&d.rarity===rarity,'hatch identity lost');p.state.food=2;check(p.feed(d.id)&&p.feed(d.id)&&p.equip(d.id),'higher Dragon cannot grow/ride');check(validateSave(p.state)?.dragons[0].variant===d.variant,'new variant save rejected');}}],
+ ['New Dragon IDs are independent from rarity and old saved variants remain valid',()=>{check(Object.keys(dragonVariants).length===10,'ten lineages required');for(const[id,file]of [['mountain','mountain-family.glb'],['meadow','mountain-family.glb'],['frost','mountain-family.glb'],['ashscale','ashscale-family.glb']]as const)check(dragonVariants[id].file===file,'existing source remapped');const p=new Progression();p.steal('forest',0);p.secure();const d=p.hatch()!;check(validateSave(p.state)?.dragons[0].variant===d.variant,'old save identity broken');}],
+];
+export function runCoreTests(){return cases.map(([name,f])=>{try{f();return{name,pass:true};}catch(e){return{name,pass:false,error:String(e)};}});}

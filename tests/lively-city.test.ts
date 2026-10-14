@@ -5,17 +5,18 @@ import {disposeScene} from '../src/utils/scene';
 import {AmbientResidents} from '../src/world/AmbientResidents';
 import {RuntimeAssets} from '../src/systems/RuntimeAssets';
 import {Vector3} from 'three';
+import {mvpConfig} from '../src/config/mvpConfig';
 function check(v:unknown,m:string):asserts v{if(!v)throw new Error(m);}
 export async function runCoreTests(){const results=[];
 try{
  const city=residentCatalog.filter(r=>!r.nestId);check(city.length>=24,'The expanded city still has only a handful of residents');
  check(city.filter(r=>r.route.length>1).length>=17,'City crowds are static');
- for(const nest of ['forest','highland','volcano','frost','meadow','canyon','marsh','ruins'])check(residentCatalog.filter(r=>r.nestId===nest&&r.role==='traveler').length>=5,'Sparse road '+nest);
+ for(const nest of mvpConfig.nests)check(residentCatalog.filter(r=>r.nestId===nest.id&&r.role==='traveler').length>=5,'Sparse road '+nest.id);
  check(residentLimits.maxActive>12&&residentLimits.maxActive<=20,'Crowd budget is unchanged or unbounded');
  check(new Set(residentCatalog.map(r=>r.id)).size===residentCatalog.length,'Duplicate crowd identities');
  for(const r of city)check(dialoguePage(r.id)?.text.length!>40,'New resident cannot converse '+r.id);
- results.push({name:'expanded city and all eight roads have moving conversational residents with a bounded rig budget',pass:true});
-}catch(e){results.push({name:'expanded city and all eight roads have moving conversational residents with a bounded rig budget',pass:false,error:String(e)});}
+ results.push({name:'expanded city and all fourteen roads have moving conversational residents with a bounded rig budget',pass:true});
+}catch(e){results.push({name:'expanded city and all fourteen roads have moving conversational residents with a bounded rig budget',pass:false,error:String(e)});}
  const assets=new RuntimeAssets(()=>new Promise(()=>{})),crowd=new AmbientResidents(assets);try{
   crowd.update(0,new Vector3(0,1,48));check(crowd.status.active<=20,'pending crowds exceed budget');
   const r=residentCatalog.find(r=>r.id==='garden-traveler')!;check(!crowd.bodyBlocked(...r.route[0]!), 'unrendered resident creates an invisible obstacle');

@@ -164,9 +164,9 @@ export class Game {
  private syncSlots():void {
    for(const nest of this.progression.nests)for(let i=0;i<nest.slots.length;i++){
      const key=nest.id+':'+i,slot=nest.slots[i]!,existing=this.slotVisuals.get(key);
-     if(existing?.id===slot.egg?.id)continue;
+     if(existing&&existing.id===slot.egg?.id){existing.root.visible=existing.root.position.distanceTo(this.position)<1100;continue;}
      if(existing){existing.root.removeFromParent();disposeScene(existing.root);this.slotVisuals.delete(key);}
-     if(slot.egg){const root=createEgg(slot.egg.rarity,slot.egg.element,slot.egg.variant);root.position.copy(this.slotPosition(nest.id,i));this.scene.add(root);this.slotVisuals.set(key,{id:slot.egg.id,root});}
+     if(slot.egg){const root=createEgg(slot.egg.rarity,slot.egg.element,slot.egg.variant);root.position.copy(this.slotPosition(nest.id,i));root.visible=root.position.distanceTo(this.position)<1100;this.scene.add(root);this.slotVisuals.set(key,{id:slot.egg.id,root});}
    }
  }
  private syncCarry():void {
@@ -296,6 +296,7 @@ export class Game {
      }
      for(const guardian of this.guardians){
        const carrying=this.progression.carried.some(egg=>egg.nestId===guardian.config.id);
+       guardian.model.root.visible=carrying||guardian.state!=='IDLE'||guardian.model.root.position.distanceTo(this.position)<1900;
        const previousState=guardian.state,contact=guardian.update(dt,this.position,carrying);
        if(previousState!==guardian.state&&guardian.state==='ROAR')this.audio.play('roar',guardian.model.root.position,guardian.config.id,guardian.model.root.userData.family);
        if(contact&&this.hitGrace===0){
@@ -383,6 +384,12 @@ export class Game {
    if(action==='coins'){this.progression.state.coins+=500;this.save();return;}
    if(action==='food'){this.progression.state.food+=5;this.save();return;}
    if(action==='time'){this.timeScale=this.timeScale===1?60:1;this.ui.notify('Development respawn ×'+this.timeScale);return;}
+   if(action==='legendary-egg'||action==='mythical-egg'){
+     const p=this.progression;if(p.state.securedEggs.length>=mvpConfig.limits.securedEggs){this.ui.notify('Secured Egg storage is full.');return;}
+     const mythical=action==='mythical-egg',nestId=mythical?'stormspire':'sunreach';
+     p.state.securedEggs.push({id:'admin-egg-'+crypto.randomUUID(),rarity:mythical?'Mythical':'Legendary',element:'Nature',nestId,variant:variantForNest(nestId)});
+     this.save();this.ui.notify('Admin: secured '+(mythical?'Mythical Stormserpent':'Legendary Suncrest')+' Egg added. Visit the Hatchery.');return;
+   }
    if(this.progression.carried.length){this.ui.notify('No teleport while carrying stolen Eggs. Escape physically.');return;}
    if(this.mounted){this.ui.notify('Land and dismount before using development travel.');return;}
    const nest=mvpConfig.nests.find(n=>n.id===action),resident=action.startsWith('resident:')?this.residents.root.getObjectByName(action.slice(9)):undefined;
