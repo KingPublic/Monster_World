@@ -3,7 +3,7 @@ import type { PerspectiveCamera } from 'three';
 import { gameConfig } from '../config/gameConfig';
 
 export class Renderer {
-  readonly webgl = new WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
+  readonly webgl = new WebGLRenderer({ antialias: true, alpha:true, powerPreference: 'high-performance' });
   private readonly observer: ResizeObserver;
   constructor(private readonly host: HTMLElement, private readonly camera: PerspectiveCamera) {
     this.webgl.toneMapping = ACESFilmicToneMapping;

@@ -1,14 +1,18 @@
 import {
-  BufferGeometry, Float32BufferAttribute, Group, Mesh, MeshStandardMaterial,
+  BufferGeometry, Color, Float32BufferAttribute, Group, Mesh, MeshStandardMaterial,
   OctahedronGeometry, Quaternion, SphereGeometry, TorusGeometry, Vector3,
 } from 'three';
+import type { DragonVariantId } from '../config/dragonVariants';
 
-export type EggRarity = 'Common' | 'Uncommon' | 'Rare' | 'Epic';
+import type {EggRarity} from '../config/mvpConfig';
+export type {EggRarity} from '../config/mvpConfig';
 const COLORS: Record<EggRarity, { shell: number; glow: number; metallic: number }> = {
   Common: { shell: 0xf3ead0, glow: 0xc5dd93, metallic: 0.02 },
   Uncommon: { shell: 0xcce6ad, glow: 0x80e773, metallic: 0.08 },
   Rare: { shell: 0x98d3c4, glow: 0x65c7ff, metallic: 0.13 },
   Epic: { shell: 0xb9b0d0, glow: 0xc185ff, metallic: 0.18 },
+  Legendary:{shell:0xe7c377,glow:0xffcb60,metallic:.22},
+  Mythical:{shell:0xd4cbea,glow:0xf4a5f0,metallic:.28},
 };
 
 function leafGeometry(): BufferGeometry {
@@ -21,9 +25,9 @@ function leafGeometry(): BufferGeometry {
 }
 
 /** Self-contained resources, safe to dispose with disposeScene. Origin is the shell's base. */
-export function createEgg(rarity: EggRarity, element: 'Nature' = 'Nature'): Group {
+export function createEgg(rarity: EggRarity, element: 'Nature' = 'Nature',variant?:DragonVariantId): Group {
   const egg = new Group(); egg.name = element + '-' + rarity + '-Egg';
-  egg.userData.rarity = rarity; egg.userData.element = element;
+  egg.userData.rarity = rarity; egg.userData.element = element;egg.userData.variant=variant??'mountain';
   const colors = COLORS[rarity];
   const shellGeometry = new SphereGeometry(1, 18, 14);
   const position = shellGeometry.getAttribute('position');
@@ -35,6 +39,9 @@ export function createEgg(rarity: EggRarity, element: 'Nature' = 'Nature'): Grou
   }
   shellGeometry.computeVertexNormals();
   const shellMaterial = new MeshStandardMaterial({ color: colors.shell, roughness: 0.48, metalness: colors.metallic });
+  if(variant==='meadow')shellMaterial.color.lerp(new Color(0xc1d6a0),.22);
+  if(variant==='frost')shellMaterial.color.lerp(new Color(0xb8dfee),.35);
+  if(variant==='ashscale')shellMaterial.color.lerp(new Color(0xc8b69b),.3);
   const shell = new Mesh(shellGeometry, shellMaterial);
   shell.name = 'egg-shell'; shell.position.y = 1.3;
   shell.castShadow = true; shell.receiveShadow = true; egg.add(shell);

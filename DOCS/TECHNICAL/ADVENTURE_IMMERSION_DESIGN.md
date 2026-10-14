@@ -1,0 +1,15 @@
+# Adventure immersion — 2026-10-13
+
+User authorizes the next polish pass: repair important collision and rider/animation issues, arrange companions more neatly, add Travelers across the world and other people to speak with. Continue October13's verified work; do not repeat the nineteen-source audit. Existing source files, saves and earlier work remain intact. No commit, push, deployment, new dependencies, paid systems, combat or economy changes.
+
+The result is a readable Dragon adventure: solid tree trunks/boulders/ridges, calmer and better fitted characters, a organized companion garden with clear lanes and a selected-mount berth, and inhabited travel routes. Conversations provide character, regional advice and an optional compass marker to existing nests. They neither grant rewards nor skip the physical journey. English game copy follows the existing UI; implementation reports use Indonesian when speaking to the user.
+
+Use existing downloaded Traveler and Knight rigs, with owned subtle garment palettes where possible. Travelers follow sampled existing trail segments, pause/turn, and stand facing the player during conversation. City residents and one guide near each region supply authored dialogue. Load only nearby residents, retire distant instances with hysteresis, and cap concurrent rigs. Camps/signposts are lightweight instanced or simple geometry clear of movement lanes, egg aprons, services and parking. Keep foreground people legible and avoid duplicate synchronized marches.
+
+Companions use deterministic garden rows and a distinct selected berth; accessible spacing accounts for the largest current body and folded wings. The visible garden is bounded; a large saved collection remains selectable without allocating hundreds of full rigs. Selecting recalls to the berth only outside active raids and while on foot; mount state and appearance lineage remain unchanged. Selected and Baby care information is readable through existing collection/context UI.
+
+Collision uses lightweight spatial queries generated from actual placed geometry, with altitude-aware flight resolution so flying over an obstacle remains possible. Preserve city colliders and existing traversal surfaces, speed, shield145/100, old nest coordinates, chase/delivery/save rules. Do not obstruct existing trails or turn scenery into invisible large walls.
+
+Animation changes must be demonstrated on actual rigs: foot support and rider fit across idle/walk/takeoff/flight/landing, no cumulative procedural offsets, matching stage identity and independent resource ownership. Preserve supplied clips and original GLBs. Report remaining anatomical/physical-device limits without claiming cinematic animation or release readiness.
+
+Acceptance: meaningful tests, typecheck/build, actual browser interaction with two dialogue roles and a remote guide, dialogue pause/close/route behavior, orderly mixed-stage collection/reload, movement collision and unobstructed higher flight, existing physical raid/hatch/feed/riding/save regression, failure/disposal and touch layout. Keep browser saves isolated. Record evidence in ASSET_WORK/iteration3 and a durable report/handoff.

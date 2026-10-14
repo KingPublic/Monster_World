@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-13",
+  "path": "public/assets/images/menu/monster-world-sanctuary-v1.png",
+  "bytes": 2467198,
+  "dimensions": [
+    1672,
+    941
+  ],
+  "sha256": "8271662087f05bc73c7816ebfeac5e339d2b90efc2aa6f5088afefb3e46af497",
+  "origin": "Original illustration generated with built-in ImageGen for this user-authorized menu",
+  "original": "C:/Users/Adrian/.codex/generated_images/01a11e4a-9a6f-7cc1-ab41-2ad48f385b8a/exec-d5fa3bf4-c8ce-41c7-90a4-cb1572e54591.png",
+  "prompt": "DOCS/TECHNICAL/MAIN_MENU_ART_PROMPT.md",
+  "scope": "Menu concept art; CSS motion and actual live Dragon; not MP4 or a newly integrated environment pack"
+}

@@ -1,5 +1,7 @@
 # Dragon Growth System
 
+**October14 Task11:** Young feeding continues via R/Feed near the Dragon. Care meals gradually improve size/Speed/Stamina/Boost/HP; every4meals adds a level, bounded at100meals/+35%size. Meals also restoreHP. Baby→Young remains two meals, and family/rarity/element never swap. No new Adult stage. See [current care report](../../TECHNICAL/DRAGON_CARE_RECOVERY_AND_SOUND_REPORT.md) and centralized `mvpConfig.dragonCare`.
+
 > Current MVP: Basic Food grants 50 Growth; 100 transforms Baby into Young. First hatch grants 2 free Food for immediate growth. Feeding animates eating; transformation uses particles and a procedural form replacement. Rarity and Nature Element remain unchanged. Adult growth and final tuning are deferred.
 
 

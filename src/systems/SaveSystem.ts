@@ -1,5 +1,7 @@
 import { mvpConfig } from '../config/mvpConfig';
 import type { CarriedEgg, DragonRarity, DragonRecord, SaveData } from '../gameplay/Progression';
+import { validDragonVariant } from '../config/dragonVariants';
+import {dragonStats} from '../gameplay/DragonCare';
 
 export interface StorageLike {
   getItem(key: string): string | null;
@@ -8,7 +10,7 @@ export interface StorageLike {
 }
 export type SaveStatus = 'idle' | 'empty' | 'loaded' | 'saved' | 'reset' | 'invalid' | 'unsupported' | 'unavailable';
 
-const rarities = new Set<DragonRarity>(['Common', 'Uncommon', 'Rare', 'Epic']);
+const rarities = new Set<DragonRarity>(['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary', 'Mythical']);
 const nestIds = new Set(mvpConfig.nests.map((nest) => nest.id));
 function record(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === 'object' && !Array.isArray(value);
@@ -34,15 +36,21 @@ export function validateSave(input: unknown): SaveData | undefined {
   for (const raw of input.dragons) {
     if (!record(raw) || !id(raw.id) || seen.has(raw.id) || !validName(raw.name) || !rarity(raw.rarity) || raw.element !== 'Nature') return undefined;
     if ((raw.stage !== 'Baby' && raw.stage !== 'Young') || !finite(raw.growth)) return undefined;
+    if(raw.variant!==undefined&&!validDragonVariant(raw.variant))return undefined;
+    if((raw.careMeals!==undefined&&!finite(raw.careMeals))||(raw.health!==undefined&&!finite(raw.health))||(raw.recoveryReadyAt!==undefined&&(!finite(raw.recoveryReadyAt)||raw.recoveryReadyAt<0||raw.recoveryReadyAt>8.64e15)))return undefined;
+    const careMeals=raw.stage==='Baby'?0:clamp((raw.careMeals??0) as number,0,mvpConfig.dragonCare.maxMeals);
+    const maxHealth=dragonStats({careMeals} as DragonRecord).maxHealth,health=clamp((raw.health??maxHealth) as number,0,maxHealth),recoveryReadyAt=Math.floor((raw.recoveryReadyAt??0) as number);
+    if((health===0)!==(recoveryReadyAt>0))return undefined;
     seen.add(raw.id);
     dragons.push({ id: raw.id, name: raw.name.trim(), rarity: raw.rarity, element: 'Nature', stage: raw.stage,
-      growth: raw.stage === 'Young' ? mvpConfig.youngThreshold : clamp(raw.growth, 0, mvpConfig.youngThreshold - 1) });
+      growth: raw.stage === 'Young' ? mvpConfig.youngThreshold : clamp(raw.growth, 0, mvpConfig.youngThreshold - 1),careMeals,health,recoveryReadyAt,...(raw.variant!==undefined?{variant:raw.variant}:{}) });
   }
   const securedEggs: CarriedEgg[] = [];
   for (const raw of input.securedEggs) {
     if (!record(raw) || !id(raw.id) || seen.has(raw.id) || !rarity(raw.rarity) || raw.element !== 'Nature' || typeof raw.nestId !== 'string' || !nestIds.has(raw.nestId)) return undefined;
+    if(raw.variant!==undefined&&!validDragonVariant(raw.variant))return undefined;
     seen.add(raw.id);
-    securedEggs.push({ id: raw.id, rarity: raw.rarity, element: 'Nature', nestId: raw.nestId });
+    securedEggs.push({ id: raw.id, rarity: raw.rarity, element: 'Nature', nestId: raw.nestId,...(raw.variant!==undefined?{variant:raw.variant}:{}) });
   }
   if (input.equippedDragonId !== null && !dragons.some((dragon) => dragon.id === input.equippedDragonId && dragon.stage === 'Young')) return undefined;
   return {

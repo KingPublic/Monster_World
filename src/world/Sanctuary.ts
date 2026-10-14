@@ -1,12 +1,17 @@
-import { CylinderGeometry, ExtrudeGeometry, Group, Mesh, MeshStandardMaterial, Shape } from 'three';
+import { BoxGeometry,CylinderGeometry, ExtrudeGeometry, Group, Mesh, MeshStandardMaterial, RingGeometry, Shape } from 'three';
+import type{InstancedMesh}from'three';
 import { gameConfig } from '../config/gameConfig';
 import { Parts } from '../utils/scene';
 import { cityBuildings, cityFoundation, cityPaving, hatcheryStair, upperCourt, sanctuaryServices, citySolids } from './SanctuaryLayout';
 import type { CityBuilding } from './SanctuaryLayout';
 import { batchStaticScene } from '../utils/batchStaticScene';
+import { CityPlanting } from './CityPlanting';
+import{addBatch}from'./Landscape';
 export interface WorldLabel{text:string;position:readonly [number,number,number];color?:string;range:number;}
 export class Sanctuary {
  readonly group=new Group();readonly dragonStage=new Group();readonly dragonFallback=new Group();
+ readonly planting=new CityPlanting();
+ readonly stairs:InstancedMesh;
  readonly labels:WorldLabel[]=[];
  readonly buildings:(CityBuilding&{group:Group})[]=[];
  readonly trees:{group:Group;width:number}[]=[];readonly arrivalTowers:Group[]=[];readonly flags:Group[]=[];readonly foodAwning=new Group();
@@ -15,9 +20,9 @@ export class Sanctuary {
  constructor(){
   const p=this.parts,c=this.colors,g=this.group;g.name='DragonSanctuary_GardenCity';
   // A low sloped landform joins the valley, avoiding the former sheer slab perimeter.
-  const foundation=new Mesh(new CylinderGeometry(cityFoundation.radius,cityFoundation.apronRadius,1,96),new MeshStandardMaterial({color:0x7b9667,roughness:1}));foundation.position.y=.5;foundation.receiveShadow=true;g.add(foundation);
+  const foundation=new Mesh(new CylinderGeometry(cityFoundation.radius,cityFoundation.apronRadius,1,96),new MeshStandardMaterial({color:0x7b9667,roughness:1}));foundation.name='SanctuaryGroundFoundation';foundation.position.y=.5;foundation.receiveShadow=true;g.add(foundation);
   const outline=new Shape();upperCourt.outline.forEach(([x,z],i)=>i?outline.lineTo(x,-z):outline.moveTo(x,-z));outline.closePath();
-  const terrace=new Mesh(new ExtrudeGeometry(outline,{depth:5,bevelEnabled:false}),new MeshStandardMaterial({color:c.stone,roughness:1}));terrace.rotation.x=-Math.PI/2;terrace.position.y=1;terrace.receiveShadow=true;g.add(terrace);
+  const terrace=new Mesh(new ExtrudeGeometry(outline,{depth:5,bevelEnabled:false}),new MeshStandardMaterial({color:c.stone,roughness:1}));terrace.name='HatcheryCourtSurface';terrace.rotation.x=-Math.PI/2;terrace.position.y=1;terrace.receiveShadow=true;g.add(terrace);
   // Individual stone courses and planting soften the raised Hatchery garden.
   for(let i=0;i<upperCourt.outline.length;i++){
    const a=upperCourt.outline[i]!,b=upperCourt.outline[(i+1)%upperCourt.outline.length]!;
@@ -27,12 +32,14 @@ export class Sanctuary {
   }
   // Restrained pale paving leaves generous planted ground between the districts.
   for(const r of cityPaving)p.add(g,'box',c.edge,[r.x,r.y-.03,r.z],[r.width,.06,r.depth]);
+  const promenade=new Mesh(new RingGeometry(163,181,128),new MeshStandardMaterial({color:c.edge,roughness:1}));promenade.rotation.x=-Math.PI/2;promenade.position.y=1.02;promenade.receiveShadow=true;g.add(promenade);
   for(const [x,z,r] of [[0,22,32],[68,20,29],[-62,46,23]]){
    const plaza=new Mesh(new CylinderGeometry(r!,r!,.06,64),new MeshStandardMaterial({color:x===68?0xd3c6a2:0xded2b5,roughness:1}));plaza.position.set(x!,1,z!);plaza.receiveShadow=true;g.add(plaza);
   }
   for(const x of [-13.5,13.5])p.add(g,'box',c.stone,[x,1.04,86],[.45,.12,80]);
   const stair=hatcheryStair,run=(stair.startZ-stair.endZ)/stair.count;
-  for(let i=0;i<stair.count;i++){const h=(i+.5)/stair.count*(stair.high-stair.low);p.add(g,'box',c.edge,[stair.x,stair.low+h/2,stair.startZ-(i+.5)*run],[stair.halfWidth*2,h,run+.025]);}
+  const steps=[];for(let i=0;i<stair.count;i++){const h=(i+.5)/stair.count*(stair.high-stair.low);steps.push({x:stair.x,y:stair.low+h/2,z:stair.startZ-(i+.5)*run,sx:stair.halfWidth*2,sy:h,sz:run+.025});}
+  this.stairs=addBatch(g,'HatcheryStoneSteps',new BoxGeometry(1,1,1),c.edge,steps);this.stairs.castShadow=true;
   for(const b of cityBuildings){
    const group=p.group(g,b.name,b.x,b.y,b.z);group.rotation.y=b.rotation;group.userData.cityId=b.id;this.buildings.push({...b,group});
    // Calm coherent fallback, replaced only when its real model succeeds.
@@ -50,6 +57,11 @@ export class Sanctuary {
   // Layered grove canopies, understory and flowering beds frame clear streets.
   const trees:readonly (readonly [number,number,number,number])[]=[[-30,1,73,16],[31,1,73,17],[-84,1,18,18],[-88,1,-37,16],[-45,1,-89,17],[43,1,-85,18],[-28,6,-105,15],[28,6,-104,17],[-27,6,-76,13],[27,6,-76,14],[101,1,38,19],[93,1,66,16],[-42,1,110,17],[42,1,110,18],[-113,1,12,15],[28,1,0,13]];
   for(const [x,y,z,h] of trees)this.tree(x,y,z,h);
+  // The east/south turn keeps its broad source canopy away from Horse and camera.
+  for(const [x,z,h]of [[-145,8,21],[-137,104,18],[-75,130,18],[42,141,20],[142,142,20],[151,72,22],[131,-62,18],[32,-145,20],[-27,-150,18],[-138,-119,21],[-204,-24,18],[-196,90,17],[5,194,22],[150,-136,20],[189,-85,18],[-66,194,19]])this.tree(x!,1,z!,h!);
+  for(const [x,z,w,d]of [[-121,65,14,18],[-86,120,18,9],[32,128,13,18],[135,58,15,10],[105,-65,12,15],[-20,-142,12,10],[-150,-84,12,14],[-65,180,14,11]])this.garden(x!,1,z!,w!,d!);
+  for(let i=0;i<14;i++){const a=i/14*Math.PI*2;this.lantern(Math.cos(a)*185,1,Math.sin(a)*185);}
+  for(const[x,z,r]of [[-130,102,.6],[100,131,-.6],[-119,-85,1],[118,-90,-1]])this.bench(x!,z!,r!);
   for(const [x,z,w,d] of [[-30,48,9,9],[32,48,10,9],[-48,-16,12,6],[-73,-16,12,6],[44,-43,12,7],[96,-27,8,7],[-20,96,7,14],[20,96,7,14],[-31,-43,11,7],[31,-43,11,7]])this.garden(x!,1,z!,w!,d!);
   for(const [x,z] of [[-17,57],[17,57],[-17,88],[17,88],[-18,-30],[18,-30],[-82,-27],[-42,-27],[45,-27],[92,20]])this.lantern(x!,1,z!);
   for(const x of [-17,17])this.lantern(x,6,-65);
@@ -67,6 +79,7 @@ export class Sanctuary {
   // Threshold mosaics identify the service without filling the street with props.
   for(const key of ['hatchery','shop','collection','rider'] as const){const [x,y,z]=sanctuaryServices[key];const ring=p.add(g,'ring',c.gold,[x,y+.09,z],[3.4,3.4,.2]);ring.rotation.x=-Math.PI/2;}
   batchStaticScene(g,new Set([...this.buildings.map(b=>b.group),...this.trees.map(t=>t.group),...this.arrivalTowers,...this.flags,this.dragonFallback]));
+  g.add(this.planting.root);
  }
  private fountain(x:number,z:number){const p=this.parts,c=this.colors,g=this.group;
   p.add(g,'cylinder',c.stone,[x,1.45,z],[7.2,.9,7.2]);p.add(g,'cylinder',c.edge,[x,2,z],[6.7,.5,6.7]);p.add(g,'cylinder',0x71b9b1,[x,2.3,z],[5.8,.08,5.8]);

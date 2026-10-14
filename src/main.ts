@@ -1,5 +1,6 @@
 import { Game } from './core/Game';
 import './ui/styles/main.css';
+import './ui/styles/menu.css';
 
 const app = document.querySelector<HTMLElement>('#app');
 if (!app) throw new Error('Monster World mount element is missing');

@@ -20,14 +20,14 @@ function fixture(): SaveData {
 }
 
 const cases: [string, () => void][] = [
-  ['takeoff works at 30 60 and 120 fps and descent lands', () => {
-    for (const dt of [1/30,1/60,1/120]) {
+  ['takeoff works at 30 60 and 120 fps and C or Ctrl descent lands', () => {
+    for (const descent of ['KeyC','ControlLeft']) for (const dt of [1/30,1/60,1/120]) {
       const root=new Group();root.position.set(54,groundHeight(54,22),22);
       const flight=new Flight(),state=fixture();let code='Space';
       const input={movement:{x:0,y:0},held:(key:string)=>key===code};
       for(let i=0;i<Math.round(1/dt);i++)flight.update(dt,root,input,0,state);
       check(flight.airborne && root.position.y>groundHeight(54,22)+10,'held ascent must lift off at '+Math.round(1/dt)+' fps');
-      code='ControlLeft';
+      code=descent;
       for(let i=0;i<Math.round(3/dt);i++)flight.update(dt,root,input,0,state);
       check(!flight.airborne,'descent lands at '+Math.round(1/dt)+' fps');
       equal(root.position.y,groundHeight(54,22),'landing follows ground');
@@ -53,7 +53,7 @@ const cases: [string, () => void][] = [
   ['only stolen slots respawn at their own 300 or 600 second deadline', () => {
     const progress = new Progression();
     progress.state.carryLevel = 3;
-    equal(progress.nests.length, 4, 'four active nests initialize');
+      equal(progress.nests.length, 8, 'eight authorized active nests initialize');
     const untouched = progress.nests[0].slots[1].egg;
     check(progress.steal('forest', 0), 'forest theft');
     check(progress.steal('volcano', 0), 'volcano theft');

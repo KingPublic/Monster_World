@@ -1,5 +1,7 @@
 # Phase 2 runtime plan and final promotion decisions
 
+**Current follow-up — 2026-10-13:** [CONTENT_AND_BEHAVIOR_REPORT.md](CONTENT_AND_BEHAVIOR_REPORT.md) and CONTENT_RUNTIME_MANIFEST.json describe the current9/19 groups, Ashscale derivatives, four appearance lineages, eight Guardians/nests, actual Horse riding and verified behavior. Earlier recommendations excluding Horse/extra nests and calling Demon unpromoted belong to the historical scope below.
+
 **Current runtime update — 2026-10-12:** [VISUAL_POLISH_REPORT.md](VISUAL_POLISH_REPORT.md) supersedes the historical decision table/hashes below for active gameplay. Mountain-family10,069,068bytes covers Baby/Young/4Guardians; Traveler/Knight/Horse and Village trees are integrated additions.8/19 groups are used; sources unchanged. Original Phase2 measurements/promotion history remain below, including the preserved comparison Mountain Young file that current Game does not request.
 
 The bounded integration is complete for local play: repaired Cartoon Boy, curated city pieces, Stone Pathway maps and rideable Mountain Young. The whole downloaded library is not production-ready and external release is not cleared by this milestone. Future work listed below is a recommendation, not implemented scope.

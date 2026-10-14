@@ -2,17 +2,27 @@ import { BufferGeometry, Color, ConeGeometry, CylinderGeometry, DataTexture, Flo
 import { gameConfig } from '../config/gameConfig';
 import { addBatch, addTrail, seededRandom, trailClearance, valleyTrails } from './Landscape';
 import type { ScatterItem } from './Landscape';
+import { cityGroundHeight,cityFoundation } from './SanctuaryLayout';
+import { WorldCollision, worldCollision } from './WorldCollision';
 
 export function terrainHeight(x: number, z: number): number {
   const homeDistance = Math.hypot(x, z);
-  if (homeDistance < 180) return 0;
+  const cityEdge=cityFoundation.apronRadius+15;
+  if (homeDistance < cityEdge) return 0;
   let height = 14 + Math.sin(x * 0.004) * Math.cos(z * 0.005) * 16;
-  for (const marker of gameConfig.nestMarkers) {
+  for (const marker of gameConfig.nestMarkers.slice(0,4)) {
     const distance = Math.hypot(x - marker.position[0], z - marker.position[2]);
     if (distance < 60) return marker.position[1];
     height += marker.position[1] * Math.exp(-Math.pow(distance / marker.terrainSpread, 2));
   }
-  return height * Math.min(1, (homeDistance - 180) / 150);
+  height *= Math.min(1, (homeDistance - cityEdge) / 150);
+  // Added nests sit on the sampled terrain; do not raise the legacy hills.
+  for(const marker of gameConfig.nestMarkers.slice(4)){
+    const distance=Math.hypot(x-marker.position[0],z-marker.position[2]);
+    if(distance<60)return marker.position[1];
+    if(distance<160){const t=(160-distance)/100,blend=t*t*(3-2*t);height+=(marker.position[1]-height)*blend;}
+  }
+  return height;
 }
 
 /** Render the existing physical nest apron, including its smooth landing slope. */
@@ -25,7 +35,7 @@ export function valleySurfaceHeight(x: number, z: number): number {
     const t=Math.max(0,Math.min(1,(82-distance)/53)),blend=t*t*(3-2*t);
     return outer+(marker.position[1]+5-outer)*blend;
   }
-  return terrainHeight(x,z);
+  return Math.max(terrainHeight(x,z),cityGroundHeight(x,z));
 }
 
 function terrainColor(x:number,z:number):Color {
@@ -33,7 +43,10 @@ function terrainColor(x:number,z:number):Color {
   const dry=Math.max(0,1-Math.hypot(x-volcano.position[0],z-volcano.position[2])/1050);
   const snow=Math.max(0,1-Math.hypot(x-frost.position[0],z-frost.position[2])/1450);
   const patch=Math.sin(x*.011+Math.sin(z*.009)*2)*Math.cos(z*.008-x*.003);
-  return new Color(0x7e9659).lerp(new Color(0xa59964),(patch+1)*.22).lerp(new Color(0x8b7665),dry*.87).lerp(new Color(0xc4d8d4),snow*.85).multiplyScalar(.95+.05*Math.sin(x*.039+z*.028));
+  const color=new Color(0x7e9659).lerp(new Color(0xa59964),(patch+1)*.22).lerp(new Color(0x8b7665),dry*.87).lerp(new Color(0xc4d8d4),snow*.85);
+  const regional:Readonly<Record<string,number>>={meadow:0x9da66a,canyon:0xae8968,marsh:0x71968a,ruins:0x96929e};
+  for(const n of gameConfig.nestMarkers.slice(4)){const d=Math.hypot(x-n.position[0],z-n.position[2]),t=Math.max(0,1-d/300);color.lerp(new Color(regional[n.id]!),t*t*.8);}
+  return color.multiplyScalar(.95+.05*Math.sin(x*.039+z*.028));
 }
 
 function soilTexture():DataTexture {
@@ -61,7 +74,7 @@ function ridgeGeometry(seed:number):BufferGeometry {
 
 export class Environment {
   readonly group = new Group();
-  constructor() {
+  constructor(readonly collision:WorldCollision=worldCollision) {
     this.group.name='SurroundingWorld_Terrain';
     this.addTerrain();this.addWoodland();this.addUndergrowth();this.addRidges();
     addTrail(this.group,valleySurfaceHeight);
@@ -79,13 +92,29 @@ export class Environment {
     for(let i=0;i<index.count;i+=3){
       const a=index.getX(i),b=index.getX(i+1),c=index.getX(i+2),x=(positions.getX(a)+positions.getX(b)+positions.getX(c))/3,z=(positions.getZ(a)+positions.getZ(b)+positions.getZ(c))/3;
       const apron=gameConfig.nestMarkers.some(n=>Math.abs(x-n.position[0])<120&&Math.abs(z-n.position[2])<120);
-      const corridor=x>-890&&x<440&&z>-1000&&z<30&&trailClearance(x,z)<20;
-      if(!apron&&!corridor)kept.push(a,b,c);
+      const corridor=trailClearance(x,z)<20;
+      const city=Math.hypot(x,z)<cityFoundation.apronRadius+100;
+      if(!apron&&!corridor&&!city)kept.push(a,b,c);
     }
     geometry.setIndex(kept);
     geometry.setAttribute('color',new Float32BufferAttribute(colors,3));geometry.computeVertexNormals();
     const material=new MeshStandardMaterial({vertexColors:true,map:soilTexture(),roughness:1});
     const ground=new Mesh(geometry,material);ground.name='WarmMottledValleyGround';ground.receiveShadow=true;this.group.add(ground);
+    // Fine city support follows the same floor used by feet. The distant grid
+    // formerly spanned the six-unit terrace and buried players two units deep.
+    const tileSize=cityFoundation.apronRadius+100;
+    for(const tx of [-.5,.5])for(const tz of [-.5,.5]){
+      const city=new PlaneGeometry(tileSize,tileSize,Math.ceil(tileSize/10),Math.ceil(tileSize/10));city.rotateX(-Math.PI/2);
+      const cp=city.attributes.position!,cu=city.attributes.uv!,cc:number[]=[];
+      for(let i=0;i<cp.count;i++){const x=cp.getX(i)+tx*tileSize,z=cp.getZ(i)+tz*tileSize;cp.setXYZ(i,x,valleySurfaceHeight(x,z)-.04,z);cu.setXY(i,x/config.extent+.5,.5-z/config.extent);const color=terrainColor(x,z);cc.push(color.r,color.g,color.b);}
+      const ci=city.index!,kept:number[]=[];
+      for(let i=0;i<ci.count;i+=3){const ids=[ci.getX(i),ci.getX(i+1),ci.getX(i+2)],xs=ids.map(j=>cp.getX(j)),zs=ids.map(j=>cp.getZ(j));if(Math.min(...xs)<55&&Math.max(...xs)>-55&&Math.min(...zs)<-24&&Math.max(...zs)>-132)continue;kept.push(...ids);}
+      city.setIndex(kept);city.setAttribute('color',new Float32BufferAttribute(cc,3));city.computeVertexNormals();const cityGround=new Mesh(city,material);cityGround.name='DetailedCityGround_'+tx+'_'+tz;cityGround.receiveShadow=true;this.group.add(cityGround);
+    }
+    const court=new PlaneGeometry(136,136,136,136);court.rotateX(-Math.PI/2);const fp=court.attributes.position!,fu=court.attributes.uv!,fc:number[]=[];
+    for(let i=0;i<fp.count;i++){const x=fp.getX(i),z=fp.getZ(i)-78;fp.setXYZ(i,x,valleySurfaceHeight(x,z)-.02,z);fu.setXY(i,x/config.extent+.5,.5-z/config.extent);const color=terrainColor(x,z);fc.push(color.r,color.g,color.b);}
+    const fi=court.index!,floorTriangles:number[]=[];for(let i=0;i<fi.count;i+=3){const ids=[fi.getX(i),fi.getX(i+1),fi.getX(i+2)],x=ids.reduce((s,j)=>s+fp.getX(j),0)/3,z=ids.reduce((s,j)=>s+fp.getZ(j),0)/3;if(Math.abs(x)<14&&z<-36&&z>-62)continue;floorTriangles.push(...ids);}court.setIndex(floorTriangles);
+    court.setAttribute('color',new Float32BufferAttribute(fc,3));court.computeVertexNormals();const courtGround=new Mesh(court,material);courtGround.name='DetailedCityGround_CourtAndStairs';courtGround.receiveShadow=true;this.group.add(courtGround);
     // Detailed apron patches follow the existing traversal surface at each nest.
     for(const marker of gameConfig.nestMarkers){
       const patch=new PlaneGeometry(350,350,70,70);patch.rotateX(-Math.PI/2);const p=patch.attributes.position!,c:number[]=[],uv=patch.attributes.uv!;
@@ -93,31 +122,32 @@ export class Environment {
       patch.setAttribute('color',new Float32BufferAttribute(c,3));patch.computeVertexNormals();
       const mesh=new Mesh(patch,material);mesh.name='NestLandingApron_'+marker.id;mesh.receiveShadow=true;this.group.add(mesh);
     }
-    // A world-aligned fine grid cannot fold across itself on a tight trail bend.
-    const corridor=new PlaneGeometry(1340,1080,268,216);corridor.rotateX(-Math.PI/2);
-    const cp=corridor.attributes.position!,cc:number[]=[],ci:number[]=[],cu=corridor.attributes.uv!;
-    for(let i=0;i<cp.count;i++){
-      const x=cp.getX(i)-220,z=cp.getZ(i)-460,color=terrainColor(x,z);
-      cp.setXYZ(i,x,valleySurfaceHeight(x,z)-.08,z);cc.push(color.r,color.g,color.b);cu.setXY(i,x/config.extent+.5,.5-z/config.extent);
+    // Independent ribbons cover the coarse grid's clipped trail shoulders.
+    // Each is smaller than the former 58k-vertex near-city corridor grid.
+    for(const trail of valleyTrails){
+      const steps=Math.ceil(trail.curve.getLength()/5),across=16,positions:number[]=[],colors:number[]=[],uv:number[]=[],indices:number[]=[];
+      for(let i=0;i<=steps;i++){
+        const t=i/steps,p=trail.curve.getPointAt(t),tangent=trail.curve.getTangentAt(t);
+        for(let j=0;j<=across;j++){
+          const side=(j/across-.5)*140,x=p.x-tangent.z*side,z=p.z+tangent.x*side,color=terrainColor(x,z);
+          positions.push(x,valleySurfaceHeight(x,z)-.08,z);colors.push(color.r,color.g,color.b);uv.push(x/config.extent+.5,.5-z/config.extent);
+          if(i<steps&&j<across){const a=i*(across+1)+j,b=a+across+1;indices.push(a,a+1,b,b,a+1,b+1);}
+        }
+      }
+      const ribbon=new BufferGeometry();ribbon.setAttribute('position',new Float32BufferAttribute(positions,3));ribbon.setAttribute('color',new Float32BufferAttribute(colors,3));ribbon.setAttribute('uv',new Float32BufferAttribute(uv,2));ribbon.setIndex(indices);ribbon.computeVertexNormals();
+      const mesh=new Mesh(ribbon,material);mesh.name='DetailedTrailGround_'+trail.nestId;mesh.receiveShadow=true;this.group.add(mesh);
     }
-    const original=corridor.index!;
-    for(let i=0;i<original.count;i+=3){
-      const a=original.getX(i),b=original.getX(i+1),c=original.getX(i+2),x=(cp.getX(a)+cp.getX(b)+cp.getX(c))/3,z=(cp.getZ(a)+cp.getZ(b)+cp.getZ(c))/3;
-      if(trailClearance(x,z)>86||gameConfig.nestMarkers.some(n=>Math.abs(x-n.position[0])<120&&Math.abs(z-n.position[2])<120))continue;
-      ci.push(a,b,c);
-    }
-    corridor.setIndex(ci);corridor.setAttribute('color',new Float32BufferAttribute(cc,3));corridor.computeVertexNormals();
-    const mesh=new Mesh(corridor,material);mesh.name='DetailedTrailGround';mesh.receiveShadow=true;this.group.add(mesh);
   }
   private addWoodland():void {
     const random=seededRandom(gameConfig.world.seed),trunks:ScatterItem[]=[],branches:ScatterItem[]=[],leaves:ScatterItem[]=[],distantLeaves:ScatterItem[]=[],pines:ScatterItem[]=[];
     const groves=[{x:270,z:-165,r:170},{x:480,z:-350,r:210},{x:220,z:-470,r:150},{x:-90,z:-315,r:190},{x:-460,z:-690,r:260},{x:90,z:300,r:180},{x:-320,z:140,r:190},{x:260,z:100,r:140}];
+    for(const marker of gameConfig.nestMarkers)groves.push({x:marker.position[0]+150,z:marker.position[2]+90,r:190},{x:marker.position[0]-180,z:marker.position[2]-50,r:170});
     for(let i=0;i<52;i++)groves.push({x:(random()-.5)*9700,z:(random()-.53)*9600,r:210+random()*390});
     const foliage=[0x477447,0x648044,0x7a904b,0x527c58,0x8a9654,0x3e6c57];
-    for(let i=0;i<gameConfig.world.treeCount*3;i++){
+    for(let i=0;i<gameConfig.world.treeCount*4;i++){
       const grove=groves[Math.floor(random()*(i<950?8:groves.length))]!,a=random()*Math.PI*2,r=Math.sqrt(random())*grove.r;
       const x=grove.x+Math.cos(a)*r,z=grove.z+Math.sin(a)*r;
-      if(Math.hypot(x,z)<181||trailClearance(x,z)<12||gameConfig.nestMarkers.some(n=>Math.hypot(x-n.position[0],z-n.position[2])<68))continue;
+      if(Math.hypot(x,z)<cityFoundation.apronRadius+7||trailClearance(x,z)<20||gameConfig.nestMarkers.some(n=>Math.hypot(x-n.position[0],z-n.position[2])<100))continue;
       const y=valleySurfaceHeight(x,z),height=19+random()*24,width=height*(.24+random()*.12),yaw=random()*Math.PI*2;
       const cold=z<-2500,conifer=cold||random()<.22;
       trunks.push({x,y:y+height*.32,z,sx:1+height*.025,sy:height*.64,sz:1+height*.025,yaw,lean:(random()-.5)*.12,color:0x8c7859});
@@ -132,8 +162,8 @@ export class Environment {
         branches.push({x:x-width*.22,y:y+height*.54,z,sx:.65,sy:height*.28,sz:.65,yaw,lean:.6,color:0x927657});
       }
     }
-    addBatch(this.group,'GroveBranchingTrunks',new CylinderGeometry(.65,1,1,6),0xffffff,trunks);
-    addBatch(this.group,'GroveSecondaryBranches',new CylinderGeometry(.3,1,1,5),0xffffff,branches);
+    this.collision.registerMesh(addBatch(this.group,'GroveBranchingTrunks',new CylinderGeometry(.65,1,1,6),0xffffff,trunks));
+    this.collision.registerMesh(addBatch(this.group,'GroveSecondaryBranches',new CylinderGeometry(.3,1,1,5),0xffffff,branches));
     addBatch(this.group,'BroadleafLayeredCanopies',new IcosahedronGeometry(1,1),0xffffff,leaves);
     addBatch(this.group,'DistantBroadleafSilhouettes',new IcosahedronGeometry(1,0),0xffffff,distantLeaves);
     addBatch(this.group,'TieredEvergreenCanopies',new ConeGeometry(1,1,7),0xffffff,pines);
@@ -142,19 +172,22 @@ export class Environment {
   private addUndergrowth():void {
     const random=seededRandom(841),rocks:ScatterItem[]=[],shrubs:ScatterItem[]=[],grass:ScatterItem[]=[],flowers:ScatterItem[]=[];
     const detailPoints=valleyTrails.flatMap(t=>t.curve.getPoints(140));
-    for(let i=0;i<2900;i++){
-      const base=i<1900?detailPoints[Math.floor(random()*detailPoints.length)]!:{x:(random()-.5)*2100,z:(random()-.62)*2500};
+    for(let i=0;i<4600;i++){
+      const base=i<3400?detailPoints[Math.floor(random()*detailPoints.length)]!:{x:(random()-.5)*2100,z:(random()-.62)*2500};
       const angle=random()*Math.PI*2,r=12+random()*55,x=base.x+Math.cos(angle)*r,z=base.z+Math.sin(angle)*r;
-      if(Math.hypot(x,z)<155||trailClearance(x,z)<1.2||gameConfig.nestMarkers.some(n=>Math.hypot(x-n.position[0],z-n.position[2])<33))continue;
+      if(Math.hypot(x,z)<cityFoundation.apronRadius+4||trailClearance(x,z)<4||gameConfig.nestMarkers.some(n=>Math.hypot(x-n.position[0],z-n.position[2])<38))continue;
       const y=valleySurfaceHeight(x,z),yaw=random()*Math.PI*2;
-      if(i%13===0){const s=2+random()*5;rocks.push({x,y:y+s*.35,z,sx:s*1.5,sy:s*.9,sz:s,yaw,color:i%26===0?0x9d9b80:0x7a8878});}
+      if(i%13===0){const s=2+random()*5;
+        // The whole visible rock (not only its origin) stays outside the trail.
+        if(trailClearance(x,z)>s*1.5+.85)rocks.push({x,y:y+s*.35,z,sx:s*1.5,sy:s*.9,sz:s,yaw,color:i%26===0?0x9d9b80:0x7a8878});
+      }
       else if(i%4===0){const s=1.8+random()*3;shrubs.push({x,y:y+s*.5,z,sx:s,sy:s*.85,sz:s*.9,yaw,color:i%8===0?0x7f9250:0x496f46});}
       else{
         for(let j=0;j<3;j++)grass.push({x:x+(random()-.5)*2,y:y+.5,z:z+(random()-.5)*2,sx:.35+random()*.35,sy:1+random()*1.4,sz:.35+random()*.35,yaw:yaw+j*2,color:i%5===0?0xb3b075:0x779350});
         if(i%17===0)flowers.push({x,y:y+1.6,z,sx:.65,sy:.4,sz:.65,yaw,color:i%34===0?0xe8c77c:0xc5b8d2});
       }
     }
-    addBatch(this.group,'TrailWeatheredBoulders',new IcosahedronGeometry(1,0),0xffffff,rocks);
+    this.collision.registerMesh(addBatch(this.group,'TrailWeatheredBoulders',new IcosahedronGeometry(1,0),0xffffff,rocks));
     addBatch(this.group,'TrailLeafyUnderstory',new IcosahedronGeometry(1,1),0xffffff,shrubs);
     // Folded tapered blades have volume from every mounted viewing angle.
     const geometry=new BufferGeometry();geometry.setAttribute('position',new Float32BufferAttribute([-.5,-.5,0,.5,-.5,0,.22,.5,.08,0,-.5,-.5,0,-.5,.5,.08,.5,.22],3));geometry.computeVertexNormals();
@@ -170,19 +203,23 @@ export class Environment {
     for(let i=0;i<38;i++){
       const angle=i/38*Math.PI*2,radius=4800+Math.sin(i*9)*480,x=Math.cos(angle)*radius,z=Math.sin(angle)*radius;
       const geometry=ridgeGeometry(700+i),height=420+random()*610;
-      const mountain=new Mesh(geometry,material);mountain.position.set(x,terrainHeight(x,z)-15,z);mountain.scale.set(380+random()*420,height,310+random()*380);mountain.rotation.y=angle+random();ridges.add(mountain);
+      const mountain=new Mesh(geometry,material);mountain.position.set(x,terrainHeight(x,z)-15,z);mountain.scale.set(380+random()*420,height,310+random()*380);mountain.rotation.y=angle+random();ridges.add(mountain);this.collision.registerRidge(mountain,7,11);
     }
     for(const [index,marker] of gameConfig.nestMarkers.entries()){
-      if(index<1)continue;
+      if(index<1||index>3)continue;
       const count=index===1?4:7;
       for(let i=0;i<count;i++){
         const angle=i/count*Math.PI*1.1+Math.PI*.7,radius=420+random()*260;
         const x=marker.position[0]+Math.cos(angle)*radius,z=marker.position[2]+Math.sin(angle)*radius;
-        if(trailClearance(x,z)<80)continue;
+        const width=110+random()*120,height=120+index*110+random()*190,depth=120+random()*100;
+        // A ridge's origin can be clear while its broad base cuts through a
+        // newer route. Keep the whole offset silhouette outside trail shoulders.
+        if(trailClearance(x,z)<Math.max(width,depth)*1.7+7)continue;
         const mountain=new Mesh(ridgeGeometry(index*100+i),material.clone());
-        mountain.position.set(x,terrainHeight(x,z)-20,z);mountain.scale.set(110+random()*120,120+index*110+random()*190,120+random()*100);mountain.rotation.y=angle;
-        (mountain.material as MeshStandardMaterial).color.set(index===3?0xc8e5e4:index===2?0x9f7664:0xa0a58b);ridges.add(mountain);
+        mountain.position.set(x,terrainHeight(x,z)-20,z);mountain.scale.set(width,height,depth);mountain.rotation.y=angle;
+        (mountain.material as MeshStandardMaterial).color.set(index===3?0xc8e5e4:index===2?0x9f7664:0xa0a58b);ridges.add(mountain);this.collision.registerRidge(mountain,7,11);
       }
     }
   }
 }
+

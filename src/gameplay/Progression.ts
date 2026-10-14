@@ -1,9 +1,12 @@
 import { carryCapacity, mvpConfig, upgradeCost } from '../config/mvpConfig';
 import type { EggRarity, MvpNestConfig, UpgradeKind } from '../config/mvpConfig';
+import { variantForNest, variantLabel } from '../config/dragonVariants';
+import type { DragonVariantId } from '../config/dragonVariants';
+import {dragonAvailable,dragonStats} from './DragonCare';
 
 export type DragonRarity = EggRarity;
-export interface CarriedEgg { id: string; rarity: DragonRarity; element: 'Nature'; nestId: string; }
-export interface DragonRecord { id: string; name: string; rarity: DragonRarity; element: 'Nature'; stage: 'Baby' | 'Young'; growth: number; }
+export interface CarriedEgg { id: string; rarity: DragonRarity; element: 'Nature'; nestId: string; variant?:DragonVariantId; }
+export interface DragonRecord { id: string; name: string; rarity: DragonRarity; element: 'Nature'; stage: 'Baby' | 'Young'; growth: number; variant?:DragonVariantId; careMeals?:number; health?:number; recoveryReadyAt?:number; }
 export interface SaveData {
   version: 1;
   tutorialComplete: boolean;
@@ -32,7 +35,7 @@ function spawnEgg(config: MvpNestConfig): CarriedEgg {
   let roll = Math.random() * total;
   let rarity = config.pool[config.pool.length - 1].rarity;
   for (const entry of config.pool) { roll -= entry.weight; if (roll < 0) { rarity = entry.rarity; break; } }
-  return { id: createId('egg'), rarity, element: 'Nature', nestId: config.id };
+  return { id: createId('egg'), rarity, element: 'Nature', nestId: config.id,variant:variantForNest(config.id) };
 }
 
 /** Pure local game state. Active raid loot and nest cooldowns deliberately do not persist. */
@@ -43,6 +46,7 @@ export class Progression {
 
   constructor(save?: SaveData) {
     this.state = save ? { ...save, upgrades: { ...save.upgrades }, dragons: save.dragons.map((dragon) => ({ ...dragon })), securedEggs: save.securedEggs.map((egg) => ({ ...egg })) } : freshSave();
+    for(const dragon of this.state.dragons){dragon.careMeals??=0;dragon.health??=dragonStats(dragon).maxHealth;dragon.recoveryReadyAt??=0;}
     // Reload cancels an active raid, so the tutorial offers theft again.
     if (!this.state.tutorialComplete && this.state.tutorialStep === 2) this.state.tutorialStep = 1;
     this.nests = mvpConfig.nests.map((config) => ({ id: config.id, slots: Array.from({ length: config.slotCount }, () => ({ egg: spawnEgg(config), remaining: 0 })) }));
@@ -96,7 +100,7 @@ export class Progression {
     const egg = this.state.securedEggs.shift();
     if (!egg) return undefined;
     const firstHatch = this.state.dragons.length === 0;
-    const dragon: DragonRecord = { id: createId('dragon'), name: egg.rarity + ' Nature Dragon', rarity: egg.rarity, element: egg.element, stage: 'Baby', growth: 0 };
+    const dragon: DragonRecord = { id: createId('dragon'), name: egg.rarity + ' '+variantLabel(egg.variant), rarity: egg.rarity, element: egg.element, stage: 'Baby', growth: 0,careMeals:0,health:mvpConfig.dragonCare.baseHealth,recoveryReadyAt:0,...(egg.variant?{variant:egg.variant}:{}) };
     this.state.dragons.push(dragon);
     if (firstHatch) this.state.food = Math.min(mvpConfig.limits.food, this.state.food + mvpConfig.starterFood);
     this.advanceTutorial(4);
@@ -104,7 +108,14 @@ export class Progression {
   }
   feed(id: string): boolean {
     const dragon = this.state.dragons.find((candidate) => candidate.id === id);
-    if (!dragon || dragon.stage !== 'Baby' || this.state.food < 1) return false;
+    if (!dragon || !dragonAvailable(dragon) || this.state.food < 1) return false;
+    const c=mvpConfig.dragonCare;
+    if(dragon.stage==='Young'){
+      const before=dragonStats(dragon);
+      if(before.meals>=c.maxMeals&&(dragon.health??before.maxHealth)>=before.maxHealth)return false;
+      this.state.food--;dragon.careMeals=Math.min(c.maxMeals,before.meals+1);
+      const after=dragonStats(dragon);dragon.health=Math.min(after.maxHealth,(dragon.health??before.maxHealth)+after.maxHealth-before.maxHealth+c.mealHealing);return true;
+    }
     this.state.food--;
     dragon.growth = Math.min(mvpConfig.youngThreshold, dragon.growth + mvpConfig.foodGrowth);
     if (dragon.growth >= mvpConfig.youngThreshold) { dragon.stage = 'Young'; this.advanceTutorial(5); }
@@ -112,9 +123,22 @@ export class Progression {
   }
   equip(id: string): boolean {
     const dragon = this.state.dragons.find((candidate) => candidate.id === id);
-    if (!dragon || dragon.stage !== 'Young') return false;
+    if (!dragon || dragon.stage !== 'Young' || !dragonAvailable(dragon)) return false;
     this.state.equippedDragonId = dragon.id;
     return true;
+  }
+  hitDragon(id:string,damage:number,now=Date.now()):'hurt'|'defeated'|'ignored'{
+    const d=this.state.dragons.find(d=>d.id===id);
+    if(!d||!dragonAvailable(d)||!Number.isFinite(damage)||damage<=0||!Number.isFinite(now)||now<0)return 'ignored';
+    d.health=Math.max(0,(d.health??dragonStats(d).maxHealth)-damage);
+    if(d.health>0)return 'hurt';
+    d.recoveryReadyAt=now+mvpConfig.dragonCare.recoverySeconds[d.rarity]*1000;return 'defeated';
+  }
+  recoverDragons(now=Date.now()):string[]{
+    if(!Number.isFinite(now)||now<0)return[];
+    const recovered:string[]=[];
+    for(const d of this.state.dragons)if((d.recoveryReadyAt??0)>0&&now>=d.recoveryReadyAt!){d.recoveryReadyAt=0;d.health=dragonStats(d).maxHealth;recovered.push(d.id);}
+    return recovered;
   }
   buyFood(): boolean {
     if (this.state.coins < mvpConfig.foodPrice || this.state.food >= mvpConfig.limits.food) return false;

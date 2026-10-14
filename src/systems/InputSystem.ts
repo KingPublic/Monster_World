@@ -2,7 +2,7 @@ import '../ui/styles/mobile.css';
 
 export interface MovementInput { readonly x: number; readonly y: number; }
 export interface LookDelta { x: number; y: number; }
-const gameplayCodes = new Set(['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ShiftLeft', 'ShiftRight', 'KeyE', 'Space', 'ControlLeft', 'ControlRight', 'KeyF', 'Escape']);
+const gameplayCodes = new Set(['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ShiftLeft', 'ShiftRight', 'KeyE', 'KeyR', 'KeyC', 'Space', 'ControlLeft', 'ControlRight', 'KeyF', 'Escape']);
 
 /** A single input source for foot movement, flight and held touch actions. */
 export class InputSystem {
@@ -120,6 +120,8 @@ export class InputSystem {
     return target instanceof Element && target.closest('input, textarea, select, [contenteditable="true"], [contenteditable=""]') !== null;
   }
   private readonly onKeyDown = (event: KeyboardEvent): void => {
+    // Let native menu buttons respond to Space; gameplay begins only after Start.
+    if (this.canvas.classList.contains('menu-canvas')) return;
     if (!gameplayCodes.has(event.code) || this.editable(event.target) || event.metaKey || event.altKey) return;
     event.preventDefault();
     if (!this.held(event.code) && !event.repeat) this.edges.add(event.code);

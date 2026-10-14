@@ -1,0 +1,117 @@
+{
+  "date": "2026-10-13",
+  "currentGameplayFiles": [
+    {
+      "path": "public/assets/models/characters/player/cartoon-boy.glb",
+      "bytes": 12120668,
+      "sha256": "b8e264363fe4924ea8096338431b218cd17e714f1460663714f7d5445d370860"
+    },
+    {
+      "path": "public/assets/models/characters/npc/traveler.glb",
+      "bytes": 1637652,
+      "sha256": "7be9df17d2d450419c0a1b5186ca32617f12ea615270db668458599b255d8845"
+    },
+    {
+      "path": "public/assets/models/characters/npc/knight.glb",
+      "bytes": 5684260,
+      "sha256": "bb96091255fc1e9a754df3cb1f53132752bbcf5cc7587516e8ca0bc3a579099d"
+    },
+    {
+      "path": "public/assets/models/creatures/ambient/horse.glb",
+      "bytes": 13617612,
+      "sha256": "95a6cafb00886f2cde616f70ed380e847f890a7343679eb8ea496e30713cb271"
+    },
+    {
+      "path": "public/assets/models/dragons/mountain-family.glb",
+      "bytes": 10069068,
+      "sha256": "f86ea6dc5aea6da516af62d0ace9f5e42f8203ee561724b0b4aec26c22d83a38"
+    },
+    {
+      "path": "public/assets/models/environment/sanctuary/village-body.glb",
+      "bytes": 1550668,
+      "sha256": "b3dd8b3540769b38019e68871c0b2721c2c6febde74d0ff58ce5027f58d37e2a"
+    },
+    {
+      "path": "public/assets/models/environment/sanctuary/village-body2.glb",
+      "bytes": 1682488,
+      "sha256": "c396180a431ad847314b9fe675f737a3032cf3d7842bafbccc70b0558dc579bf"
+    },
+    {
+      "path": "public/assets/models/environment/sanctuary/village-tower.glb",
+      "bytes": 521716,
+      "sha256": "63db467a6658be849d310df015fd79a0f941615a38f064de90a5bbb07ff01ada"
+    },
+    {
+      "path": "public/assets/models/environment/sanctuary/village-flag.glb",
+      "bytes": 1314712,
+      "sha256": "67f0be2ed0cc9c80547f1898e1b094ac6f8cb070c4e4f1a2133b8341abd3f467"
+    },
+    {
+      "path": "public/assets/models/environment/sanctuary/village-cart.glb",
+      "bytes": 852580,
+      "sha256": "3bdaf4b1ff7c1a492bf487e903a06ec5e155f8603152899b46299fb2fc883791"
+    },
+    {
+      "path": "public/assets/models/environment/sanctuary/village-tree.glb",
+      "bytes": 1071836,
+      "sha256": "eefd0644a4ecb9697027eba18e75f6f95f1c74728b4d17709ca038056fbfae63"
+    },
+    {
+      "path": "public/assets/models/environment/sanctuary/market-stall.glb",
+      "bytes": 842844,
+      "sha256": "b422f347eeb0f3678ce2fc5b7c75ff6127fe7ba85fc3da681deff22862c79026"
+    },
+    {
+      "path": "public/assets/textures/materials/roads/stone-pathway-albedo.jpg",
+      "bytes": 290337,
+      "sha256": "4e972bc399d05f9b833ac8f8a36d26c46e9fa170615ee5c73caf3c33503e96c2"
+    },
+    {
+      "path": "public/assets/textures/materials/roads/stone-pathway-normal.jpg",
+      "bytes": 362417,
+      "sha256": "677c17692806dc369217ecc90ed90e081d2211bdec4ee587c1796f6da8ef083a"
+    },
+    {
+      "path": "public/assets/textures/materials/roads/stone-pathway-roughness.jpg",
+      "bytes": 223773,
+      "sha256": "b817a0ee290d836f37629b6faec4771fac13d2a053785a816424e72a29a0cfe9"
+    },
+    {
+      "path": "public/assets/textures/materials/roads/stone-pathway-ao.jpg",
+      "bytes": 331977,
+      "sha256": "3408400d55ca4174f04bdc802c076b59c6f1c3b4412f26cd0c5eb2c4ad62722a"
+    },
+    {
+      "path": "public/assets/models/dragons/ashscale-family.glb",
+      "bytes": 6659160,
+      "sha256": "3f556114b2a710c0493504a4ebbe8e054eacb09b91f62fd91482e645b4146fa7"
+    },
+    {
+      "path": "public/assets/models/dragons/ashscale-lod1.glb",
+      "bytes": 5197728,
+      "sha256": "2f30cfe8a4c4e9bd350301cff9954fbd5e6bf97e301360d8b75d68046513e9d8"
+    }
+  ],
+  "priorGameplayOutputsUnchanged": [
+    "public/assets/models/characters/player/cartoon-boy.glb",
+    "public/assets/models/characters/npc/traveler.glb",
+    "public/assets/models/characters/npc/knight.glb",
+    "public/assets/models/creatures/ambient/horse.glb",
+    "public/assets/models/dragons/mountain-family.glb",
+    "public/assets/models/environment/sanctuary/village-body.glb",
+    "public/assets/models/environment/sanctuary/village-body2.glb",
+    "public/assets/models/environment/sanctuary/village-tower.glb",
+    "public/assets/models/environment/sanctuary/village-flag.glb",
+    "public/assets/models/environment/sanctuary/village-cart.glb",
+    "public/assets/models/environment/sanctuary/village-tree.glb",
+    "public/assets/models/environment/sanctuary/market-stall.glb",
+    "public/assets/textures/materials/roads/stone-pathway-albedo.jpg",
+    "public/assets/textures/materials/roads/stone-pathway-normal.jpg",
+    "public/assets/textures/materials/roads/stone-pathway-roughness.jpg",
+    "public/assets/textures/materials/roads/stone-pathway-ao.jpg"
+  ],
+  "sourceGroupsUsed": 9,
+  "downloadedDragonSilhouettes": 2,
+  "appearanceLineages": 4,
+  "scope": "Local authorized iteration; no release clearance"
+}

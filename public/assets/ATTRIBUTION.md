@@ -1,4 +1,4 @@
-# Local runtime asset provenance — Phase2 and October12 polish
+# Local runtime asset provenance — Phase2 and October12–13 polish
 
 Derived files keep their original creator attribution. Local integration was authorized by the user; unresolved usage terms are preserved here and no deployment occurred.
 
@@ -16,4 +16,22 @@ October12 additions/changes (acquired-package records, no new license acceptance
 - **Mountain family update** — Alexey attribution above remains. Changes: bounded reduction of Take001 animation keys, inverse GLOSS→roughness packing and true ILLUM emission mapping. Geometry, nodes and skin definitions unchanged. Baby proportions, sampled montage windows, source-root-motion omission, secondary offsets, saddle/contact and growth transitions are runtime modifications. Baby/Young/Guardian share this temporary family; these are not separately supplied production-stage models or clips.
 - **Village tree update** — Tidal Flask Studios attribution and unresolved listing restrictions above remain. Changes: prepared Village tree textures1K, only LOD0 reachable in gameplay; alternative LOD data retained for comparison. Source files unchanged.
 
-Current output hashes, actual usage and remaining blockers: DOCS/TECHNICAL/VISUAL_POLISH_REPORT.md. Historical Phase2 changes above are retained as provenance; they do not apply identically to every asset.
+October13 current additions/behavior (explicit user-authorized local follow-up):
+
+- **Demon Dragon (Full Texture) / Ashscale** — endlessvoidmc. CC Attribution4.0 recorded: https://creativecommons.org/licenses/by/4.0/ Source: https://sketchfab.com/3d-models/demon-dragon-full-texture-19035a72cdcb4abfa2c161de32823e6b . Changes: derived progressive geometry collapse from312670triangles to53151/21885,1K maps/JPEG90, bounded animation-key reduction;220-joint anatomy/three actual Idle/Run/Fly clips preserved. Runtime stopped rest, root-motion filtering, palettes/juvenile proportions/saddle/contact/culling and final visual normalization800 are modifications. Baby/Young share one derivative; Guardian usesLOD1. Originals unchanged.
+- **Horse demo runtime update** — WildMesh3D attribution and recorded NonCommercial terms above remain. It now supports grounded riding in the local game, using the same unchanged derivative. Idle/Walk are the supplied clips; the four-limb world-contact gallop, finite jump/rider/saddlebag behavior and mounted pose are authored runtime modifications. No claim of a supplied Run/gallop or new license acceptance.
+- **Traveler runtime update** — maxpanysh attribution above remains. The supplied Walk now drives real stance-aware route travel/rest/turn. The Knight holds a reviewed static pose. Original clips/files unchanged.
+- **Mountain appearance variants** — Alexey attribution above remains. Meadow/Frostcrest are owned body/membrane palettes of Mountain, not additional downloaded model authors or species assets. Quiet rest and same-instance growth are runtime modifications; the preceding public derivative remains byte-identical.
+
+Current output hashes, actual usage, verification and remaining blockers: DOCS/TECHNICAL/CONTENT_AND_BEHAVIOR_REPORT.md and CONTENT_RUNTIME_MANIFEST.json. VISUAL_POLISH_REPORT.md and the earlier paragraphs remain historical provenance; former ambient-only Horse/no-Demon statements describe their earlier scope.
+
+October13–14 Sanctuary comfort/menu update:
+
+- Cartoon Boy runtime instance: owned Head geometry removes490 exposed mouth-lining triangles, owned jaw rest/eyelids/materials polished; supplied UVs/positions/weights/morphs/clothing and derivative GLB remain unchanged. Canino3d credit above remains.
+- Village additional homes/trees/props and Stone Pathway outer promenade reuse the credited prepared assets. Original packages/derivatives are unchanged; unresolved usage records remain.
+- Original ambient Mossling/Pebbleback meshes/animations are authored in this repository, with no downloaded model source.
+- Original generated Sanctuary panorama `monster-world-sanctuary-v1.png` and transparent Dragon overlay `monster-world-dragon-overlay-v1.png` were created with built-in ImageGen from written descriptions, without source-library image references. Exact prompts/original locations/size/hash are in DOCS/TECHNICAL/MAIN_MENU_ART_PROMPT.md, MAIN_MENU_ART_MANIFEST.json, MAIN_MENU_DRAGON_PROMPT.md and MAIN_MENU_DRAGON_MANIFEST.json. Concept artwork does not assert a placed qualified Castle asset or new downloaded Dragon model.
+
+Current follow-up evidence and remaining limits: DOCS/TECHNICAL/SANCTUARY_COMFORT_REPORT.md.
+
+October14 living-world follow-up: existing credited Traveler/Knight derivatives supply73resident definitions with a20-nearby-rig budget, owned restrained palettes and varied runtime cadence/routes. These are additional instances, not new acquired character packs. Cartoon Boy gains a smooth localized owned lip-depth corrective and local normal update; original GLB/texture/UV/skin/morph/clothing files remain unchanged. See DOCS/TECHNICAL/LIVING_WORLD_POLISH_REPORT.md.

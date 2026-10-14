@@ -1,35 +1,38 @@
 import { Group, MathUtils, Vector3 } from 'three';
 import type { InputSystem } from '../systems/InputSystem';
-import { mvpConfig, upgradeMultiplier } from '../config/mvpConfig';
-import type { SaveData } from './Progression';
-import { groundHeight, isBlocked } from '../world/Traversal';
+import { mvpConfig } from '../config/mvpConfig';
+import type { SaveData,DragonRecord } from './Progression';
+import {dragonStats} from './DragonCare';
+import { groundHeight, resolveTraversalMovement } from '../world/Traversal';
 export class Flight {
   readonly velocity = new Vector3();
   stamina = mvpConfig.flight.stamina as number;
   airborne = false; boosting = false; bank = 0; vertical = 0;
   private exhausted = false;
   private regenDelay = 0;
-  update(dt: number, root: Group, input: Pick<InputSystem,'movement'|'held'>, yaw: number, state: SaveData): void {
-    const cfg = mvpConfig.flight, max = cfg.stamina * upgradeMultiplier(state.upgrades.stamina);
+  update(dt: number, root: Group, input: Pick<InputSystem,'movement'|'held'>, yaw: number, state: SaveData,dragon?:DragonRecord): void {
+    const cfg = mvpConfig.flight,stats=dragonStats(dragon,state.upgrades),max=stats.stamina;
+    this.stamina=Math.min(this.stamina,max);
     const move = input.movement, held = input.held('ShiftLeft');
     if (!held) this.exhausted = false;
     this.boosting = held && !this.exhausted && this.stamina > 1 && this.airborne && Math.hypot(move.x, move.y) > 0.1;
     if (this.boosting) { this.stamina = Math.max(0, this.stamina - cfg.boostDrain * dt); this.regenDelay = 0.8; if (this.stamina <= 1) this.exhausted = true; }
     else { this.regenDelay -= dt; if (this.regenDelay <= 0) this.stamina = Math.min(max, this.stamina + cfg.staminaRegen * dt); }
-    const speed = this.boosting ? cfg.boostSpeed * upgradeMultiplier(state.upgrades.boost) : cfg.speed * upgradeMultiplier(state.upgrades.speed);
+    const speed = this.boosting ? stats.boost : stats.speed;
     const length = Math.max(1, Math.hypot(move.x, move.y));
     const dx = (move.x * Math.cos(yaw) + move.y * Math.sin(yaw)) / length;
     const dz = (move.x * Math.sin(yaw) - move.y * Math.cos(yaw)) / length;
     const targetSpeed = this.airborne ? speed : 22;
     this.velocity.x = MathUtils.damp(this.velocity.x, dx * targetSpeed, 3.5, dt);
     this.velocity.z = MathUtils.damp(this.velocity.z, dz * targetSpeed, 3.5, dt);
-    const up = input.held('Space') ? 1 : input.held('ControlLeft') ? -1 : 0;
+    const up = input.held('Space') ? 1 : (input.held('KeyC') || input.held('ControlLeft')) ? -1 : 0;
     if (up > 0) this.airborne = true;
     this.vertical = MathUtils.damp(this.vertical, this.airborne ? up * cfg.verticalSpeed : 0, 4, dt);
     const nextX = MathUtils.clamp(root.position.x + this.velocity.x * dt, -5600, 5600);
     const nextZ = MathUtils.clamp(root.position.z + this.velocity.z * dt, -5600, 5600);
-    if (!isBlocked(nextX, nextZ) || root.position.y > groundHeight(nextX, nextZ) + 45) { root.position.x = nextX; root.position.z = nextZ; }
-    root.position.y = Math.min(1800, root.position.y + this.vertical * dt);
+    const from=root.position.clone(),contact=resolveTraversalMovement(from,{x:nextX,y:Math.min(1800,from.y+this.vertical*dt),z:nextZ},{radius:2.5*stats.size,minY:.12,maxY:5.5*stats.size});
+    root.position.set(contact.x,contact.y,contact.z);
+    if(contact.blocked&&dt>0){this.velocity.x=(contact.x-from.x)/dt;this.velocity.z=(contact.z-from.z)/dt;this.vertical=(contact.y-from.y)/dt;}
     const floor = groundHeight(root.position.x, root.position.z);
     if (!this.airborne || (this.vertical <= 0 && root.position.y <= floor + 0.15)) { root.position.y = floor; this.airborne = false; this.vertical = 0; }
     // Terrain rises may intersect the flight path: gently clear it instead of tunnelling.

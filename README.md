@@ -1,8 +1,8 @@
 # Monster World
 
-A playable single-player Dragon adventure built with TypeScript, plain Three.js and Vite. The October12 visual polish uses Cartoon Boy, a curated Village/Market garden-city, Stone Pathway maps and one downloaded Mountain family across Baby, Young and four Guardians. Traveler, Knight and a nearby lazy-loaded Horse inhabit the Sanctuary as ambient scenery. Eggs remain procedural; Baby proportions and motion are authored from the real rig. The preserved historical Nature GLB is never requested by gameplay.
+A playable single-player Dragon adventure built with TypeScript, plain Three.js and Vite. Current October13–14 polish uses Cartoon Boy, an enlarged Village/Market Sanctuary and Stone Pathway streets, Mountain/Ashscale Dragon silhouettes across matching Baby/Young/Guardians, a rideable Horse, Travelers/guides/conversations and a few original forest roamers. Eggs remain procedural; source-based juvenile proportions/motion are authored at runtime. The historical Nature GLB is preserved and never requested by gameplay.
 
-The current MVP includes a walkable Sanctuary, four distant Wild Nests, per-slot Eggs, theft and Guardian pursuit, Safe Zone delivery, hatching, feeding, Baby → Young growth, mounting, arcade flight, held Boost, Coins, Food Shop, Collection, Rider upgrades and device-local saves. Only Nature Dragons are currently implemented. Adult stages and other elements remain future content.
+The MVP includes eight existing Wild Nests, per-slot Eggs, theft/Guardian pursuit, shielded220-radius delivery, hatching/feeding/Baby→Young growth, an organized companion garden, Horse riding/Dragon flight, independent foot/Horse sprint and Dragon Boost stamina, Coins/Food/Collection/upgrades and local saves. The bespoke moving menu uses generated panorama/transparent Dragon artwork without a3Dpreview model. Adult stages/combat and final element mechanics remain future content.
 
 ## Run locally
 
@@ -55,4 +55,6 @@ No backend, account, multiplayer, combat, monetization or cloud save. No commit,
 
 Phase 2: [validation](DOCS/TECHNICAL/ASSET_VALIDATION_REPORT.md), [runtime plan](DOCS/TECHNICAL/ASSET_RUNTIME_PLAN.md), [integration](DOCS/TECHNICAL/ASSET_INTEGRATION_REPORT.md). With the dev server running, open `/asset-lab.html` for isolated source/derived inspection. The production build contains only the game. Tooling: [asset pipeline commands](tools/asset-pipeline/README.md).
 
-Latest: [visual polish report](DOCS/TECHNICAL/VISUAL_POLISH_REPORT.md), including current use of8/19 audited asset groups, screenshots, preserved source hashes, performance and remaining blockers. This local milestone does not certify final art, external licensing or physical mobile devices.
+Latest: [Sanctuary comfort report](DOCS/TECHNICAL/SANCTUARY_COMFORT_REPORT.md), [checkpoint](DOCS/TECHNICAL/SANCTUARY_COMFORT_HANDOFF.md) and [short continuation prompt](PROMPTS/MONSTER_WORLD_CONTINUE_LATEST.md). Current9/19audited groups are used; blocked groups retain concrete qualification steps. Local polish does not certify final art/physical devices/external usage clearance. Prior reports retain their historical evidence.
+
+October14 addendum: [livelier population/HUD/mouth polish](DOCS/TECHNICAL/LIVING_WORLD_POLISH_REPORT.md),73people definitions with20nearby rigs, additional city/trail walking/conversations, more transparent HUD and a localized resting-mouth correction.

@@ -5,7 +5,7 @@ import { RigPose } from './RigPose';
 
 const segments = new WeakMap<AnimationClip, AnimationClip[]>();
 /** Reviewed montage windows, not separately supplied source actions. */
-const windows = [['rest', 2.8, 6.8], ['ground', 48, 50.6], ['air', 28, 30.2]] as const;
+const windows = [['rest', 4, 4.001], ['ground', 48, 50.6], ['air', 28, 30.2]] as const;
 export function sampleMontageWindow(source:AnimationClip,name:string,start:number,end:number):AnimationClip {
   const seam=Math.min(.24,(end-start)*.2),qa=new Quaternion(),qb=new Quaternion();
   const tracks=source.tracks.map(original=>{
@@ -26,6 +26,10 @@ function gameplayClips(source: AnimationClip): AnimationClip[] {
   if (!clips) {
     clips = windows.map(([name, start, end]) => {
       const clip = sampleMontageWindow(source, 'Montage-window-' + name, start, end);
+      if(name==='rest') for(const track of clip.tracks){
+        const first=Array.from(track.values.slice(0,track.getValueSize()));
+        track.times=new Float32Array([0,1]);track.values=new Float32Array([...first,...first]);clip.duration=1;
+      }
       // Physics owns travel and facing; source montage retains original tracks.
       clip.tracks = clip.tracks.filter(track => !/^(root_01|MountainDragon__02|MountainDragon__Pelvis_03)\./.test(track.name));
       return clip;
@@ -57,6 +61,7 @@ export class MountainMotion {
     model.traverse(node => { if (node instanceof Bone) this.restScales.set(node, node.scale.clone()); });
   }
   update(dt: number, pose: DragonPose, baby: number): void {
+    this.rig.clearLayers();
     const delta = Math.max(0, Math.min(.1, dt)); this.time += delta;
     const inAir = ['flight', 'glide', 'boost', 'takeoff', 'return'].includes(pose.state ?? 'idle');
     this.airborne = MathUtils.damp(this.airborne, inAir ? 1 : 0, 5, delta);
@@ -73,11 +78,12 @@ export class MountainMotion {
     } else this.rig.reset();
     const breathe = Math.sin(this.time * 1.8), sway = Math.sin(this.time * .65);
     this.rig.add('MountainDragon__Spine1_05', breathe * .012 - this.vertical * .045, this.bank * -.06);
-    for (let i = 0; i < 4; i++) this.rig.add(`MountainDragon__Neck${i === 0 ? '' : i}_0${6 + i}`, -this.reaction * .07 + breathe * .004, sway * .01 - this.bank * .02);
-    this.rig.add('MountainDragon__Head_010', -this.reaction * .12 + Math.sin(this.time * 1.1) * .025, sway * (.035 + baby * .04));
-    for (let i = 0; i < 9; i++) this.rig.add(`MountainDragon__Tail${i === 0 ? '' : i}_0${83 + i}`, .012*(1-this.airborne)+.01*Math.sin(this.time * 1.5 - i * .35), Math.sin(this.time * 1.25 - i * .4) * (.018 + i * .002) - this.bank * .025);
+    for (let i = 0; i < 4; i++) this.rig.add(`MountainDragon__Neck${i === 0 ? '' : i}_0${6 + i}`, -this.reaction * .07 + breathe * .004, sway * .004 - this.bank * .02);
+    this.rig.add('MountainDragon__Head_010', -this.reaction * .12 + Math.sin(this.time * 1.1) * .008, sway * (.012 + baby * .012));
+    const activity=Math.max(this.airborne,this.ground,Math.abs(this.reaction));
+    for (let i = 0; i < 9; i++) this.rig.add(`MountainDragon__Tail${i === 0 ? '' : i}_0${83 + i}`, .012*(1-this.airborne)+activity*.01*Math.sin(this.time * 1.5 - i * .35), activity*Math.sin(this.time * 1.25 - i * .4) * (.018 + i * .002) - this.bank * .025);
     for (const [side, sign] of [['R', 1], ['L', -1]] as const) {
-      this.rig.add(`MountainDragon_Wing${side}_Arm_0${side === 'R' ? '12' : '24'}`, 0, sign * this.bank * .04, sign * Math.sin(this.time * 2.8) * .035 * (1 - this.airborne));
+      this.rig.add(`MountainDragon_Wing${side}_Arm_0${side === 'R' ? '12' : '24'}`, 0, sign * this.bank * .04);
       this.rig.add(`MountainDragon_Wing${side}_ForeArm_0${side === 'R' ? '13' : '25'}`, 0, 0, sign * this.vertical * .05);
     }
     // Juvenile proportions differ anatomically and blend during growth.

@@ -4,6 +4,7 @@ import type { InputSystem } from '../systems/InputSystem';
 import { Parts, disposeScene } from '../utils/scene';
 import { CartoonBoy } from '../creatures/CartoonBoy';
 import type { AssetInstance } from '../systems/RuntimeAssets';
+import { SprintStamina } from './SprintStamina';
 
 /** Provisional physical tuning; walk/sprint speeds are in shared MVP config. */
 export const playerMotionTuning = { gravity: 55, jumpSpeed: 22, acceleration: 12, stepHeight: 1.35, maxSubstep: 1 / 60 } as const;
@@ -12,6 +13,8 @@ export const playerMotionTuning = { gravity: 55, jumpSpeed: 22, acceleration: 12
 export class PlayerController {
   readonly root = new Group();
   speed = 0;
+  sprinting = false;
+  readonly stamina = new SprintStamina(mvpConfig.sprint.player);
   private readonly body = new Group();
   private readonly leftArm = new Group();
   private readonly rightArm = new Group();
@@ -52,19 +55,20 @@ export class PlayerController {
   get position(): Vector3 { return this.root.position; }
   attachVisual(asset:AssetInstance):void{if(this.disposed){asset.release();return;}this.cartoon?.dispose();this.cartoon=new CartoonBoy(asset);this.body.visible=false;this.root.add(this.cartoon.root);this.visualState.status='ready';}
   failVisual():void{this.visualState.status='fallback';}
-  updateVisual(dt:number,carry:boolean,mounted:boolean,interact:boolean,flight?:{bank:number;boost:boolean}):void{this.cartoon?.update(dt,{speed:mounted?0:this.speed,airborne:!this.grounded,vertical:this.verticalSpeed,carry,mounted,interact,bank:flight?.bank,boost:flight?.boost});}
+  updateVisual(dt:number,carry:boolean,mounted:boolean,interact:boolean,flight?:{bank:number;boost:boolean;mountKind?:'horse'|'dragon'}):void{this.cartoon?.update(dt,{speed:mounted?0:this.speed,airborne:!this.grounded,vertical:this.verticalSpeed,carry,mounted,interact,bank:flight?.bank,boost:flight?.boost,mountKind:flight?.mountKind,supportHeight:this.groundHeight});}
 
   teleport(position: Vector3): void {
     this.root.position.copy(position);
     this.root.position.y = Math.max(position.y, this.groundHeight(position.x, position.z));
-    this.velocity.set(0, 0, 0); this.verticalSpeed = 0; this.speed = 0;
+    this.velocity.set(0, 0, 0); this.verticalSpeed = 0; this.speed = 0; this.sprinting = false;
     this.grounded = this.root.position.y <= this.groundHeight(position.x, position.z) + 0.05;
   }
 
   update(dt: number, input: InputSystem, cameraYaw: number): void {
-    if (this.disposed || dt <= 0) return;
+    if (this.disposed || dt <= 0 || !Number.isFinite(dt)) return;
     const delta = Math.min(dt, 0.1), move = input.movement;
-    const desiredSpeed = input.held('ShiftLeft') ? mvpConfig.player.sprintSpeed : mvpConfig.player.walkSpeed;
+    const sprintAllowed = this.stamina.allows(input.held('ShiftLeft'));
+    const desiredSpeed = sprintAllowed ? mvpConfig.player.sprintSpeed : mvpConfig.player.walkSpeed;
     const desiredX = (move.x * Math.cos(cameraYaw) + move.y * Math.sin(cameraYaw)) * desiredSpeed;
     const desiredZ = (move.x * Math.sin(cameraYaw) - move.y * Math.cos(cameraYaw)) * desiredSpeed;
     if (input.pressed('Space') && this.grounded) { this.verticalSpeed = playerMotionTuning.jumpSpeed; this.grounded = false; }
@@ -89,6 +93,8 @@ export class PlayerController {
       }
     }
     this.speed = Math.hypot(this.position.x - startX, this.position.z - startZ) / delta;
+    this.sprinting = sprintAllowed && Math.hypot(move.x,move.y)>.1 && this.speed>mvpConfig.player.walkSpeed+2;
+    this.stamina.update(delta,this.sprinting);
     if (Math.hypot(desiredX, desiredZ) > 0.5) {
       const desiredYaw = Math.atan2(-desiredX, -desiredZ);
       const difference = MathUtils.euclideanModulo(desiredYaw - this.root.rotation.y + Math.PI, Math.PI * 2) - Math.PI;

@@ -1,5 +1,7 @@
 # Guardian AI
 
+**October14 Task11:** On pursuit contact the ridden owned Dragon loses32HP first. Guardian performs a short breakaway between strikes. At zeroHP the rider lands nearby with4seconds escape grace and keeps Eggs; only subsequent rider capture fails the raid. Dragon recovers at Sanctuary by its persisted rarity deadline. Shield delivery still wins before damage and distance never cancels pursuit. This is escape pressure, with no Guardian HP/weapons/rewards. See [care/recovery report](../TECHNICAL/DRAGON_CARE_RECOVERY_AND_SOUND_REPORT.md).
+
 > Current MVP: IDLE → ALERT → ROAR → CHASE → SAFE_ZONE_STOP → RETURN → IDLE in [Guardian](../../src/gameplay/Guardian.ts). No distance leash; only securing/loss of carried loot ends pursuit. Capture loses stolen Eggs and repositions the player safely without losing owned Dragons or Coins. Models animate idle, alert/roar, flap, bank, return and settle. Future abilities below are deferred.
 
 

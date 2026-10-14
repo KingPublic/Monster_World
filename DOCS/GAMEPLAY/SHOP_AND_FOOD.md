@@ -1,5 +1,7 @@
 # Shop and Food System
 
+**October14 Task11:** Basic Food also feeds Young Dragons: one care meal improves real stats/size and restores25HP plus added capacity. Feed near the Dragon using R/Feed; cannot feed while mounted/on a raid/recovering. Baby meals, two free starter Food and20Coin price stay unchanged. Maximum100care meals; healthy max-grown companions consume no Food. [Current report](../TECHNICAL/DRAGON_CARE_RECOVERY_AND_SOUND_REPORT.md).
+
 > Current MVP sells Basic Dragon Food for 20 Coins; each gives 50 Growth. Successful Egg delivery gives 50 Coins and tutorial completion gives 75. First hatch grants two free Food. Final economy tuning and additional products remain deferred.
 
 

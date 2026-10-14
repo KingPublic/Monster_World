@@ -1,5 +1,7 @@
 # Phase 2 playable asset integration report — finalized 2026-10-11
 
+**Current follow-up — 2026-10-13:** [CONTENT_AND_BEHAVIOR_REPORT.md](CONTENT_AND_BEHAVIOR_REPORT.md) records eight nests, actual Ashscale/Mountain lineages, quiet idle, real Traveler locomotion, grounded Horse riding and a protective field. Its evidence supersedes the earlier no-Horse/no-Demon/asset-count statements below; historical Phase2 measurements remain intact.
+
 **Current runtime update — 2026-10-12:** the subsequent user-authorized visual-cohesion pass is documented in [VISUAL_POLISH_REPORT.md](VISUAL_POLISH_REPORT.md). It replaces former procedural Baby/Guardian normal visuals with one matching Mountain family, recomposes the garden-city/valley, improves motion/rider/camera, adds suitable ambient assets, and verifies the new complete loop. Current20/20 tests, build, carried flight, city routes, touch emulation, fallback/lifecycle/source hashes and production checks pass. Measurements/screenshots below remain the historical Phase2 evidence; do not mix their performance/features with the current report.
 
 **Bounded local milestone verified.** All 19 libraries were audited; repaired Cartoon Boy, curated FANTASTIC Village/Market city, Stone Pathway maps and a downloaded Mountain Dragon now function in the core playable loop. This is not completion of every species/stage or external release clearance. Technical/usage blockers remain in the all-source validation and runtime decision tables.

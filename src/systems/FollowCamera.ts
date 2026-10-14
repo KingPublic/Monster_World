@@ -24,16 +24,16 @@ export class FollowCamera {
 
   constructor(private readonly camera: PerspectiveCamera, private readonly input: InputSystem) {}
 
-  update(dt: number, target: Vector3, mounted: boolean, boosting: boolean, bank = 0): void {
+  update(dt: number, target: Vector3, mounted: boolean, boosting: boolean, bank = 0,horse=false): void {
     const delta = Math.max(0, Math.min(dt, 0.1));
     const look = this.input.consumeLook();
     this.yaw += Math.max(-350, Math.min(350, look.x)) * followCameraTuning.mouseSensitivity;
     this.yaw = MathUtils.euclideanModulo(this.yaw + Math.PI, Math.PI * 2) - Math.PI;
     this.pitch = MathUtils.clamp(this.pitch + Math.max(-350, Math.min(350, look.y)) * followCameraTuning.pitchSensitivity, followCameraTuning.minPitch, followCameraTuning.maxPitch);
     const tracking = 1 - Math.exp(-followCameraTuning.tracking * delta);
-    this.desiredFocus.copy(target); this.desiredFocus.y += mounted ? followCameraTuning.mountedFocusHeight : followCameraTuning.footFocusHeight;
+    this.desiredFocus.copy(target); this.desiredFocus.y += horse?3.7:mounted ? followCameraTuning.mountedFocusHeight : followCameraTuning.footFocusHeight;
     const portrait = Math.sqrt(Math.max(.6, Math.min(1, this.camera.aspect)));
-    const targetDistance = (mounted ? followCameraTuning.mountedDistance : followCameraTuning.footDistance) / portrait;
+    const targetDistance = (horse?20:mounted ? followCameraTuning.mountedDistance : followCameraTuning.footDistance) / portrait;
     if (!this.initialized) { this.focus.copy(this.desiredFocus); this.distance = targetDistance; }
     else { this.focus.lerp(this.desiredFocus, tracking); this.distance = MathUtils.lerp(this.distance, targetDistance, tracking); }
     const horizontal = Math.cos(this.pitch) * this.distance;

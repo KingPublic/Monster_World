@@ -13,7 +13,7 @@ export interface NestMarkerConfig {
 export const gameConfig = {
   rendering: { maxPixelRatio: 1.5, fieldOfView: 48, near: 0.5, far: 18000 },
   world: { extent: 12000, terrainSegments: 220, treeCount: 680, seed: 2718 },
-  sanctuary: { radius: 145, terraceHeights: [1, 6], dragonPosition: sanctuaryServices.mount, dragonSpan: 25 },
+  sanctuary: { radius: 220, terraceHeights: [1, 6], dragonPosition: sanctuaryServices.mount, dragonSpan: 25 },
   camera: {
     sanctuary: { position: [225, 175, 275] as Position, target: [0, 22, -15] as Position },
     world: { position: [4200, 3900, 4400] as Position, target: [-100, 140, -1350] as Position },
@@ -25,5 +25,10 @@ export const gameConfig = {
     { id: 'highland', name: 'Highland Nest', tier: 'Mid-tier', position: [-780, 145, -900], color: 0xf2cd82, terrainSpread: 430 },
     { id: 'volcano', name: 'Volcanic Nest', tier: 'High-tier', position: [1720, 330, -1840], color: 0xef926f, terrainSpread: 700 },
     { id: 'frost', name: 'Frost Summit', tier: 'Highest-tier direction', position: [-1920, 620, -3400], color: 0xa5d6ed, terrainSpread: 900 },
+    // Elevations sampled from the established valley, before local landing aprons.
+    { id: 'meadow', name: 'Wildflower Meadow', tier: 'Starter side valley', position: [-1250, 2, 760], color: 0xe2c875, terrainSpread: 160 },
+    { id: 'canyon', name: 'Amber Canyon', tier: 'High-tier', position: [3000, 29, -2080], color: 0xdb9b63, terrainSpread: 160 },
+    { id: 'marsh', name: 'Reedwater Nest', tier: 'Mid-tier', position: [1650, 14, 1560], color: 0x81c6b4, terrainSpread: 160 },
+    { id: 'ruins', name: 'Moonstone Ruins', tier: 'Highest-tier side valley', position: [-2850, 13, -1900], color: 0xb7a9df, terrainSpread: 160 },
   ] as readonly NestMarkerConfig[],
 } as const;

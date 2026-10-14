@@ -4,6 +4,10 @@ Monster World is a browser-based 3D fantasy creature adventure, currently focuse
 
 ## 1. Game Vision
 
+**Later authorization 2026-10-14:** [Task11](TASKS/TASK_11_DRAGON_CARE_RECOVERY_AND_SOUND.md) extends companion care beyond Young, with bounded gradual size/stat growth and real companion HP during pursuit. Guardian hits the ridden Dragon before rider capture; a defeated mount recovers at Sanctuary while the rider can still physically save carried Eggs. Common60/Uncommon120/Rare180/Epic300/Legendary420/Mythical600-second wall-clock recovery survives reload. Local creature/NPC/horse/environment sound is authorized. These rules supersede earlier instant-mounted-capture/no-health/no-audio text; no weapons/Guardian boss HP/new rewards/loot pools. Preserve source/rarity/element identity, physical return and old saves.
+
+**Later authorization2026-10-13:** [Task09](TASKS/TASK_09_SANCTUARY_COMFORT_AND_SPRINT.md) supersedes initial scope for protected Sanctuary220/ceiling100, a few original ambient forest roamers and independent foot/Horse sprint stamina. Dragon progression remains the focus; no ambient combat/rewards/collection. Eight nests/world12000 and saved identity/economy remain. Foot30/50 and Horse34/50 speeds retain values with provisional sprint budgets. Current reports/checkpoint govern later polish; initial four-nest/Dragon-only wording records the original vertical slice.
+
 ### Long-term Vision
 Monster World may eventually support multiple fantasy creature families through a practical Creature → Dragon architecture. Future expansion requires explicit authorization.
 
@@ -34,7 +38,7 @@ See [Core Loop](DOCS/GAMEPLAY/CORE_LOOP.md), [Dragon Growth](DOCS/CREATURES/DRAG
 
 Players begin the tutorial on foot and later ride their first Young/Juvenile dragon after feeding the hatched Baby. Permanent upgrades belong to the player/rider and apply universally to every dragon they ride.
 
-On desktop, hold **Left Shift** to Sprint on foot and to Boost while riding. See section 11. MVP controls: WASD movement, mouse drag follow camera, E/context interaction, Space jump/ascend, Left Ctrl descend and F landed dismount. Foot speeds are provisionally 30 walk / 50 sprint.
+On desktop, hold **Left Shift** to Sprint on foot and to Boost while riding. See section 11. MVP controls: WASD movement, mouse drag follow camera, E/context interaction, Space jump/ascend, **C descend (Ctrl remains a backup)** and F landed dismount. C was explicitly approved in the October14 follow-up for easier reach. Touch DOWN remains available. Foot speeds are provisionally 30 walk / 50 sprint.
 
 ## 5. Dragon Mounts
 

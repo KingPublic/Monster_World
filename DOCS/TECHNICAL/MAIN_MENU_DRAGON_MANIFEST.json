@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-13",
+  "path": "public/assets/images/menu/monster-world-dragon-overlay-v1.png",
+  "bytes": 2507293,
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "mode": "RGBA",
+  "alphaExtrema": [
+    0,
+    254
+  ],
+  "sha256": "1e24d1cc7ff8a327d2d15d01aa5d25b983394df6fa358a7c86ea6328c952748b",
+  "tool": "built-in ImageGen",
+  "original": "C:/Users/Adrian/.codex/generated_images/01a11e4a-9a6f-7cc1-ab41-2ad48f385b8a/exec-c19e2800-f8ee-4749-bea3-e6cd4bb64253.png",
+  "usage": "Decorative transparent illustrated menu overlay; no menu3Dmodel; CSS horizontal mirror toward title; original retained"
+}

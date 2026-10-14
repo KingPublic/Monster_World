@@ -1,7 +1,11 @@
 import { gameConfig } from '../config/gameConfig';
 import { terrainHeight } from './Environment';
 import { cityGroundHeight, citySolids } from './SanctuaryLayout';
-const collisionRadius=.75;
+import { WorldCollision, worldCollision } from './WorldCollision';
+import type { CollisionBody, CollisionPoint, CollisionQuery, CollisionResult } from './WorldCollision';
+let activeCollision=worldCollision;
+export function useTraversalCollision(collision:WorldCollision):void{activeCollision=collision;}
+export function releaseTraversalCollision(collision:WorldCollision):void{if(activeCollision===collision)activeCollision=worldCollision;}
 const clamp01=(v:number):number=>Math.max(0,Math.min(1,v));
 /** Foot/landing surface; the original distant nest aprons remain unchanged. */
 export function groundHeight(x:number,z:number):number {
@@ -14,6 +18,11 @@ export function groundHeight(x:number,z:number):number {
   return outerHeight+(marker.position[1]+5-outerHeight)*blend;
  }return height;
 }
-export function isBlocked(x:number,z:number):boolean {
- return citySolids.some(s=>Math.abs(x-s.x)<s.halfX+collisionRadius&&Math.abs(z-s.z)<s.halfZ+collisionRadius);
+export function isBlocked(x:number,z:number,query?:Partial<CollisionQuery>):boolean {
+ const floor=groundHeight(x,z);
+ return activeCollision.isBlocked(x,z,{radius:query?.radius,minY:query?.minY??floor+.05,maxY:query?.maxY??floor+3},citySolids);
+}
+/** Continuous sweep; height offsets follow the actor root, so flight can clear roofs. */
+export function resolveTraversalMovement(from:CollisionPoint,to:CollisionPoint,body:CollisionBody={}):CollisionResult {
+ return activeCollision.resolveMovement(from,to,body,citySolids);
 }
