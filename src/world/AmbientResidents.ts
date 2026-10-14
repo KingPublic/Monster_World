@@ -14,7 +14,7 @@ const base=import.meta.env.BASE_URL+'assets/';
 export class AmbientResidents {
  readonly root=new Group();readonly status={ready:0,total:residentCatalog.length,active:0,errors:[] as string[]};
  private readonly actors:Actor[]=[];private disposed=false;
- constructor(private readonly assets:RuntimeAssets){
+ constructor(private readonly assets:RuntimeAssets,private readonly maxActive:number=residentLimits.maxActive){
  this.root.name='Sanctuary_Residents';
  // Separate garden/market footpaths, clear of the fountain, facades and the
  // central arrival/collection paths. Endpoints leave room to stop and turn.
@@ -54,7 +54,7 @@ export class AmbientResidents {
  update(dt:number,focus:Vector3):void{if(this.disposed||!Number.isFinite(dt)||dt<0)return;
  for(const actor of this.actors)if(actor.asset&&actor.root.position.distanceTo(focus)>residentLimits.unload&&!actor.talking)this.clearActor(actor);
  const candidates=this.actors.filter(a=>!a.pending&&!a.failed&&a.root.position.distanceTo(focus)<residentLimits.load).sort((a,b)=>a.root.position.distanceTo(focus)-b.root.position.distanceTo(focus));
- let active=this.actors.filter(a=>a.pending).length;for(const actor of candidates){if(active>=residentLimits.maxActive)break;void this.load(actor);active++;}
+ let active=this.actors.filter(a=>a.pending).length;for(const actor of candidates){if(active>=this.maxActive)break;void this.load(actor);active++;}
  for(const actor of this.actors){const distance=actor.root.position.distanceTo(focus);actor.root.visible=distance<residentLimits.draw;if(!actor.asset||distance>residentLimits.draw)continue;
  let moved=0;if(actor.mode==='traveler'){
  const roaming=actor.route.length>1&&!actor.talking,walking=roaming&&actor.pause<=0&&dt>0,oldPhase=actor.walk!.time;
@@ -62,8 +62,8 @@ export class AmbientResidents {
  const resting=!walking;if(resting!==actor.resting){actor.resting=resting;const active=resting?actor.rest!:actor.walk!,previous=resting?actor.walk!:actor.rest!;active.reset().setEffectiveWeight(1).play();previous.crossFadeTo(active,.2,false);}
  // Sample both actual gait poses. Root distance cancels the horizontal change
  // of the grounded sole points, which varies substantially through Walk.
- this.root.updateMatrixWorld(true);const before=actor.contact!.positions(actor.root,actor.soleBefore);
- actor.walk!.setEffectiveTimeScale(walking?(actor.definition.pace??.75):0);actor.mixer?.update(dt);this.root.updateMatrixWorld(true);
+ actor.root.updateWorldMatrix(true,true);const before=actor.contact!.positions(actor.root,actor.soleBefore);
+ actor.walk!.setEffectiveTimeScale(walking?(actor.definition.pace??.75):0);actor.mixer?.update(dt);actor.root.updateWorldMatrix(true,true);
  if(walking){const after=actor.contact!.positions(actor.root,actor.soleAfter),point=actor.route[actor.target]!,dx=point[0]-actor.root.position.x,dz=point[1]-actor.root.position.z,length=Math.hypot(dx,dz);
  moved=Math.min(actor.contact!.advance(before,after)??actor.speed*dt,length);const fraction=length>1e-7?moved/length:0,x=actor.root.position.x+dx*fraction,z=actor.root.position.z+dz*fraction;
  if(length>1e-7&&!isBlocked(x,z)&&Math.hypot(x-focus.x,z-focus.z)>1.8){actor.root.position.x=x;actor.root.position.z=z;const heading=Math.atan2(-dx,-dz),difference=Math.atan2(Math.sin(heading-actor.root.rotation.y),Math.cos(heading-actor.root.rotation.y));actor.root.rotation.y+=difference*Math.min(1,dt*8);}else {moved=0;actor.walk!.time=oldPhase;actor.mixer?.update(0);}

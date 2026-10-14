@@ -1,0 +1,13 @@
+SOURCE_ASSETS/
+ASSET_WORK/
+REFERENCES/
+node_modules/
+.git/
+.env*
+*.local
+output/
+DOCS/
+TASKS/
+PROMPTS/
+tests/
+.playwright-mcp/

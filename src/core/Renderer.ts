@@ -1,6 +1,7 @@
 import { ACESFilmicToneMapping, PCFShadowMap, WebGLRenderer } from 'three';
 import type { PerspectiveCamera } from 'three';
 import { gameConfig } from '../config/gameConfig';
+import {currentRenderProfile} from '../config/renderProfile';
 
 export class Renderer {
   readonly webgl = new WebGLRenderer({ antialias: true, alpha:true, powerPreference: 'high-performance' });
@@ -20,7 +21,7 @@ export class Renderer {
   }
   private readonly resize = (): void => {
     const width = Math.max(1, this.host.clientWidth), height = Math.max(1, this.host.clientHeight);
-    this.webgl.setPixelRatio(Math.min(window.devicePixelRatio || 1, gameConfig.rendering.maxPixelRatio));
+    this.webgl.setPixelRatio(Math.min(window.devicePixelRatio || 1, currentRenderProfile.maxPixelRatio));
     this.webgl.setSize(width, height, false);
     this.camera.aspect = width / height;
     // Preserve horizontal framing in portrait viewports.

@@ -1,0 +1,4 @@
+import{createRequire}from'node:module';import{readFile}from'node:fs/promises';
+const require=createRequire('C:/Users/Adrian/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/package.json'),{chromium}=require('playwright');
+const browser=await chromium.launch({headless:true,executablePath:'C:/Users/Adrian/AppData/Local/ms-playwright/chromium-1243/chrome-win64/chrome.exe'});
+try{const page=await browser.newPage(),svg=await readFile('public/app-icon.svg','utf8');for(const size of [192,512]){await page.setViewportSize({width:size,height:size});await page.setContent('<style>body{margin:0}svg{width:100vw;height:100vh;display:block}</style>'+svg);await page.screenshot({path:'public/app-icon-'+size+'.png'});}console.log('Created192/512app icons from repo-native crest SVG');}finally{await browser.close();}

@@ -1,0 +1,2 @@
+import{renderProfile}from'../src/config/renderProfile';
+export function runCoreTests(){const desktop=renderProfile(false),mobile=renderProfile(true);return[{name:'Mobile limits pixel work/shadows/nearby residents while preserving desktop world scale',pass:mobile.maxPixelRatio===1&&mobile.shadowSize===1024&&mobile.maxResidents===12&&mobile.guardianDistance<desktop.guardianDistance&&mobile.eggDistance<desktop.eggDistance&&desktop.maxPixelRatio===1.5&&desktop.maxResidents===20&&desktop.shadowSize===2048}];}

@@ -17,6 +17,7 @@ Task 00 is complete. The user explicitly authorized the Autonomous Dragon MVP ru
 | [10 — Living World, HUD and Face](TASK_10_LIVING_WORLD_HUD_AND_FACE.md) | LOCAL PASS VERIFIED —73people/nearby20, transparent HUD and owned rest-mouth corrective |
 | [11 — Dragon Care, Recovery and Sound](TASK_11_DRAGON_CARE_RECOVERY_AND_SOUND.md) | LOCAL PASS VERIFIED — ongoing meals/stat/size/HP, Dragon-first damage, rider escape, recovery, spatial sound |
 | [12 — Player and Dragon World Expansion](TASK_12_PLAYER_AND_DRAGON_WORLD_EXPANSION.md) | LOCAL EXPANSION VERIFIED — authored head,14nests/58slots, real Legendary/Mythical pools, six temporary species/ten lineages and109residents |
+| [13 — Owner Access and Production](TASK_13_OWNER_ACCESS_AND_PRODUCTION.md) | LOCAL READY — owner/mobile browser preflight verified, Git project/secrets prepared; user handles commit/push, new live deployment pending |
 
 Read the [master specification](../MASTER_GAME_SPEC.md) first and implement only the authorized milestone. Stop after the authorized MVP final verification; no Git operations or deployment. See [MVP report](../TASK_MVP_AUTONOMOUS_BUILD_REPORT.md).
 

@@ -31,6 +31,9 @@ import { UIManager } from '../ui/UIManager';
 import {dragonAvailable,dragonStats,recoveryLabel} from '../gameplay/DragonCare';
 import {WorldAudio} from '../systems/WorldAudio';
 import {localAdminDebug} from '../systems/LocalAdminDebug';
+import {OwnerAccess} from '../systems/OwnerAccess';
+import {currentRenderProfile} from '../config/renderProfile';
+import {DisplayMode} from '../systems/DisplayMode';
 import { MainMenuScene } from '../ui/MainMenuScene';
 import { disposeScene } from '../utils/scene';
 import { World } from '../world/World';
@@ -47,7 +50,7 @@ export class Game {
  private readonly saves=new SaveSystem();
  private readonly assets=new RuntimeAssets();
  private readonly atmosphere=new Atmosphere();
- private readonly residents=new AmbientResidents(this.assets);
+ private readonly residents=new AmbientResidents(this.assets,currentRenderProfile.maxResidents);
  private readonly wildlife=new AmbientWildlife();
  private readonly garden=new CompanionGarden();
  private readonly horse=new HorseMount(this.assets,message=>this.ui?.notify(message),groundHeight);
@@ -76,6 +79,8 @@ export class Game {
  private readonly guardians=mvpConfig.nests.map(config=>new Guardian(config,this.assets));
  private readonly sun=new DirectionalLight(0xfff3e5,2.6);
  private readonly debugEnabled=import.meta.env.DEV && localAdminDebug(location.hostname,location.search);
+ private readonly owner:OwnerAccess|undefined;
+ private readonly display:DisplayMode;
  private started=false;
  private mountedId:string|null=null;
  private ridingHorse=false;
@@ -96,7 +101,7 @@ export class Game {
    this.scene.background=new Color(0xdce7f3);this.scene.fog=new Fog(0xdce7f3,1600,10000);
    this.scene.add(new HemisphereLight(0xe0eafa,0x77716a,.9),this.world.group,this.player.root,this.effects.root,this.atmosphere.root,this.residents.root,this.wildlife.root,this.horse.root,this.shield.root,this.garden.root);
    this.world.sanctuary.dragonStage.removeFromParent();disposeScene(this.world.sanctuary.dragonStage);
-   this.sun.castShadow=true;this.sun.shadow.mapSize.set(2048,2048);
+   this.sun.castShadow=true;this.sun.shadow.mapSize.set(currentRenderProfile.shadowSize,currentRenderProfile.shadowSize);
    Object.assign(this.sun.shadow.camera,{left:-95,right:95,top:95,bottom:-95,far:400});this.sun.shadow.normalBias=.2;this.sun.shadow.bias=-.00015;
    this.scene.add(this.sun,this.sun.target);
    this.renderer=new Renderer(host,this.camera);
@@ -108,6 +113,8 @@ export class Game {
    this.syncDragons();this.syncSlots();
    this.ui=new UIManager(host,{start:()=>{this.menu?.dispose();this.menu=undefined;this.started=true;this.audio.unlock();this.audio.listen(this.position,this.follow.yaw);this.input.clear();this.follow.reset(this.position);this.renderer.webgl.domElement.focus({preventScroll:true});this.ui.notify(this.saves.message);},action:(action,id)=>this.action(action,id),debug:this.debugEnabled?action=>this.debug(action):undefined},!!saved,this.debugEnabled);
    this.ui.setAudio(this.audio.snapshot());
+   this.display=new DisplayMode(host,text=>this.ui.notify(text));
+   if(!import.meta.env.DEV)this.owner=new OwnerAccess(host,action=>{if(!this.disposed&&this.owner?.active)this.adminAction(action);},text=>this.ui.notify(text),()=>{if(!this.owner?.active)this.timeScale=1;});
    this.menu=new MainMenuScene(host,this.renderer.webgl.domElement,value=>this.ui.setMenuMotion(value));
    this.sanctuaryAssets=new SanctuaryAssets(this.world.sanctuary,this.assets,this.world.collision);
    void this.assets.acquire(import.meta.env.BASE_URL+'assets/models/characters/player/cartoon-boy.glb').then(asset=>this.player.attachVisual(asset)).catch(error=>{if(this.disposed)return;this.player.failVisual();this.ui.notify('Player model could not load. Temporary visual active.');console.warn('[Monster World] Player model fallback',error);});
@@ -164,9 +171,9 @@ export class Game {
  private syncSlots():void {
    for(const nest of this.progression.nests)for(let i=0;i<nest.slots.length;i++){
      const key=nest.id+':'+i,slot=nest.slots[i]!,existing=this.slotVisuals.get(key);
-     if(existing&&existing.id===slot.egg?.id){existing.root.visible=existing.root.position.distanceTo(this.position)<1100;continue;}
+     if(existing&&existing.id===slot.egg?.id){existing.root.visible=existing.root.position.distanceTo(this.position)<currentRenderProfile.eggDistance;continue;}
      if(existing){existing.root.removeFromParent();disposeScene(existing.root);this.slotVisuals.delete(key);}
-     if(slot.egg){const root=createEgg(slot.egg.rarity,slot.egg.element,slot.egg.variant);root.position.copy(this.slotPosition(nest.id,i));root.visible=root.position.distanceTo(this.position)<1100;this.scene.add(root);this.slotVisuals.set(key,{id:slot.egg.id,root});}
+     if(slot.egg){const root=createEgg(slot.egg.rarity,slot.egg.element,slot.egg.variant);root.position.copy(this.slotPosition(nest.id,i));root.visible=root.position.distanceTo(this.position)<currentRenderProfile.eggDistance;this.scene.add(root);this.slotVisuals.set(key,{id:slot.egg.id,root});}
    }
  }
  private syncCarry():void {
@@ -289,14 +296,14 @@ export class Game {
        this.player.update(dt,this.input,this.follow.yaw);
        if(this.progression.state.tutorialStep===0&&this.input.movement.x**2+this.input.movement.y**2>.1){this.progression.state.tutorialStep=1;this.save();}
      }
-     this.progression.updateSlots(dt,this.debugEnabled?this.timeScale:1);this.syncSlots();
+     this.progression.updateSlots(dt,(this.debugEnabled||this.owner?.active)?this.timeScale:1);this.syncSlots();
      if(this.progression.carried.length && Math.hypot(position.x,position.z)<mvpConfig.safeZoneRadius && position.y<mvpConfig.maxSafeAltitude){
        const count=this.progression.secure();this.effects.burst(position.clone().add(new Vector3(0,5,0)),0x9befe1,36);this.ui.notify(count+' Egg secured! The Guardian returns to its Nest. +'+count*mvpConfig.deliveryReward+' Coins');this.syncCarry();this.save();
        this.audio.play('secure',position);
      }
      for(const guardian of this.guardians){
        const carrying=this.progression.carried.some(egg=>egg.nestId===guardian.config.id);
-       guardian.model.root.visible=carrying||guardian.state!=='IDLE'||guardian.model.root.position.distanceTo(this.position)<1900;
+       guardian.model.root.visible=carrying||guardian.state!=='IDLE'||guardian.model.root.position.distanceTo(this.position)<currentRenderProfile.guardianDistance;
        const previousState=guardian.state,contact=guardian.update(dt,this.position,carrying);
        if(previousState!==guardian.state&&guardian.state==='ROAR')this.audio.play('roar',guardian.model.root.position,guardian.config.id,guardian.model.root.userData.family);
        if(contact&&this.hitGrace===0){
@@ -335,6 +342,8 @@ export class Game {
    this.syncCarry();this.effects.update(dt);
    for(const [id,owned] of this.owned){
      owned.eat=Math.max(0,owned.eat-dt);
+     owned.model.root.visible=id===this.mountedId||owned.model.root.position.distanceTo(this.position)<currentRenderProfile.guardianDistance;
+     if(!owned.model.root.visible)continue;
      if(id===this.mountedId)owned.model.update(dt,{state:this.flight.airborne?(this.flight.boosting?'boost':Math.hypot(this.flight.velocity.x,this.flight.velocity.z)<15?'glide':'flight'):this.flight.velocity.length()>1?'walk':'land',speed:this.flight.velocity.length()/85,bank:this.flight.bank,vertical:this.flight.vertical/35});
      else owned.model.update(active?dt:0,{state:owned.eat>0?'eat':'idle'});
    }
@@ -380,6 +389,9 @@ export class Game {
  }
  private debug(action:string):void {
    if(!this.debugEnabled)return;
+   this.adminAction(action);
+ }
+ private adminAction(action:string):void {
    if(action==='reset'){this.saves.reset();location.reload();return;}
    if(action==='coins'){this.progression.state.coins+=500;this.save();return;}
    if(action==='food'){this.progression.state.food+=5;this.save();return;}
@@ -414,7 +426,7 @@ export class Game {
    return {player:bounds(this.player.root),horse:bounds(this.horse.root),camera:this.camera.position.toArray(),target:this.position.toArray(),cameraDistance:this.camera.position.distanceTo(this.position),owned:[...this.owned].map(([id,o])=>({id,form:o.stage,position:o.model.root.position.toArray(),bounds:bounds(o.model.root)})),guardians:this.guardians.map(g=>({id:g.config.id,position:g.model.root.position.toArray(),bounds:bounds(g.model.root)})),city:this.world.sanctuary.buildings.map(b=>({id:b.id,name:b.name,bounds:bounds(b.group)}))};
  }
  dispose():void {
-   if(this.disposed)return;this.disposed=true;this.loop.dispose();this.menu?.dispose();this.menu=undefined;this.audio.dispose();this.input.dispose();this.ui.dispose();this.effects.dispose();this.player.dispose();this.world.disposeCollision();this.garden.dispose();
+   if(this.disposed)return;this.disposed=true;this.owner?.dispose();this.display.dispose();this.loop.dispose();this.menu?.dispose();this.menu=undefined;this.audio.dispose();this.input.dispose();this.ui.dispose();this.effects.dispose();this.player.dispose();this.world.disposeCollision();this.garden.dispose();
    this.sanctuaryAssets.dispose();this.residents.dispose();this.wildlife.dispose();this.horse.dispose();this.shield.dispose();this.atmosphere.dispose();this.environment?.dispose();this.scene.environment=null;this.sun.dispose();this.owned.forEach(o=>o.model.dispose());this.guardians.forEach(g=>g.model.dispose());this.assets.dispose();disposeScene(this.scene);this.renderer.dispose();
    delete this.host.dataset.bootState;
    if(import.meta.env.DEV)delete (window as unknown as {__MW?:unknown}).__MW;

@@ -1,5 +1,7 @@
 # Local admin access — 2026-10-14
 
+Newest Task13 authorization adds an authenticated sole-owner production service and GitHub/Vercel deployment. Read [Owner production access](OWNER_PRODUCTION_ACCESS.md). Older "online not implemented" limitations below describe the former local-only state. Local DEV+loopback behavior remains; production uses server-validated account/session/CSRF instead of `?debug=1`. No public debug global. Credentials reside only in the user-requested external Credential folder and sensitive server envs.
+
 User requests private debug/cheats for Adrian. In the current single-player project, the supported owner workflow is the local development server:
 
 - Open `http://127.0.0.1:5174/?debug=1`, Begin/Continue, then **Admin Adrian · Lokal** at the right. It opens automatically; the summary collapses it.
