@@ -28,7 +28,7 @@ export class UIManager {
    <button class="navigation" data-action="destinations" aria-label="Choose Wild Nest" title="Choose a Wild Nest"><span data-hud="arrow">➤</span><div><strong data-hud="destination"></strong><small data-hud="distance"></small></div></button>
    <div class="danger" data-hud="danger" hidden></div>
    <div class="notification" data-hud="notification" role="status" aria-live="polite" hidden></div>
-   <div class="interaction" data-hud="interaction" hidden><span class="keycap">E</span><div><strong data-hud="prompt"></strong><div class="hold-track"><i data-hud="hold"></i></div></div></div>
+   <div class="interaction" data-hud="interaction" data-action="interact" role="button" tabindex="0" aria-label="Interact" hidden><span class="keycap">E</span><div><strong data-hud="prompt"></strong><div class="hold-track"><i data-hud="hold"></i></div></div></div>
    <footer class="game-footer"><section class="flight-status"><div><strong data-hud="mode">EXPLORING ON FOOT</strong><small data-hud="boost">Hold Shift to sprint</small></div><div class="stamina-caption" data-hud="stamina-label">PLAYER STAMINA · 100%</div><div class="stamina-track" role="progressbar" aria-label="Player sprint stamina" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><i data-hud="stamina"></i></div></section><div class="carry-pill">◉ Eggs <b data-hud="carry">0 / 1</b></div><section class="dragon-status"><small>YOUR DRAGON</small><strong data-hud="dragon">Your first companion awaits</strong><div class="growth-track"><i data-hud="growth"></i></div></section></footer>
    <p class="controls-hint">WASD move · drag mouse to look · E interact · Shift sprint / hold Boost · Space jump / ascend · C descend (Ctrl also works) · F dismount</p>
    <span class="save-status" data-hud="save"></span>
@@ -42,7 +42,7 @@ export class UIManager {
    this.root.querySelector('.dragon-status .growth-track')!.insertAdjacentHTML('beforebegin','<small class="care-caption" data-hud="growth-label"></small>');
    this.root.querySelectorAll<HTMLElement>('[data-hud]').forEach(e=>this.refs.set(e.dataset.hud!,e));
    this.root.addEventListener('click',e=>{
-     const target=(e.target as HTMLElement).closest<HTMLButtonElement>('[data-action],[data-debug]');
+     const target=(e.target as HTMLElement).closest<HTMLElement>('[data-action],[data-debug]');
      if(!target)return;
      if(target.dataset.debug){callbacks.debug?.(target.dataset.debug);return;}
      const action=target.dataset.action!;

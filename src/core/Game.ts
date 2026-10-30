@@ -265,6 +265,7 @@ export class Game {
    if(action==='sound'){this.audio.setMuted(!this.audio.snapshot().muted);this.ui.setAudio(this.audio.snapshot());return;}
    if(action==='audio-volume'&&id){this.audio.setVolume(Number(id)/100);this.ui.setAudio(this.audio.snapshot());return;}
    if(action==='feed-nearby'){const c=this.context();if(!this.ui.panelOpen&&c?.dragonId)this.interact({...c,kind:'feed'});return;}
+   if(action==='interact'){const c=this.context();if(!this.ui.panelOpen&&c)this.interact(c);return;}
    if(action==='menu-motion'){if(this.menu)this.ui.setMenuMotion(this.menu.toggleMotion());return;}
    if(action==='menu-help'){this.input.clear();this.ui.showHelp();return;}
    if(action==='close'||action==='pause'){this.residents.endTalk();this.talkingResidentId=null;this.input.clear();return;}
@@ -369,7 +370,8 @@ export class Game {
    const context=this.context(),record=this.selected;
    const stats=dragonStats(record,s.upgrades);
    const sprint=this.ridingHorse?this.horseRide.stamina:this.player.stamina;
-   this.ui.updateCompanions(s);
+   this.ui.updateCompanions?.(s);
+   this.input?.setContext?.({mounted:this.mounted,airborne:this.ridingHorse?this.horseRide.airborne:this.flight.airborne,mountKind:this.ridingHorse?'horse':this.mountedId?'dragon':'foot',canInteract:!!context?.prompt});
    this.ui.update({objective,detail,prompt:this.hatch?'Hatching…':this.mounted?'':context?.prompt??'',canFeed:!!context?.dragonId&&!p.carried.length,hold:this.hold,coins:s.coins,food:s.food,carried:p.carried.length,capacity:carryCapacity(s.carryLevel),stamina:this.mountedId?this.flight.stamina/stats.stamina:sprint.ratio,sprintExhausted:!this.mountedId&&sprint.exhausted,mounted:this.mounted,mountKind:this.ridingHorse?'horse':this.mountedId?'dragon':'foot',airborne:this.ridingHorse?this.horseRide.airborne:this.flight.airborne,boosting:this.ridingHorse?this.horseRide.sprinting:this.mountedId?this.flight.boosting:this.player.sprinting,dragon:record?variantLabel(record.variant)+' · '+record.rarity+' · Lv '+stats.level:'Your first companion awaits',health:record?(record.health??stats.maxHealth)/stats.maxHealth:undefined,healthLabel:record?dragonAvailable(record)?'HP '+Math.round(record.health??stats.maxHealth)+' / '+stats.maxHealth:'RECOVERING · '+recoveryLabel(record):'',growth:record?record.stage==='Baby'?record.growth/mvpConfig.youngThreshold:(stats.meals%mvpConfig.dragonCare.mealsPerLevel)/mvpConfig.dragonCare.mealsPerLevel:0,growthLabel:record?.stage==='Baby'?'BABY GROWTH':stats.meals>=mvpConfig.dragonCare.maxMeals?'FULLY GROWN':'CARE · NEXT LEVEL',destination,distance:Math.hypot(diff.x,diff.z),bearing:Math.atan2(diff.x,-diff.z)-this.follow.yaw-Math.PI/2,danger,saveMessage:this.saves.message,guardians:this.guardians.map(g=>g.config.id+': '+g.state).join(' · ')});
  }
  private updateAudio(dt:number,active:boolean):void{

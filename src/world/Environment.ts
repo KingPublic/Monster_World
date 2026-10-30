@@ -209,7 +209,7 @@ export class Environment {
     const ridges=new Group();ridges.name='LayeredRockyValleyRidges';this.group.add(ridges);
     for(let i=0;i<38;i++){
       const angle=i/38*Math.PI*2,radius=4800+Math.sin(i*9)*480,x=Math.cos(angle)*radius,z=Math.sin(angle)*radius;
-      const geometry=ridgeGeometry(700+i),height=420+random()*610;
+      if(trailClearance(x,z)<650)continue;const geometry=ridgeGeometry(700+i),height=420+random()*610;
       const mountain=new Mesh(geometry,material);mountain.position.set(x,terrainHeight(x,z)-15,z);mountain.scale.set(380+random()*420,height,310+random()*380);mountain.rotation.y=angle+random();ridges.add(mountain);this.collision.registerRidge(mountain,7,11);
     }
     for(const [index,marker] of gameConfig.nestMarkers.entries()){
